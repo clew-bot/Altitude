@@ -13,10 +13,18 @@ import Navbar from "@/components/Navbar.vue";
 
 export default {
   name: 'App',
+  beforeRouteUpdate() {
+    if (this.$route.name === '#signin') {
+      console.log("hi")
+    }
+  },
+
+    
   components: { Navbar,},
 
   data: () => ({
     //
   }),
+  
 };
 </script>

@@ -11,8 +11,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
- 
-    // props: { id: "scrolling-techniques-3" }
+    children: [
+      {
+        path: ':signin',
+      }
+    ]
   },
   {
     path: '/about',
@@ -23,14 +26,19 @@ const routes = [
         path: ':signin',
       }
     ]
-    // props: { id: "scrolling-techniques-3" }
   },
   {
     path: '/login',
     name: 'SignIn',
     component: SignIn,
-    // props: { id: "scrolling-techniques-3" }
   },
+  // {
+  //   path: '/#signin',
+  //   name: 'LoginModal',
+  //   component: LoginModal,
+  //   props: {dialog: true}
+  // },
+
 ]
 
 const router = new VueRouter({

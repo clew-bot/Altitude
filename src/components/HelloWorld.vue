@@ -315,5 +315,14 @@
         },
       ],
     }),
+    methods: {
+      checkModal() {
+        if (this.$route.params.signin) {
+          console.log("hi") 
+        } else {
+          console.log("bye") 
+        }
+      }
+    }
   }
 </script>

@@ -36,11 +36,11 @@
         outlined
         placeholder="Search"
         prepend-inner-icon="mdi-magnify"
+        @click="consoleme"
       ></v-text-field>
          <v-btn
           color="gray lighten-2"
           dark
-          to="#signin"
           @click="showingModal"
         >
         <v-icon>mdi-account-box</v-icon>
@@ -83,8 +83,16 @@ export default {
     LoginModal,
   },
   methods: {
+      consoleme() {
+        console.log(this.$route.params)
+      },
       showingModal() {
           this.dialog = !this.dialog;
+      },
+      checkModal() {
+          if (this.$route.hash === '#signin') {
+              this.dialog = true;
+          }
       },
       
   },
@@ -92,19 +100,18 @@ export default {
 
   },
 
-//   watch: {
-//     group() {
-//       this.drawer = false;
-//       this.password = "";
-//     },
-//     $route() {
-//         this.checkModal();
-//       },
-//   },
+  watch: {
+    group() {
+      this.drawer = false;
+    },
+    $route() {
+        this.checkModal();
+      },
+  },
 
-//   created() {
-//       this.checkModal();
-//   },
+  created() {
+      this.checkModal();
+  },
 
 };
 </script>

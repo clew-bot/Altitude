@@ -73,6 +73,9 @@ export default {
         value: {
             
         },
+        dialog: {
+            type: Boolean,
+        },
     },
  data() {
      return {
@@ -134,5 +137,9 @@ export default {
 
 .v-input--selection-controls {
     margin-top: 0 !important;
+}
+
+.v-application p {
+    margin-bottom: 0px !important;
 }
 </style>
