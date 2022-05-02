@@ -9,7 +9,7 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    props: { id: "scrolling-techniques-3" }
+    // props: { id: "scrolling-techniques-3" }
   },
   {
     path: '/about',

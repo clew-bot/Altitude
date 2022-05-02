@@ -2,7 +2,7 @@
   <v-app class="grey lighten-4">
       <Navbar />
       <Spacer />
-      <v-space></v-space>
+
       <router-view/>
 
 

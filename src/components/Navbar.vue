@@ -1,30 +1,43 @@
 <template>
-<div>
-    <v-app-bar
-      fixed
-      color="#fcb69f"
-      dark
-      shrink-on-scroll
-      fade-img-on-scroll
-      src="https://picsum.photos/1920/1080?random"
-    >
-      <template v-slot:img="{ props }">
-        <v-img
-          v-bind="props"
-          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
-        ></v-img>
-      </template>
+  <div>
+    <v-navigation-drawer app v-model="drawer">
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="text-h6"> Application </v-list-item-title>
+          <v-list-item-subtitle> subtext </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list dense nav>
+        <v-list-item v-for="item in items" :key="item.title" link>
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    <v-app-bar app color="#4d4c4b" dark >
+      <!-- Gradient -->
+    
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-app-bar-title>Welcome! :)</v-app-bar-title>
+      <v-app-bar-title></v-app-bar-title>
 
       <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
+            <v-text-field class="appSearch"
+            left
+        dense
+        outlined
+        placeholder="Search"
+        prepend-inner-icon="mdi-magnify"
+      ></v-text-field>
       <v-btn icon>
         <v-icon>mdi-heart</v-icon>
       </v-btn>
@@ -33,56 +46,34 @@
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
     </v-app-bar>
-     <v-navigation-drawer
-      v-model="drawer"
-      fixed
-      bottom
-      temporary
-    >
-      <v-list
-        nav
-        dense
-      >
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item>
-            <v-list-item-title>Foo</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Bar</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Fizz</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Buzz</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
-    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    data: () => ({
-      drawer: false,
-      group: null,
-    }),
+  data: () => ({
+    drawer: false,
+    group: null,
+    items: [
+      { title: "Dashboard", icon: "mdi-view-dashboard" },
+      { title: "Photos", icon: "mdi-image" },
+      { title: "About", icon: "mdi-help-box" },
+    ],
+  }),
 
-    watch: {
-      group () {
-        this.drawer = false
-      },
+  watch: {
+    group() {
+      this.drawer = false;
     },
-  }
+  },
+};
 </script>
 
-<style>
+<style scoped>
+
+.appSearch {
+  padding-top: 25px !important;
+  flex-grow: 1;
+}
 
 </style>
