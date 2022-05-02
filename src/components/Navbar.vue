@@ -3,8 +3,7 @@
     <v-navigation-drawer app v-model="drawer" color="#4d4c4b" dark>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6"> Application </v-list-item-title>
-          <v-list-item-subtitle> subtext </v-list-item-subtitle>
+          <v-list-item-title class="text-h6"> Welcome </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -38,68 +37,16 @@
         placeholder="Search"
         prepend-inner-icon="mdi-magnify"
       ></v-text-field>
-      <v-dialog
-      v-model="dialog"
-      width="500"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
+         <v-btn
           color="gray lighten-2"
           dark
-          v-bind="attrs"
-          v-on="on"
+          to="#signin"
+          @click="showingModal"
         >
         <v-icon>mdi-account-box</v-icon>
           &nbsp;Sign in
         </v-btn>
-      </template>
-<div>
-      <v-card dark color="#4d4c4b">
-              <v-card-title dark >
-          Sign In
-        </v-card-title>
-        <v-divider></v-divider>
-          <label for="email" class="signInLabels">Email</label>
-            <v-text-field
-            style="padding-top: 0px !important;"
-            label="masquerena@protonmail.com"
-            solo
-            dense
-             class="pa-6"
-             name="email"
-          ></v-text-field>
-          
-        <label for="email" class="signInLabels">Password</label>
-        <v-text-field
-            style="padding-top: 0px !important;"
-            v-model="password"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.min]"
-            :type="show1 ? 'text' : 'password'"
-            name="input-10-1"
-            label="Password"
-            solo
-            dense
-             class="pa-6"
-            @click:append="show1 = !show1"
-          ></v-text-field>
-
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-btn
-            color="orange"
-
-            @click="dialog = false"
-            class="center"
-          >
-            Login
-          </v-btn>
-        </v-card-actions>
-       
-      </v-card>
-       </div>
-    </v-dialog>
+      <LoginModal v-model="dialog"/>
 
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
@@ -110,6 +57,9 @@
 </template>
 
 <script>
+import LoginModal from "@/components/LoginModal.vue";
+
+
 export default {
   data: () => ({
     drawer: false,
@@ -119,7 +69,7 @@ export default {
       { title: "Photos", icon: "mdi-image" },
       { title: "About", icon: "mdi-help-box" },
     ],
-     dialog: false,
+    dialog: false,
     show1: false,
     password: '',
     rules: {
@@ -127,14 +77,35 @@ export default {
         min: v => v.length >= 8 || 'Min 8 characters',
         emailMatch: () => (`The email and password you entered don't match`),
     },
+    showModal: false,
   }),
-
-  watch: {
-    group() {
-      this.drawer = false;
-      this.password = "";
-    },
+  components: {
+    LoginModal,
   },
+  methods: {
+      showingModal() {
+          this.dialog = !this.dialog;
+      },
+      
+  },
+  computed: {
+
+  },
+
+//   watch: {
+//     group() {
+//       this.drawer = false;
+//       this.password = "";
+//     },
+//     $route() {
+//         this.checkModal();
+//       },
+//   },
+
+//   created() {
+//       this.checkModal();
+//   },
+
 };
 </script>
 
@@ -154,6 +125,21 @@ export default {
 
 .center {
     text-align: center;
+}
+
+.v-card__actions {
+    justify-content: center !important;
+}
+
+.bottomModalRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center !important;
+    padding: 0px 24px 12px 24px;
+}
+
+.v-input--selection-controls {
+    margin-top: 0 !important;
 }
 
 </style>
