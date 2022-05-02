@@ -1,21 +1,19 @@
 <template>
-  <v-app class="grey lighten-4">
+  <v-main class="grey lighten-4">
+    <v-app>
       <Navbar />
-      <Spacer />
-
       <router-view/>
-
-
-  </v-app>
+</v-app>
+  </v-main>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import Spacer from "@/components/Spacer.vue";
+// import Spacer from "@/components/Spacer.vue";
 
 export default {
   name: 'App',
-  components: { Navbar, Spacer},
+  components: { Navbar,},
 
   data: () => ({
     //

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer app v-model="drawer">
+    <v-navigation-drawer app v-model="drawer" color="#4d4c4b" dark>
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6"> Application </v-list-item-title>
