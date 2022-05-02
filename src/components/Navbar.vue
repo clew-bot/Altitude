@@ -53,29 +53,52 @@
           &nbsp;Sign in
         </v-btn>
       </template>
-
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
-          Privacy Policy
+<div>
+      <v-card dark color="#4d4c4b">
+              <v-card-title dark >
+          Sign In
         </v-card-title>
-
-        <v-card-text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </v-card-text>
+        <v-divider></v-divider>
+          <label for="email" class="signInLabels">Email</label>
+            <v-text-field
+            style="padding-top: 0px !important;"
+            label="masquerena@protonmail.com"
+            solo
+            dense
+             class="pa-6"
+             name="email"
+          ></v-text-field>
+          
+        <label for="email" class="signInLabels">Password</label>
+        <v-text-field
+            style="padding-top: 0px !important;"
+            v-model="password"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[rules.required, rules.min]"
+            :type="show1 ? 'text' : 'password'"
+            name="input-10-1"
+            label="Password"
+            solo
+            dense
+             class="pa-6"
+            @click:append="show1 = !show1"
+          ></v-text-field>
 
         <v-divider></v-divider>
 
         <v-card-actions>
-          <v-spacer></v-spacer>
           <v-btn
-            color="primary"
-            text
+            color="orange"
+
             @click="dialog = false"
+            class="center"
           >
-            I accept
+            Login
           </v-btn>
         </v-card-actions>
+       
       </v-card>
+       </div>
     </v-dialog>
 
       <v-btn icon>
@@ -97,11 +120,19 @@ export default {
       { title: "About", icon: "mdi-help-box" },
     ],
      dialog: false,
+    show1: false,
+    password: '',
+    rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 8 || 'Min 8 characters',
+        emailMatch: () => (`The email and password you entered don't match`),
+    },
   }),
 
   watch: {
     group() {
       this.drawer = false;
+      this.password = "";
     },
   },
 };
@@ -115,8 +146,14 @@ export default {
   text-align: center;
 }
 
-.v-toolbar__content {
-    justify-content: space-between !important;
+.signInLabels {
+  margin-top: 100px!important;
+  padding: 26px;
+  box-sizing: border-box;
+}
+
+.center {
+    text-align: center;
 }
 
 </style>
