@@ -1,60 +1,59 @@
 <template>
-  <v-app>
+  <v-app class="grey lighten-4">
     <v-app-bar
-      app
-      color="primary"
+      fixed
+      color="#fcb69f"
       dark
+      shrink-on-scroll
+      fade-img-on-scroll
+      src="https://picsum.photos/1920/1080?random"
+     
     >
-            <router-link to="/">
-      <div class="d-flex align-center">
-
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
       
-      </div>
-        </router-link>
+
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+
+      <v-app-bar-title>Title</v-app-bar-title>
 
       <v-spacer></v-spacer>
 
-    <router-link to="/about">
-      <v-btn
-        color="primary"
-        dark
-        icon
-        large
-        outlined
-        text
-      >
-        <v-icon>mdi-home</v-icon>
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
       </v-btn>
-    </router-link>
-    </v-app-bar>
 
-    <v-main>
-      <router-view/>
-    </v-main>
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
+    </v-app-bar>
+    <!-- <v-sheet
+      id="scrolling-techniques-3"
+      class="overflow-y-auto"
+      max-height="600"
+    >
+      <v-container style="height: 1000px;"></v-container>
+    </v-sheet> -->
+
+      <v-main
+      id="scrolling-techniques-3"
+      class="overflow-y-auto"
+      max-height="1100"
+    >
+      <router-view  class="overflow-y-auto"      max-height="600"/>
+       </v-main>
+
   </v-app>
 </template>
 
 <script>
+// import Navbar from "@/components/Navbar.vue";
 
 export default {
   name: 'App',
+  // components: { Navbar},
 
   data: () => ({
     //

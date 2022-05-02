@@ -8,7 +8,8 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    props: { id: "scrolling-techniques-3" }
   },
   {
     path: '/about',
