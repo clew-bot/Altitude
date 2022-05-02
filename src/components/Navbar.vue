@@ -32,20 +32,57 @@
 
       <v-spacer></v-spacer>
             <v-text-field class="appSearch"
-            left
+            center
         dense
         outlined
         placeholder="Search"
         prepend-inner-icon="mdi-magnify"
       ></v-text-field>
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
+      <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="gray lighten-2"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+        <v-icon>mdi-account-box</v-icon>
+          &nbsp;Sign in
+        </v-btn>
+      </template>
+
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          Privacy Policy
+        </v-card-title>
+
+        <v-card-text>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog = false"
+          >
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
     </v-app-bar>
+   
   </div>
 </template>
 
@@ -59,6 +96,7 @@ export default {
       { title: "Photos", icon: "mdi-image" },
       { title: "About", icon: "mdi-help-box" },
     ],
+     dialog: false,
   }),
 
   watch: {
@@ -73,7 +111,12 @@ export default {
 
 .appSearch {
   padding-top: 25px !important;
-  flex-grow: 1;
+  flex-grow: 2;
+  text-align: center;
+}
+
+.v-toolbar__content {
+    justify-content: space-between !important;
 }
 
 </style>
