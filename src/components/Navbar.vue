@@ -46,7 +46,7 @@
         <v-icon>mdi-account-box</v-icon>
           &nbsp;Sign in
         </v-btn>
-      <LoginModal v-model="dialog" :events="yodee"/>
+      <LoginModal v-model="dialog" :hello="yodee"/>
 
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
