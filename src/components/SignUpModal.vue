@@ -1,17 +1,15 @@
 <template>
   <div>
     <v-dialog
-      :value="value" @input="$emit('input', $event)"
-      width="500"
-      @click="openSignInModal"
+      width="900"
     >
 <div>
       <v-card dark color="#4d4c4b">
-              <v-card-title dark @click="$emit('events')">
+              <v-card-title dark >
           Sign In
         </v-card-title>
         <v-divider></v-divider>
-          <label for="email" class="signInLabels">Email</label>
+          <label for="email" class="signInLabels">Signup</label>
             <v-text-field
             style="padding-top: 0px !important;"
             label="masquerena@protonmail.com"
@@ -57,30 +55,19 @@
           </v-btn>
         </v-card-actions>
         <div class="text-center">
-       <p class="font-weight-medium" style="color: orange">Still new here? Cool, let's <span class="signUpLink" @click="openSignInModal">sign up then</span></p>
+       <p class="font-weight-medium" style="color: orange">Still new here? Cool, let's sign up then</p>
        </div>
       </v-card>
        </div>
-        
     </v-dialog>
   </div>
 </template>
 
 <script>
-
 export default {
     props: {
-        showModal: {
-            type: Boolean,
-        },
-        value: {
-            
-        },
-        dialog: {
-            type: Boolean,
-        },
-    },
 
+    },
  data() {
      return {
     drawer: false,
@@ -100,13 +87,10 @@ export default {
      ex4: ['red', 'indigo', 'orange', 'primary', 'secondary', 'success', 'info', 'warning', 'error', 'red darken-3', 'indigo darken-3', 'orange darken-3'],
      }
   },
-  methods: {
-    openSignInModal() {
-      console.log("hi i")
-        console.log(this.$emit('hello'));
-    },
-    },
   
+  methods: {
+ 
+  },
   computed: {
 
 
@@ -148,9 +132,5 @@ export default {
 
 .v-application p {
     margin-bottom: 0px !important;
-}
-
-.signUpLink {
-  color: pink;
 }
 </style>

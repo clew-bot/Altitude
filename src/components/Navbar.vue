@@ -3,14 +3,14 @@
     <v-navigation-drawer app v-model="drawer" color="#4d4c4b" dark>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6"> Welcome </v-list-item-title>
+          <v-list-item-title class="text-h6" > Welcome </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
       <v-divider></v-divider>
 
       <v-list dense nav>
-        <v-list-item v-for="item in items" :key="item.title" link>
+        <v-list-item v-for="item in items" :key="item.title" :to="item.to">
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -46,7 +46,7 @@
         <v-icon>mdi-account-box</v-icon>
           &nbsp;Sign in
         </v-btn>
-      <LoginModal v-model="dialog"/>
+      <LoginModal v-model="dialog" :events="yodee"/>
 
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
@@ -65,9 +65,9 @@ export default {
     drawer: false,
     group: null,
     items: [
-      { title: "Dashboard", icon: "mdi-view-dashboard" },
-      { title: "Photos", icon: "mdi-image" },
-      { title: "About", icon: "mdi-help-box" },
+      { title: "Dashboard", icon: "mdi-view-dashboard", to:"/" },
+      { title: "Photos", icon: "mdi-image", to:"/photo" },
+      { title: "About", icon: "mdi-help-box", to: "/about" },
     ],
     dialog: false,
     show1: false,
@@ -94,10 +94,12 @@ export default {
               this.dialog = true;
           }
       },
+      yodee() {
+       console.log("yodee")
+      }
       
   },
   computed: {
-
   },
 
   watch: {
