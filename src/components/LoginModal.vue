@@ -104,7 +104,7 @@ export default {
     openSignInModal() {
       console.log("hi i")
       console.log(this.$store.state.modalModule.hello)
-      this.$store.dispatch('modalModule/SET_USER');
+      this.$store.dispatch('modalModule/CHANGE_DIALOG');
     },
     },
   

@@ -5,7 +5,7 @@ export default {
     console.log("Hello from SET_USER action");
   },
   [SET_USER_LOCATION]() {},
-  [CHANGE_DIALOG]() {
-    console.log("hi from CHANGE_DIALOG");
+  [CHANGE_DIALOG]({commit}, payload) {
+    commit('changeDialog', payload);
   }
 }
