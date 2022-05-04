@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // Modules import
-import modalModule from './modules/modal'
+import modal from './modules/modal'
 
 Vue.use(Vuex)
 
@@ -12,7 +12,7 @@ Vue.use(Vuex)
 // const getters = ({})
 
 const modules = {
-  modalModule
+  modal
 }
 
 export default new Vuex.Store({

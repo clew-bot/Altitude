@@ -3,7 +3,7 @@
     <v-navigation-drawer app v-model="drawer" color="#4d4c4b" dark>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6" > Welcome </v-list-item-title>
+          <v-list-item-title class="text-h6"> Welcome </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -36,7 +36,6 @@
         outlined
         placeholder="Search"
         prepend-inner-icon="mdi-magnify"
-        @click="consoleme"
       ></v-text-field>
          <v-btn
           color="gray lighten-2"
@@ -46,7 +45,7 @@
         <v-icon>mdi-account-box</v-icon>
           &nbsp;Sign in
         </v-btn>
-      <LoginModal v-model="dialog"/>
+      <LoginModal v-model="dialog" :openSignInModal="openSignInModal"/>
       <SignUpModal v-model="dialog2"/>
 
       <v-btn icon>
@@ -72,7 +71,7 @@ export default {
       { title: "About", icon: "mdi-help-box", to: "/about" },
     ],
     dialog: false,
-    dialog2: true,
+    dialog2: false,
     show1: false,
     password: '',
     rules: {
@@ -86,25 +85,35 @@ export default {
     LoginModal, SignUpModal,
   },
   methods: {
-      consoleme() {
-        console.log(this.$route.params)
+      openDialog() {
+        // console.log(this.$store.state.modal.dialog)
+        // this.dialog = this.$store.state.modal.dialog
       },
       showingModal() {
-          this.dialog = !this.dialog;
+       // this.$store.dispatch('modal/CHANGE_DIALOG');
+        this.dialog = !this.dialog;
+      },
+      openSignInModal(args) {
+        console.log("Hello ", args)
       },
       checkModal() {
           if (this.$route.hash === '#signin') {
-              this.dialog = true;
+              // this.dialog = true;
           }
       },
       yodee() {
        console.log("yodee")
-      }
+      },
+      watchDialog() {
+        console.log("The Dialog 2 =", this.dialog2)
+        // this.$store.state.modal.dialog = this.dialog;
+        this.dialog2 = this.$store.state.modal.dialog2;
+      },
       
   },
   computed: {
-  },
 
+  },
   watch: {
     group() {
       this.drawer = false;
@@ -112,6 +121,9 @@ export default {
     $route() {
         this.checkModal();
       },
+    watchDialog2() {
+     this.watchDialog();
+    },
   },
 
   created() {

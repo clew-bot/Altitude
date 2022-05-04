@@ -73,18 +73,17 @@ export default {
         showModal: {
             type: Boolean,
         },
-        value: {
-            
-        },
         dialog: {
             type: Boolean,
         },
+        value: {}
     },
 
  data() {
      return {
     drawer: false,
     group: null,
+    signInModal: false,
     items: [
       { title: "Dashboard", icon: "mdi-view-dashboard" },
       { title: "Photos", icon: "mdi-image" },
@@ -102,16 +101,31 @@ export default {
   },
   methods: {
     openSignInModal() {
-      console.log("hi i")
-      console.log(this.$store.state.modalModule.hello)
-      this.$store.dispatch('modalModule/CHANGE_DIALOG');
+      // console.log(this.$store.state.modalModule.hello)
+      // console.log(this.$store.state.modalModule.dialog)
+      this.$store.dispatch('modal/CHANGE_DIALOG');
+      // this.value = !this.value;
+      this.$emit('input', this.$event);
+      // this.dialog2 = this.$store.state.modal.dialog2;
+
     },
     },
   
   computed: {
 
-
   },
+  watch: {
+      value: function() {
+        console.log("RUnning watcher")
+        console.log("Value", this.value)
+        if (this.signInModal) {
+          !this.value
+        } else {
+          console.log("It's false")
+        }
+
+      },
+  }
 }
 </script>
 
