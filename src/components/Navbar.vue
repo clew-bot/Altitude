@@ -93,12 +93,16 @@ export default {
        // this.$store.dispatch('modal/CHANGE_DIALOG');
         this.dialog = !this.dialog;
       },
-      openSignInModal(args) {
-        console.log("Hello ", args)
+      openSignInModal() {
+        console.log("openSignInModal")
+        this.dialog2 = !this.dialog2;
       },
       checkModal() {
           if (this.$route.hash === '#signin') {
-              // this.dialog = true;
+               this.dialog = true;
+          }
+          if (this.$route.hash === '#signup') {
+               this.dialog2 = true;
           }
       },
       yodee() {
@@ -121,10 +125,11 @@ export default {
     $route() {
         this.checkModal();
       },
-    watchDialog2() {
-     this.watchDialog();
+    dialog2: function() {
+      console.log("RUnning dialog2 watcher")
+        this.dialog2 = this.$store.state.modal.dialog2;
+      }
     },
-  },
 
   created() {
       this.checkModal();

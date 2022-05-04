@@ -7,7 +7,7 @@
 <div>
       <v-card dark color="#4d4c4b">
               <v-card-title dark >
-          Sign In
+          Let's Sign Up for an Account! 😃
         </v-card-title>
         <v-divider></v-divider>
           <label for="email" class="signInLabels">Signup</label>
@@ -56,7 +56,7 @@
           </v-btn>
         </v-card-actions>
         <div class="text-center">
-       <p class="font-weight-medium" style="color: orange">Still new here? Cool, let's sign up then</p>
+       <p class="font-weight-medium" style="color: orange">Privacy Policy</p>
        </div>
       </v-card>
        </div>

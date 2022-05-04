@@ -5,7 +5,7 @@ import getters from './getters.js'
 const state = {
     hello: 'Hello World',
     dialog: true,
-    dialog2: false,
+    dialog2: true,
 }
 
 export default {

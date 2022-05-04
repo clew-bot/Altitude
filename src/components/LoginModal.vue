@@ -63,10 +63,13 @@
        </div>
         
     </v-dialog>
+    <SignUpModal v-model="dialog2"/>
   </div>
 </template>
 
 <script>
+
+import SignUpModal from "@/components/SignUpModal.vue";
 
 export default {
     props: {
@@ -78,9 +81,13 @@ export default {
         },
         value: {}
     },
+    components: {
+        SignUpModal,
+    },
 
  data() {
      return {
+    dialog2: false,
     drawer: false,
     group: null,
     signInModal: false,
@@ -101,13 +108,8 @@ export default {
   },
   methods: {
     openSignInModal() {
-      // console.log(this.$store.state.modalModule.hello)
-      // console.log(this.$store.state.modalModule.dialog)
-      this.$store.dispatch('modal/CHANGE_DIALOG');
-      // this.value = !this.value;
+      this.dialog2 = true;
       this.$emit('input', this.$event);
-      // this.dialog2 = this.$store.state.modal.dialog2;
-
     },
     },
   
@@ -116,12 +118,10 @@ export default {
   },
   watch: {
       value: function() {
-        console.log("RUnning watcher")
-        console.log("Value", this.value)
         if (this.signInModal) {
           !this.value
         } else {
-          console.log("It's false")
+          this.value
         }
 
       },
@@ -167,5 +167,6 @@ export default {
 
 .signUpLink {
   color: pink;
+  cursor: pointer;
 }
 </style>
