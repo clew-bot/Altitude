@@ -1,6 +1,11 @@
-import { SET_USER, SET_USER_LOCATION } from './types.js'
+import { SET_USER, SET_USER_LOCATION, CHANGE_DIALOG} from './types.js'
 
 export default {
-  [SET_USER]() {},
-  [SET_USER_LOCATION]() {}
+  [SET_USER]() {
+    console.log("Hello from SET_USER action");
+  },
+  [SET_USER_LOCATION]() {},
+  [CHANGE_DIALOG]() {
+    console.log("hi from CHANGE_DIALOG");
+  }
 }
