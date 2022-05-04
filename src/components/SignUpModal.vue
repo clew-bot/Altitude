@@ -10,7 +10,7 @@
           Let's Sign Up for an Account! 😃
         </v-card-title>
         <v-divider></v-divider>
-          <label for="email" class="signInLabels">Signup</label>
+          <label for="email" class="signInLabels">Email Required</label>
             <v-text-field
             style="padding-top: 0px !important;"
             label="masquerena@protonmail.com"
@@ -18,6 +18,7 @@
             dense
              class="pa-6"
              name="email"
+             v-model="email"
           ></v-text-field>
           
         <label for="email" class="signInLabels">Choose a secure password</label>
@@ -25,7 +26,7 @@
             style="padding-top: 0px !important;"
             v-model="password"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.min]"
+            :rules="[rules.required, rules.min,]"
             :type="show1 ? 'text' : 'password'"
             name="input-10-1"
             label="Password"
@@ -33,6 +34,20 @@
             dense
              class="pa-6"
             @click:append="show1 = !show1"
+          ></v-text-field>
+             <label for="email" class="signInLabels">Confirm that shit</label>
+        <v-text-field
+            style="padding-top: 0px !important;"
+            v-model="passwordConfirm"
+            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[rules.required, rules.confirmMatch]"
+            :type="show2 ? 'text' : 'password'"
+            name="input-10-1"
+            label="Confirm Password"
+            solo
+            dense
+             class="pa-6"
+            @click:append="show2 = !show2"
           ></v-text-field>
           <div class="bottomModalRow">
             <v-checkbox
@@ -74,6 +89,7 @@ export default {
     },
  data() {
      return {
+    email: '',
     drawer: false,
     group: null,
     items: [
@@ -82,11 +98,15 @@ export default {
       { title: "About", icon: "mdi-help-box" },
     ],
     show1: false,
+    show2: false,
     password: '',
+    passwordConfirm: '',
     rules: {
         required: value => !!value || 'Required.',
         min: v => v.length >= 8 || 'Min 8 characters',
         emailMatch: () => (`The email and password you entered don't match`),
+
+        confirmMatch: (v) => v === this.password || `The passwords you entered don't match`,
     },
      ex4: ['red', 'indigo', 'orange', 'primary', 'secondary', 'success', 'info', 'warning', 'error', 'red darken-3', 'indigo darken-3', 'orange darken-3'],
      }
@@ -99,6 +119,11 @@ export default {
 
 
   },
+  watch: {
+    email: function() {
+      console.log(this.email)
+    },
+  }
 }
 </script>
 

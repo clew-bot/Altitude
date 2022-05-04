@@ -17,8 +17,9 @@
             label="masquerena@protonmail.com"
             solo
             dense
-             class="pa-6"
-             name="email"
+            class="pa-6"
+            name="email"
+            v-model="email"
           ></v-text-field>
           
         <label for="email" class="signInLabels">Password</label>
@@ -50,7 +51,7 @@
         <v-card-actions>
           <v-btn
             color="orange"
-            @click="dialog = false"
+            @click="login"
             class="center"
           >
             Login
@@ -91,6 +92,7 @@ export default {
     drawer: false,
     group: null,
     signInModal: false,
+    email: "",
     items: [
       { title: "Dashboard", icon: "mdi-view-dashboard" },
       { title: "Photos", icon: "mdi-image" },
@@ -111,7 +113,13 @@ export default {
       this.dialog2 = true;
       this.$emit('input', this.$event);
     },
+    async login() {
+      const res = await fetch("/api")
+      const data = await res.json();
+      console.log(data);
+      }
     },
+    
   
   computed: {
 
@@ -125,6 +133,9 @@ export default {
         }
 
       },
+      email: function() {
+        console.log(this.email);
+      }
   }
 }
 </script>
