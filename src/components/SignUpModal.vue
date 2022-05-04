@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-dialog
+    :value="value" @input="$emit('input', $event)"
       width="900"
     >
 <div>
@@ -19,7 +20,7 @@
              name="email"
           ></v-text-field>
           
-        <label for="email" class="signInLabels">Password</label>
+        <label for="email" class="signInLabels">Choose a secure password</label>
         <v-text-field
             style="padding-top: 0px !important;"
             v-model="password"
@@ -66,6 +67,9 @@
 <script>
 export default {
     props: {
+          value: {
+            
+        },
 
     },
  data() {

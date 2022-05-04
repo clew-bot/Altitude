@@ -46,7 +46,8 @@
         <v-icon>mdi-account-box</v-icon>
           &nbsp;Sign in
         </v-btn>
-      <LoginModal v-model="dialog" :hello="yodee"/>
+      <LoginModal v-model="dialog"/>
+      <SignUpModal v-model="dialog2"/>
 
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
@@ -58,6 +59,7 @@
 
 <script>
 import LoginModal from "@/components/LoginModal.vue";
+import SignUpModal from "@/components/SignUpModal.vue";
 
 
 export default {
@@ -70,6 +72,7 @@ export default {
       { title: "About", icon: "mdi-help-box", to: "/about" },
     ],
     dialog: false,
+    dialog2: true,
     show1: false,
     password: '',
     rules: {
@@ -80,7 +83,7 @@ export default {
     showModal: false,
   }),
   components: {
-    LoginModal,
+    LoginModal, SignUpModal,
   },
   methods: {
       consoleme() {
