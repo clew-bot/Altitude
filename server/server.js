@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = 3000;
+const routes = require('./routes');
+
+app.use(routes)
 app.use(cors());
 app.use(bodyParser.json());
 
