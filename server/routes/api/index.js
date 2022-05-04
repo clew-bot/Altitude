@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 router.get("/", (req, res) => {
-    console.log("I'm Hit!")
+    res.json({Hello:"World"});
 })
 
 module.exports = router;
