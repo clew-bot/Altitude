@@ -64,7 +64,10 @@ router.post("/signup", async (req, res) => {
     const refreshToken = jwt.sign({ user }, process.env.REFRESH_TOKEN_SECRET);
     res.cookie("accessToken", accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 }).json({message:"User has been created" + user, token: accessToken, refreshToken: refreshToken});
     }
+})
 
+router.get("/logout", authorization, (req, res) => {
+    res.clearCookie("accessToken").json({message:"User has been logged out"});
 })
 
 module.exports = router;
