@@ -24,14 +24,15 @@ const jwt = require("jsonwebtoken");
 
 const authorization = (req, res, next) => {
     const token = req.cookies.accessToken;
-    console.log("token = ", token)
-    if (!token) {
+    console.log(token)
+    if (token === undefined) {
+        console.log("No Token")
       return res.sendStatus(403);
     }
     try {
+        console.log("Yes Token")
       const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-      req.userId = data.id;
-      req.userRole = data.role;
+      req.user = data;
       return next();
     } catch {
       return res.sendStatus(403);
@@ -43,8 +44,13 @@ router.get("/", (req, res) => {
 })
 
 router.get("/auth", authorization, (req, res) => {
-    res.json({Hello:"World"});
+    res.json({Hello:"World", auth: true});
 });
+
+router.get("/auth/check", authorization, (req, res) => {
+    res.json({"Checking":"World", auth: true});
+
+})
 
 router.post("/signup", async (req, res) => {
     console.log(req.body)
