@@ -4,7 +4,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = 3000;
-const routes = require('./routes');
+const routes = require('./routes')
+// let rando = require('crypto').randomBytes(64).toString('hex')
+const dotenv = require('dotenv');
+
+// console.log(rando)
+// get config vars
+dotenv.config();
+
 
 
 app.use(cors());
