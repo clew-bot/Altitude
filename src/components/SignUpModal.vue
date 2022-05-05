@@ -1,51 +1,55 @@
 <template>
   <div>
-    <v-dialog :value="value" @input="$emit('input', $event)" width="900">
+    <v-dialog :value="value" @input="$emit('input', $event)" width="600">
       <div>
         <v-card dark color="#4d4c4b">
           <v-card-title dark> Let's Sign Up for an Account! 😃 </v-card-title>
           <v-divider></v-divider>
-          <label for="email" class="signInLabels">Email Required</label>
-          <v-text-field
-            style="padding-top: 0px !important"
-            label="masquerena@protonmail.com"
-            solo
-            dense
-            class="pa-6"
-            name="email"
-            v-model="email"
-          ></v-text-field>
+          <div class="pa-5">
+            <label for="email" class="signInLabels">Email Required</label>
+            <v-text-field
+              style="padding-top: 0px !important"
+              label="masquerena@protonmail.com"
+              :rules="[rules.required, rules.validEmail]"
+              solo
+              dense
+              :class="{ shake: animated1 }"
+              name="email"
+              v-model="email"
+            ></v-text-field>
 
-          <label for="email" class="signInLabels"
-            >Choose a secure password</label
-          >
-          <v-text-field
-            style="padding-top: 0px !important"
-            v-model="password"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.min]"
-            :type="show1 ? 'text' : 'password'"
-            name="input-10-1"
-            label="Password"
-            solo
-            dense
-            class="pa-6"
-            @click:append="show1 = !show1"
-          ></v-text-field>
-          <label for="email" class="signInLabels">Confirm that shit</label>
-          <v-text-field
-            style="padding-top: 0px !important"
-            v-model="passwordConfirm"
-            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.confirmMatch]"
-            :type="show2 ? 'text' : 'password'"
-            name="input-10-1"
-            label="Confirm Password"
-            solo
-            dense
-            class="pa-6"
-            @click:append="show2 = !show2"
-          ></v-text-field>
+            <label for="email" class="signInLabels"
+              >Choose a secure password</label
+            >
+            <v-text-field
+              style="padding-top: 0px !important"
+              v-model="password"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required, rules.min]"
+              :type="show1 ? 'text' : 'password'"
+              name="input-10-1"
+              label="Password"
+              solo
+              dense
+              class=""
+              @click:append="show1 = !show1"
+              :class="{ shake: animated2 }"
+            ></v-text-field>
+            <label for="email" class="signInLabels">Confirm that shit</label>
+            <v-text-field
+              style="padding-top: 0px !important"
+              v-model="passwordConfirm"
+              :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required, rules.confirmMatch]"
+              :type="show2 ? 'text' : 'password'"
+              name="input-10-1"
+              label="Confirm Password"
+              solo
+              dense
+              :class="{ shake: animated3 }"
+              @click:append="show2 = !show2"
+            ></v-text-field>
+          </div>
           <div class="bottomModalRow">
             <v-checkbox
               v-model="ex4"
@@ -96,8 +100,10 @@ export default {
       rules: {
         required: (value) => !!value || "Required.",
         min: (v) => v.length >= 8 || "Min 8 characters",
-        emailMatch: () => `The email and password you entered don't match`,
-
+        validEmail: (v) =>
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+            v
+          ) || "Invalid email",
         confirmMatch: (v) =>
           v === this.password || `The passwords you entered don't match`,
       },
@@ -115,13 +121,43 @@ export default {
         "indigo darken-3",
         "orange darken-3",
       ],
+      animated1: false,
+      animated2: false,
+      animated3: false,
     };
   },
 
   methods: {
+    matchEmail(email) {
+      return String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    },
+
     async signUpAccount() {
-      console.log("signing up");
-      console.log(this.email, this.password)
+      if (this.matchEmail(this.email) === null) {
+        this.animated1 = true;
+        setTimeout(() => {
+          this.animated1 = false;
+        }, 1000);
+        return
+      }
+      if (!this.password) {
+        this.animated2 = true;
+        setTimeout(() => {
+          this.animated2 = false;
+        }, 1000);
+        return
+      }
+      if (this.password !== this.passwordConfirm) {
+        this.animated3 = true;
+        setTimeout(() => {
+          this.animated3 = false;
+        }, 1000);
+        return;
+      }
       try {
         const response = await fetch("/api/signup", {
           method: "POST",
@@ -129,30 +165,58 @@ export default {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-       
             email: this.email,
             password: this.password,
-            
           }),
         });
-      const data = await response.json();
-      console.log(data);
+        const data = await response.json();
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
     },
-    
   },
   computed: {},
   watch: {
     email: function () {
-      console.log(this.email);
+
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
+.v-text-field {
+}
+.v-card {
+  overflow-x: hidden;
+}
+.v-dialog {
+  width: unset;
+}
+.shake {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+}
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
 .appSearch {
   padding-top: 25px !important;
   flex-grow: 2;
@@ -160,17 +224,11 @@ export default {
 }
 
 .signInLabels {
-  margin-top: 100px !important;
-  padding: 26px;
   box-sizing: border-box;
 }
 
 .center {
   text-align: center;
-}
-
-.v-card__actions {
-  justify-content: center !important;
 }
 
 .bottomModalRow {
@@ -180,11 +238,15 @@ export default {
   padding: 0px 24px 12px 24px;
 }
 
-.v-input--selection-controls {
+/* .v-input--selection-controls {
   margin-top: 0 !important;
-}
+} */
 
 .v-application p {
   margin-bottom: 0px !important;
+}
+
+.v-input--dense {
+  padding: 10px 20px 0px 20px !important;
 }
 </style>
