@@ -2,31 +2,47 @@ const router = require('express').Router();
 const db = require("../../models");
 const jwt = require("jsonwebtoken");
 
-const authenticateJWT = (req, res, next) => {
-    const authHeader = req.headers.authorization;
+// const authenticateJWT = (req, res, next) => {
+//     const authHeader = req.headers.authorization;
 
-    if (authHeader) {
-        const token = authHeader.split(' ')[1];
+//     if (authHeader) {
+//         const token = authHeader.split(' ')[1];
 
-        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-            if (err) {
-                return res.sendStatus(403);
-            }
-            req.user = user;
-            console.log("SUccessfully authenticated user");
-            console.log(user)
-            next();
-        });
-    } else {
-        res.sendStatus(401);
+//         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+//             if (err) {
+//                 return res.sendStatus(403);
+//             }
+//             req.user = user;
+//             console.log("SUccessfully authenticated user");
+//             console.log(req.user)
+//             next();
+//         });
+//     } else {
+//         res.sendStatus(401);
+//     }
+// }
+
+const authorization = (req, res, next) => {
+    const token = req.cookies.accessToken;
+    console.log("token = ", token)
+    if (!token) {
+      return res.sendStatus(403);
     }
-}
+    try {
+      const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      req.userId = data.id;
+      req.userRole = data.role;
+      return next();
+    } catch {
+      return res.sendStatus(403);
+    }
+  };
 
 router.get("/", (req, res) => {
     res.json({Hello:"World"});
 })
 
-router.get("/auth", authenticateJWT, (req, res) => {
+router.get("/auth", authorization, (req, res) => {
     res.json({Hello:"World"});
 });
 
@@ -40,7 +56,7 @@ router.post("/signup", async (req, res) => {
     const user = await db.User.create({email: req.body.email, password: req.body.password});
     const accessToken = jwt.sign({ user: { email: req.body.email, password: req.body.password} }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20m' });
     const refreshToken = jwt.sign({ user }, process.env.REFRESH_TOKEN_SECRET);
-    res.json({message:"User has been created" + user, token: accessToken, refreshToken: refreshToken});
+    res.cookie("accessToken", accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 }).json({message:"User has been created" + user, token: accessToken, refreshToken: refreshToken});
     }
 
 })

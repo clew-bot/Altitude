@@ -3,8 +3,16 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SignIn from '../views/SignIn.vue'
 import About from '../views/About.vue'
+import Dashboard from '../views/Dashboard.vue'
+import store from "../store"
+const isAuthenticated = () => {
+  const token = store.state.user.token;
+  if (token) {
+    return true
+  }
+  return false
+}
 
-Vue.use(VueRouter)
 
 const routes = [
   {
@@ -24,6 +32,21 @@ const routes = [
     name: 'SignIn',
     component: SignIn,
   },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: Dashboard,
+    meta: {
+      requiresAuth: true
+  },
+    beforeEnter: (to, from, next) => {
+      if (isAuthenticated()) {
+        next()
+      } else {
+        next('/login')
+      }
+    }
+},
   // {
   //   path: '/#signin',
   //   name: 'LoginModal',
@@ -38,5 +61,13 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.name == 'Dashboard' && !isAuthenticated) next({ name: 'Home' })
+  else next()
+})
+
+Vue.use(VueRouter)
+
 
 export default router
