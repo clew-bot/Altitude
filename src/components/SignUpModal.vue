@@ -169,8 +169,11 @@ export default {
             password: this.password,
           }),
         });
-        const data = await response.json();
-        console.log(data);
+        const {  message, token } = await response.json();
+        console.log(message);
+        console.log(token);
+        this.$store.commit("user/setToken", token);
+        console.log(this.$store.state.user.token);
       } catch (error) {
         console.log(error);
       }

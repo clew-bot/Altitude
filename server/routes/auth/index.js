@@ -1,5 +1,10 @@
 const router = require('express').Router();
 
+
+router.get("/", (req, res) => {
+    console.log("Auth")
+    res.json({Hello:"World"});
+})
 // const jwt = require('jsonwebtoken');
 // const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
@@ -24,9 +29,6 @@ const router = require('express').Router();
 
 
 
-router.get("/", (req, res) => {
-    console.log("Auth")
-    res.json({Hello:"World"});
-})
+
 
 module.exports = router;

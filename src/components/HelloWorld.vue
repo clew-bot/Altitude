@@ -1,5 +1,6 @@
 <template>
   <v-container id="">
+    <v-btn @click="checkAuth">CLICK TO TEST!</v-btn>
     <v-row class="text-center">
       <v-col>
         <v-img
@@ -315,6 +316,23 @@
         },
       ],
     }),
+    methods: {
+      async checkAuth() {
+        // console.log(this.$store.state.user.token)
+        try {
+        const res = await fetch("/api/auth", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.$store.state.user.token}`
+          }
+        })
+        const data = await res.json()
+        console.log(data)
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    }
   
   }
 </script>

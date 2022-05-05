@@ -2,9 +2,33 @@ const router = require('express').Router();
 const db = require("../../models");
 const jwt = require("jsonwebtoken");
 
+const authenticateJWT = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+
+    if (authHeader) {
+        const token = authHeader.split(' ')[1];
+
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+            if (err) {
+                return res.sendStatus(403);
+            }
+            req.user = user;
+            console.log("SUccessfully authenticated user");
+            console.log(user)
+            next();
+        });
+    } else {
+        res.sendStatus(401);
+    }
+}
+
 router.get("/", (req, res) => {
     res.json({Hello:"World"});
 })
+
+router.get("/auth", authenticateJWT, (req, res) => {
+    res.json({Hello:"World"});
+});
 
 router.post("/signup", async (req, res) => {
     console.log(req.body)
@@ -14,7 +38,7 @@ router.post("/signup", async (req, res) => {
         res.json({message: "User already exists"});
     } else {
     const user = await db.User.create({email: req.body.email, password: req.body.password});
-    const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20m' });
+    const accessToken = jwt.sign({ user: { email: req.body.email, password: req.body.password} }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20m' });
     const refreshToken = jwt.sign({ user }, process.env.REFRESH_TOKEN_SECRET);
     res.json({message:"User has been created" + user, token: accessToken, refreshToken: refreshToken});
     }

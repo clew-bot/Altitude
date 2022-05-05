@@ -1,8 +1,9 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue"
+import Vuex from "vuex"
 
 // Modules import
-import modal from './modules/modal'
+import modal from "./modules/modal"
+import user from "./modules/user";
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ Vue.use(Vuex)
 // const getters = ({})
 
 const modules = {
-  modal
+  modal,
+  user
 }
 
 export default new Vuex.Store({

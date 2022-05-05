@@ -86,11 +86,8 @@ export default {
   },
   methods: {
       openDialog() {
-        // console.log(this.$store.state.modal.dialog)
-        // this.dialog = this.$store.state.modal.dialog
       },
       showingModal() {
-       // this.$store.dispatch('modal/CHANGE_DIALOG');
         this.dialog = !this.dialog;
       },
       openSignInModal() {
