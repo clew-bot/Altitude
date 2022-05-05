@@ -15,13 +15,10 @@ const isAuthenticated = async () => {
       "Content-Type": "application/json"
     },
   })
-  const data = await res.json()
-  console.log("DATA = ", data)
-  if (data.auth) {
-    console.log("it's true")
+  const { auth } = await res.json()
+  if (auth) {
     return true
   } else {
-    console.log("It's false")
     return false
   }
 } catch(err) {
@@ -61,13 +58,6 @@ const routes = [
       }
     }
 },
-  // {
-  //   path: '/#signin',
-  //   name: 'LoginModal',
-  //   component: LoginModal,
-  //   props: {dialog: true}
-  // },
-
 ]
 
 const router = new VueRouter({
@@ -76,12 +66,6 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.name == 'Dashboard' && !isAuthenticated) next({ name: 'Home' })
-//   else next()
-// })
-
 Vue.use(VueRouter)
-
 
 export default router

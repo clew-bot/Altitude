@@ -189,8 +189,6 @@ export default {
 </script>
 
 <style scoped>
-.v-text-field {
-}
 .v-card {
   overflow-x: hidden;
 }
