@@ -6,16 +6,21 @@ const mongoose = require('mongoose');
 const PORT = 3000;
 const routes = require('./routes');
 
-app.use(routes)
+
 app.use(cors());
-app.use(bodyParser.json());
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/vuetify-router');
 
+mongoose.connect("mongodb://localhost/vuetify-router", {"useNewUrlParser": true, "useUnifiedTopology": true}, () => {
+    console.log("Connected to MongoDB");
+});
 
 app.listen(PORT, function() {
     console.log('Server is running on port: ', PORT);
 })
+
+app.use(bodyParser.urlencoded({ extended: false }));           
+app.use(bodyParser.json()) 
+app.use(routes);
 
 
 
