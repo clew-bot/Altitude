@@ -3,7 +3,9 @@
     <v-navigation-drawer app v-model="drawer" color="#4d4c4b" dark>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6" @click="consoleme"> Welcome </v-list-item-title>
+          <v-list-item-title class="text-h6" @click="consoleme">
+            Welcome
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -19,7 +21,7 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-            <v-list-item to="/dashboard" :disabled="isDisabled">
+        <v-list-item to="/dashboard" :disabled="isDisabled">
           <v-list-item-icon>
             <v-icon>mdi-desktop-mac-dashboard</v-icon>
           </v-list-item-icon>
@@ -38,16 +40,6 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <!-- 
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon>mdi-logout</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item> -->
     </v-navigation-drawer>
     <v-app-bar app color="#4d4c4b" dark>
       <!-- Gradient -->
@@ -82,9 +74,9 @@
 <script>
 import LoginModal from "@/components/LoginModal.vue";
 import SignUpModal from "@/components/SignUpModal.vue";
+import router from "../router";
 
 export default {
-
   data: () => ({
     drawer: false,
     group: null,
@@ -96,7 +88,7 @@ export default {
     dialog2: false,
     show1: false,
     password: "",
-    
+
     rules: {
       required: (value) => !!value || "Required.",
       min: (v) => v.length >= 8 || "Min 8 characters",
@@ -133,17 +125,33 @@ export default {
       this.dialog2 = this.$store.state.modal.dialog2;
     },
     async logout() {
-      const res = await fetch("/api/logout");
-      const data = await res.json();
-      this.$store.state.user.loggedIn = false;
-      console.log("data", data);
+      try {
+        const res = await fetch("/api/logout");
+        const data = await res.json();
+        this.$store.dispatch("user/LOGOUT_USER");
+        console.log("data", data);
+        window.localStorage.removeItem("vuelo");
+        router.push("/");
+      } catch (error) {
+        throw new Error(error);
+      }
     },
   },
   computed: {
     isDisabled() {
-      console.log("isDisabled", this.$store.state.user.loggedIn);
-      return this.$store.state.user.loggedIn ? false : true;
-    }
+      const localStorage = window.localStorage.getItem("vuelo");
+      if (this.$store.state.user.loggedIn === null) {
+        if (localStorage) {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (this.$store.state.user.loggedIn) {
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
   watch: {
     group() {
@@ -151,10 +159,6 @@ export default {
     },
     $route() {
       this.checkModal();
-    },
-    dialog2: function () {
-      console.log("RUnning dialog2 watcher");
-      this.dialog2 = this.$store.state.modal.dialog2;
     },
   },
 
@@ -176,11 +180,6 @@ export default {
   padding: 26px;
   box-sizing: border-box;
 }
-
-.center {
-  text-align: center;
-}
-
 .v-card__actions {
   justify-content: center !important;
 }

@@ -132,6 +132,7 @@ export default {
         this.$store.dispatch("user/LOGIN_USER", {
           email: this.email,
         })
+        window.localStorage.setItem("vuelo", true);
         this.$emit('input', this.$event);
       } else {
         console.log("hi")
