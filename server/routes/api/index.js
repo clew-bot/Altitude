@@ -79,12 +79,12 @@ router.post("/login", async (req, res) => {
         if(passwordMatch) {
             const accessToken = jwt.sign({ user: { email: req.body.email, password: req.body.password} }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20m' });
             // const refreshToken = jwt.sign({ findUser }, process.env.REFRESH_TOKEN_SECRET);
-            res.cookie("accessToken", accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 }).json({message:"User has been logged in"});
+            res.cookie("accessToken", accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 }).json({message:"User has been logged in", loggedIn: true});
         } else {
-            res.json({message:"Password is incorrect"});
+            res.json({message:"Password is incorrect", loggedIn: false});
         }
     } else {
-        res.json({message:"User does not exist"});
+        res.json({message:"User does not exist", loggedIn: false});
     }
 })
 

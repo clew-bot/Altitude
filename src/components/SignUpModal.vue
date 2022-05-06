@@ -49,7 +49,7 @@
               :class="{ shake: animated3 }"
               @click:append="show2 = !show2"
             ></v-text-field>
-          </div>
+    
           <div class="bottomModalRow">
             <v-checkbox
               v-model="ex4"
@@ -60,6 +60,7 @@
             ></v-checkbox>
             <p style="margin-bottom: 0 !important">Forgot password?</p>
           </div>
+                </div>
           <v-divider></v-divider>
 
           <v-card-actions>
@@ -189,6 +190,11 @@ export default {
 </script>
 
 <style scoped>
+.signInLabels {
+  margin-top: 100px!important;
+  padding: 26px;
+  box-sizing: border-box;
+}
 .v-card {
   overflow-x: hidden;
 }
@@ -247,7 +253,16 @@ export default {
   margin-bottom: 0px !important;
 }
 
+.v-card__actions {
+  justify-content: center;
+}
+
 .v-input--dense {
   padding: 10px 20px 0px 20px !important;
+}
+
+.v-input--selection-controls {
+  margin-top: 0 !important;
+  padding-top: !important;
 }
 </style>

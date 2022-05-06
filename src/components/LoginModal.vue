@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <v-dialog
       :value="value" @input="$emit('input', $event)"
       width="500"
@@ -11,13 +11,14 @@
           Sign In
         </v-card-title>
         <v-divider></v-divider>
+        <div class="pa-6">
           <label for="email" class="signInLabels">Email</label>
             <v-text-field
             style="padding-top: 0px !important;"
             label="masquerena@protonmail.com"
             solo
             dense
-            class="pa-6"
+            class=""
             name="email"
             v-model="email"
           ></v-text-field>
@@ -33,7 +34,7 @@
             label="Password"
             solo
             dense
-             class="pa-6"
+             class=""
             @click:append="show1 = !show1"
           ></v-text-field>
           <div class="bottomModalRow">
@@ -46,19 +47,20 @@
             ></v-checkbox>
             <p style="margin-bottom: 0 !important">Forgot password?</p>
         </div>
+        </div>
         <v-divider></v-divider>
 
-        <v-card-actions>
+        <v-card-actions style="padding-top: 1rem;">
           <v-btn
             color="orange"
             @click="login"
-            class="center"
+    
           >
             Login
           </v-btn>
         </v-card-actions>
         <div class="text-center">
-       <p class="font-weight-medium" style="color: orange">Still new here? Cool, let's <span class="signUpLink" @click="openSignInModal">sign up then</span></p>
+       <p class="font-weight-medium" style="color: orange; padding-bottom: 12px;">Still new here? Cool, let's <span class="signUpLink" @click="openSignInModal">sign up then</span></p>
        </div>
       </v-card>
        </div>
@@ -124,10 +126,15 @@ export default {
             password: this.password
             })
         });
-      const data = await res.json();
-      console.log(data);
+      const {message, loggedIn} = await res.json();
+      console.log(message ,loggedIn)
+      if (loggedIn) {
+        this.$emit('input', this.$event);
+      } else {
+        console.log("hi")
       }
-    },
+    }
+  },
     
   
   computed: {
@@ -149,7 +156,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .appSearch {
   padding-top: 25px !important;
   flex-grow: 2;
@@ -158,7 +165,7 @@ export default {
 
 .signInLabels {
   margin-top: 100px!important;
-  padding: 26px;
+  /* padding: 26px; */
   box-sizing: border-box;
 }
 
@@ -174,7 +181,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center !important;
-    padding: 0px 24px 12px 24px;
+
 }
 
 .v-input--selection-controls {
@@ -188,5 +195,9 @@ export default {
 .signUpLink {
   color: pink;
   cursor: pointer;
+}
+
+.v-application p {
+  margin-bottom: 0px !important;
 }
 </style>
