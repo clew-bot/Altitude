@@ -5,7 +5,7 @@
         <v-card dark color="#4d4c4b">
           <v-card-title dark> Let's Sign Up for an Account! 😃 </v-card-title>
           <v-divider></v-divider>
-          <div class="pa-5">
+          <div class="pa-2">
             <label for="email" class="signInLabels">Email Required</label>
             <v-text-field
               style="padding-top: 0px !important"
@@ -242,7 +242,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center !important;
-  padding: 0px 24px 12px 24px;
+  padding: 0px 20px 12px 20px;
 }
 
 /* .v-input--selection-controls {
@@ -263,5 +263,6 @@ export default {
 
 .v-input--selection-controls {
   margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 </style>

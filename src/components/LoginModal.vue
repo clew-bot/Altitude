@@ -12,7 +12,7 @@
         </v-card-title>
         <v-divider></v-divider>
         <div class="pa-6">
-          <label for="email" class="signInLabels">Email</label>
+          <label for="email" class="signInLabels" @click="consoleme">Email</label>
             <v-text-field
             style="padding-top: 0px !important;"
             label="masquerena@protonmail.com"
@@ -39,10 +39,10 @@
           ></v-text-field>
           <div class="bottomModalRow">
             <v-checkbox
-              v-model="ex4"
+              v-model="checkbox1"
               label="Remember me"
               color="orange"
-              value="orange"
+              value="true"
               hide-details
             ></v-checkbox>
             <p style="margin-bottom: 0 !important">Forgot password?</p>
@@ -108,14 +108,23 @@ export default {
         emailMatch: () => (`The email and password you entered don't match`),
     },
      ex4: ['red', 'indigo', 'orange', 'primary', 'secondary', 'success', 'info', 'warning', 'error', 'red darken-3', 'indigo darken-3', 'orange darken-3'],
+     checkbox1: false,
      }
   },
   methods: {
+    consoleme() {
+      console.log(this.checkbox1);
+    },
+
     openSignInModal() {
       this.dialog2 = true;
       this.$emit('input', this.$event);
     },
     async login() {
+      if (this.checkbox1 === "true") {
+        localStorage.setItem('email', this.email);
+        localStorage.setItem('rememberMe', true);
+      }
       const res = await fetch("/api/login", {
         method: "POST",
         headers: {
@@ -142,7 +151,14 @@ export default {
     
   
   computed: {
+    
 
+  },
+  mounted() {
+    if (localStorage.getItem('rememberMe') === "true") {
+      this.email = localStorage.getItem('email');
+      this.checkbox1 = "true";
+    }
   },
   watch: {
       value: function() {
@@ -202,5 +218,10 @@ export default {
 
 .v-application p {
   margin-bottom: 0px !important;
+}
+
+.v-input--selection-controls {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 </style>
