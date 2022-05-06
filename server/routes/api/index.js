@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const db = require("../../models");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 // const authenticateJWT = (req, res, next) => {
 //     const authHeader = req.headers.authorization;
@@ -68,6 +69,23 @@ router.post("/signup", async (req, res) => {
 
 router.get("/logout", authorization, (req, res) => {
     res.clearCookie("accessToken").json({message:"User has been logged out"});
+})
+
+router.post("/login", async (req, res) => {
+    const findUser = await db.User.findOne({email: req.body.email});
+    console.log(findUser)
+    if(findUser) {
+        const passwordMatch = await bcrypt.compare(req.body.password, findUser.password);
+        if(passwordMatch) {
+            const accessToken = jwt.sign({ user: { email: req.body.email, password: req.body.password} }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20m' });
+            // const refreshToken = jwt.sign({ findUser }, process.env.REFRESH_TOKEN_SECRET);
+            res.cookie("accessToken", accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 }).json({message:"User has been logged in"});
+        } else {
+            res.json({message:"Password is incorrect"});
+        }
+    } else {
+        res.json({message:"User does not exist"});
+    }
 })
 
 module.exports = router;

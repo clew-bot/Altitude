@@ -114,7 +114,16 @@ export default {
       this.$emit('input', this.$event);
     },
     async login() {
-      const res = await fetch("/api")
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+          },
+          "body": JSON.stringify({
+            email: this.email,
+            password: this.password
+            })
+        });
       const data = await res.json();
       console.log(data);
       }
