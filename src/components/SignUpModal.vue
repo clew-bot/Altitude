@@ -65,7 +65,7 @@
 
           <v-card-actions>
             <v-btn color="orange" @click="signUpAccount" class="center">
-              Login
+              Signup
             </v-btn>
           </v-card-actions>
           <div class="text-center">
@@ -263,6 +263,5 @@ export default {
 
 .v-input--selection-controls {
   margin-top: 0 !important;
-  padding-top: !important;
 }
 </style>

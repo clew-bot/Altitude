@@ -3,7 +3,7 @@
     <v-navigation-drawer app v-model="drawer" color="#4d4c4b" dark>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6"> Welcome </v-list-item-title>
+          <v-list-item-title class="text-h6" @click="consoleme"> Welcome </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -17,6 +17,15 @@
 
           <v-list-item-content>
             <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+            <v-list-item to="/dashboard" :disabled="isDisabled">
+          <v-list-item-icon>
+            <v-icon>mdi-desktop-mac-dashboard</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>Dashboard</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item to="/logout" @click="logout">
@@ -75,22 +84,19 @@ import LoginModal from "@/components/LoginModal.vue";
 import SignUpModal from "@/components/SignUpModal.vue";
 
 export default {
+
   data: () => ({
     drawer: false,
     group: null,
     items: [
       { title: "Home", icon: "mdi-home-outline", to: "/" },
-      {
-        title: "Dashboard",
-        icon: "mdi-desktop-mac-dashboard",
-        to: "/dashboard",
-      },
       { title: "About", icon: "mdi-help-box", to: "/about" },
     ],
     dialog: false,
     dialog2: false,
     show1: false,
     password: "",
+    
     rules: {
       required: (value) => !!value || "Required.",
       min: (v) => v.length >= 8 || "Min 8 characters",
@@ -103,7 +109,9 @@ export default {
     SignUpModal,
   },
   methods: {
-    openDialog() {},
+    consoleme() {
+      console.log(this.$store.state.user.loggedIn);
+    },
     showingModal() {
       this.dialog = !this.dialog;
     },
@@ -119,9 +127,6 @@ export default {
         this.dialog2 = true;
       }
     },
-    yodee() {
-      console.log("yodee");
-    },
     watchDialog() {
       console.log("The Dialog 2 =", this.dialog2);
       // this.$store.state.modal.dialog = this.dialog;
@@ -130,10 +135,16 @@ export default {
     async logout() {
       const res = await fetch("/api/logout");
       const data = await res.json();
+      this.$store.state.user.loggedIn = false;
       console.log("data", data);
     },
   },
-  computed: {},
+  computed: {
+    isDisabled() {
+      console.log("isDisabled", this.$store.state.user.loggedIn);
+      return this.$store.state.user.loggedIn ? false : true;
+    }
+  },
   watch: {
     group() {
       this.drawer = false;

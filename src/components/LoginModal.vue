@@ -129,6 +129,9 @@ export default {
       const {message, loggedIn} = await res.json();
       console.log(message ,loggedIn)
       if (loggedIn) {
+        this.$store.dispatch("user/LOGIN_USER", {
+          email: this.email,
+        })
         this.$emit('input', this.$event);
       } else {
         console.log("hi")
@@ -150,7 +153,6 @@ export default {
 
       },
       email: function() {
-        console.log(this.email);
       }
   }
 }

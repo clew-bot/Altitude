@@ -1,8 +1,8 @@
-import { SET_USER, SET_USER_LOCATION, CHANGE_DIALOG} from './types.js'
+import { SET_USER_LOCATION, CHANGE_DIALOG, LOGIN_USER} from './types.js'
 
 export default {
-  [SET_USER]() {
-    console.log("Hello from SET_USER action");
+  [LOGIN_USER]({commit}, payload) {
+    commit("isLoggedIn", payload)
   },
   [SET_USER_LOCATION]() {},
   [CHANGE_DIALOG]({commit}, payload) {

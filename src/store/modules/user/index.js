@@ -5,6 +5,7 @@ import getters from './getters.js'
 const state = {
     user: null,
     token: null,
+    loggedIn: false,
 }
 
 export default {

@@ -67,7 +67,7 @@ router.post("/signup", async (req, res) => {
     }
 })
 
-router.get("/logout", authorization, (req, res) => {
+router.get("/logout", (req, res) => {
     res.clearCookie("accessToken").json({message:"User has been logged out"});
 })
 
