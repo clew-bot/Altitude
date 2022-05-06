@@ -63,7 +63,7 @@ router.post("/signup", async (req, res) => {
     const user = await db.User.create({email: req.body.email, password: req.body.password});
     const accessToken = jwt.sign({ user: { email: req.body.email, password: req.body.password} }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20m' });
     const refreshToken = jwt.sign({ user }, process.env.REFRESH_TOKEN_SECRET);
-    res.cookie("accessToken", accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 }).json({message:"User has been created" + user, token: accessToken, refreshToken: refreshToken});
+    res.cookie("accessToken", accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 }).json({message:"User has been created", token: accessToken, loggedIn: true});
     }
 })
 

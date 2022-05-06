@@ -95,11 +95,6 @@ export default {
     group: null,
     signInModal: false,
     email: "",
-    items: [
-      { title: "Dashboard", icon: "mdi-view-dashboard" },
-      { title: "Photos", icon: "mdi-image" },
-      { title: "About", icon: "mdi-help-box" },
-    ],
     show1: false,
     password: '',
     rules: {
@@ -107,7 +102,6 @@ export default {
         min: v => v.length >= 8 || 'Min 8 characters',
         emailMatch: () => (`The email and password you entered don't match`),
     },
-     ex4: ['red', 'indigo', 'orange', 'primary', 'secondary', 'success', 'info', 'warning', 'error', 'red darken-3', 'indigo darken-3', 'orange darken-3'],
      checkbox1: false,
      }
   },
@@ -138,6 +132,7 @@ export default {
       const {message, loggedIn} = await res.json();
       console.log(message ,loggedIn)
       if (loggedIn) {
+        this.password = "";
         this.$store.dispatch("user/LOGIN_USER", {
           email: this.email,
         })

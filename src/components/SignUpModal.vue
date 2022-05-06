@@ -80,7 +80,9 @@
 </template>
 
 <script>
+import router from "../router";
 export default {
+  
   props: {
     value: {},
   },
@@ -170,14 +172,26 @@ export default {
             password: this.password,
           }),
         });
-        const {  message, token } = await response.json();
+        const {  message, token, loggedIn } = await response.json();
         console.log(message);
         console.log(token);
         this.$store.commit("user/setToken", token);
         console.log(this.$store.state.user.token);
-      } catch (error) {
-        console.log(error);
-      }
+        console.log(message ,loggedIn)
+        if (loggedIn) {
+          this.password = "";
+          this.$store.dispatch("user/LOGIN_USER", {
+            email: this.email,
+          })
+          window.localStorage.setItem("vuelo", true);
+          this.$emit('input', this.$event);
+          router.push("/dashboard");
+        } else {
+          console.log("hi")
+        }
+        } catch (error) {
+          console.log(error);
+        }
     },
   },
   computed: {},
