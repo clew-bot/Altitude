@@ -73,7 +73,7 @@ router.post("/login", async (req, res) => {
 
 
 router.get("/n/programming", authorization, async (req, res) => {
-    const fetchProgrammingNews = await fetch("https://www.reddit.com/r/programming.json")
+    const fetchProgrammingNews = await fetch("https://www.reddit.com/r/ProgrammerHumor.json")
     const programmingNews = await fetchProgrammingNews.json()
     let data = programmingNews.data.children;
 

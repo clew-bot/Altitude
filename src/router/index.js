@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import SignIn from '../views/SignIn.vue'
 import About from '../views/About.vue'
 import Dashboard from '../views/Dashboard.vue'
+import Post from '../views/Post.vue'
 import store from "../store"
 
 
@@ -59,6 +60,11 @@ const routes = [
       }
     }
 },
+{
+  path: "/post/:id",
+  name: "Post",
+  component: Post,
+}
 ]
 
 const router = new VueRouter({
