@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 import SignIn from '../views/SignIn.vue'
 import About from '../views/About.vue'
 import Dashboard from '../views/Dashboard.vue'
-// import store from "../store"
+import store from "../store"
 
 
 const isAuthenticated = async () => {
@@ -22,6 +22,7 @@ const isAuthenticated = async () => {
     return false
   }
 } catch(err) {
+  store.dispatch("user/LOGOUT_USER");
   console.log("Not authenticated ", err);
   return false
 }

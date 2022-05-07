@@ -2,27 +2,7 @@ const router = require('express').Router();
 const db = require("../../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
-// const authenticateJWT = (req, res, next) => {
-//     const authHeader = req.headers.authorization;
-
-//     if (authHeader) {
-//         const token = authHeader.split(' ')[1];
-
-//         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-//             if (err) {
-//                 return res.sendStatus(403);
-//             }
-//             req.user = user;
-//             console.log("SUccessfully authenticated user");
-//             console.log(req.user)
-//             next();
-//         });
-//     } else {
-//         res.sendStatus(401);
-//     }
-// }
-
+require('isomorphic-fetch');
 const authorization = (req, res, next) => {
     const token = req.cookies.accessToken;
     console.log(token)
@@ -36,6 +16,7 @@ const authorization = (req, res, next) => {
       req.user = data;
       return next();
     } catch {
+      console.log("Token Expired.")
       return res.sendStatus(403);
     }
   };
@@ -88,4 +69,14 @@ router.post("/login", async (req, res) => {
     }
 })
 
+
+
+
+router.get("/n/programming", authorization, async (req, res) => {
+    const fetchProgrammingNews = await fetch("https://www.reddit.com/r/programming.json")
+    const programmingNews = await fetchProgrammingNews.json()
+    let data = programmingNews.data.children;
+
+    res.json(data);
+})
 module.exports = router;
