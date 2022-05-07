@@ -42,13 +42,11 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar app color="#4d4c4b" dark>
-      <!-- Gradient -->
-
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
       <v-app-bar-title></v-app-bar-title>
-
       <v-spacer></v-spacer>
+        <LoginModal v-model="dialog" :openSignInModal="openSignInModal" />
+      <SignUpModal v-model="dialog2" />
       <v-text-field
         class="appSearch"
         center
@@ -61,23 +59,21 @@
         <v-icon>mdi-account-box</v-icon>
         &nbsp;Sign in
       </v-btn>
-      <LoginModal v-model="dialog" :openSignInModal="openSignInModal" />
-      <SignUpModal v-model="dialog2" />
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
+      <Ellipses />
     </v-app-bar>
+      
   </div>
 </template>
 
 <script>
 import LoginModal from "@/components/LoginModal.vue";
 import SignUpModal from "@/components/SignUpModal.vue";
+import Ellipses from "@/components/Ellipses.vue";
 import router from "../router";
 
 export default {
-  data: () => ({
+  data: () => ({      
+    expand: false,
     drawer: false,
     group: null,
     items: [
@@ -99,6 +95,7 @@ export default {
   components: {
     LoginModal,
     SignUpModal,
+    Ellipses,
   },
   methods: {
     consoleme() {
