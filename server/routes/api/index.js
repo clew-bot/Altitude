@@ -60,8 +60,8 @@ router.post("/signup", async (req, res) => {
     if(findUser) {
         res.json({message: "User already exists"});
     } else {
-    // const user = await db.User.create({email: req.body.email, password: req.body.password, username: req.body.username});
-    const accessToken = jwt.sign({ user: { email: req.body.email, password: req.body.password} }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20m' });
+    const user = await db.User.create({email: req.body.email, password: req.body.password, username: req.body.username});
+    const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20m' });
     // const refreshToken = jwt.sign({ user }, process.env.REFRESH_TOKEN_SECRET);
     res.cookie("accessToken", accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 }).json({message:"User has been created", token: accessToken, loggedIn: true});
     }
@@ -73,7 +73,7 @@ router.get("/logout", (req, res) => {
 
 router.post("/login", async (req, res) => {
     const findUser = await db.User.findOne({email: req.body.email});
-    console.log("FINDUSER =", findUser.username)
+     console.log("FINDUSER =", findUser)
     if(findUser) {
         const passwordMatch = await bcrypt.compare(req.body.password, findUser.password);
         if(passwordMatch) {

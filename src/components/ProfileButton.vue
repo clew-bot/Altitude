@@ -39,6 +39,9 @@ export default {
 <style scoped>
 #username {
     font-size: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;    
 }
 #loggedAs {
     font-size: 12px;
@@ -65,5 +68,6 @@ svg {
         text-transform: none !important;
         letter-spacing: 0px !important;
         text-align: left !important;
+        
     }
 </style>

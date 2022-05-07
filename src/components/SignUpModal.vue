@@ -197,6 +197,7 @@ export default {
             email: this.email,
             username: this.username
           })
+          window.localStorage.setItem("username", this.username);
           window.localStorage.setItem("vuelo", true);
           this.$emit('input', this.$event);
           router.push("/dashboard");

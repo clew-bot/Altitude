@@ -1,6 +1,6 @@
 <template>
   <div>
-      Dashboard Page!
+      Latest News
   </div>
 </template>
 
