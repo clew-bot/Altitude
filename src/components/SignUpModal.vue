@@ -17,6 +17,17 @@
               name="email"
               v-model="email"
             ></v-text-field>
+                 <label for="username" class="signInLabels">Username</label>
+            <v-text-field
+              style="padding-top: 0px !important"
+              label="pikachu27"
+              :rules="[rules.required]"
+              solo
+              dense
+              :class="{ shake: animated1 }"
+              name="username"
+              v-model="username"
+            ></v-text-field>
 
             <label for="email" class="signInLabels"
               >Choose a secure password</label
@@ -88,6 +99,7 @@ export default {
   },
   data() {
     return {
+      username: "",
       email: "",
       drawer: false,
       group: null,
@@ -170,6 +182,7 @@ export default {
           body: JSON.stringify({
             email: this.email,
             password: this.password,
+            username: this.username,
           }),
         });
         const {  message, token, loggedIn } = await response.json();
@@ -182,6 +195,7 @@ export default {
           this.password = "";
           this.$store.dispatch("user/LOGIN_USER", {
             email: this.email,
+            username: this.username
           })
           window.localStorage.setItem("vuelo", true);
           this.$emit('input', this.$event);

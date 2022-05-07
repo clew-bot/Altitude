@@ -6,6 +6,7 @@ const state = {
     user: null,
     token: null,
     loggedIn: null,
+    username: "",
 }
 
 export default {

@@ -45,8 +45,8 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-app-bar-title></v-app-bar-title>
       <v-spacer></v-spacer>
-        <LoginModal v-model="dialog" :openSignInModal="openSignInModal" />
-      <SignUpModal v-model="dialog2" />
+        <LoginModal v-model="dialog" />
+        <SignUpModal v-model="dialog2"/>
       <v-text-field
         class="appSearch"
         center
@@ -55,10 +55,15 @@
         placeholder="Search"
         prepend-inner-icon="mdi-magnify"
       ></v-text-field>
+      <div v-if="showUsername">
       <v-btn color="gray lighten-2" dark @click="showingModal">
         <v-icon>mdi-account-box</v-icon>
         &nbsp;Sign in
       </v-btn>
+      </div>
+      <div v-else>
+        <ProfileButton/>
+      </div>
       <Ellipses />
     </v-app-bar>
       
@@ -69,10 +74,11 @@
 import LoginModal from "@/components/LoginModal.vue";
 import SignUpModal from "@/components/SignUpModal.vue";
 import Ellipses from "@/components/Ellipses.vue";
+import ProfileButton from "@/components/ProfileButton.vue";
 import router from "../router";
 
 export default {
-  data: () => ({      
+  data: () => ({   
     expand: false,
     drawer: false,
     group: null,
@@ -96,7 +102,8 @@ export default {
     LoginModal,
     SignUpModal,
     Ellipses,
-  },
+    ProfileButton
+},
   methods: {
     consoleme() {
       console.log(this.$store.state.user.loggedIn);
@@ -149,6 +156,20 @@ export default {
         return true;
       }
     },
+    showUsername() {
+      const localStorage = window.localStorage.getItem("vuelo");
+      if (this.$store.state.user.loggedIn === null) {
+        if (localStorage) {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (this.$store.state.user.loggedIn) {
+        return false;
+      } else {
+        return true;
+      }
+    }
   },
   watch: {
     group() {
