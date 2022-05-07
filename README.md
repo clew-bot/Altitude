@@ -9,7 +9,7 @@
 2. Retrieve JWT
 3. Head to Dashboard
   1. Search for Subreddits on search
-4.Logout
+4. Logout
 5. Forget Password will initate an email to the forgotten email
 
 
