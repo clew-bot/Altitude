@@ -9,7 +9,7 @@
     <v-container fluid>
       <v-row dense>
         <v-col
-          v-for="card in cards.slice(1)"
+          v-for="card in cards.slice(1, 11)"
           :key="card.id"
         >
         <v-card
@@ -125,7 +125,6 @@ export default {
       async getProgrammingNews() {
           const res = await fetch("api/n/programming");
           const data = await res.json();
-          console.log(data)
           for (let i = 0; i < data.length; i++) {
             console.log("Titles = ", data[i].data.title)
             this.cards[i].title = data[i].data.title
@@ -133,11 +132,9 @@ export default {
             this.cards[i].to = data[i].data.url
             this.cards[i].author = data[i].data.author
             console.log(this.cards[i])
-            if(this.cards[i] === undefined) {
-             console.log('undefined')
-            }
+    
           }
-          console.log("hi")
+
           this.loading = false
 
       },

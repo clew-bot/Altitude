@@ -8,10 +8,13 @@ const routes = require('./routes')
 // let rando = require('crypto').randomBytes(64).toString('hex')
 const dotenv = require('dotenv');
 const cookieParser = require("cookie-parser");
+// const nodemailer = require("nodemailer");
 
 // console.log(rando)
 // get config vars
 dotenv.config();
+
+
 
 
 

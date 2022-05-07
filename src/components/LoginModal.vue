@@ -45,7 +45,7 @@
                 value="true"
                 hide-details
               ></v-checkbox>
-              <p style="margin-bottom: 0 !important">Forgot password?</p>
+              <p style="margin-bottom: 0 !important" @click="openFPModal">Forgot password?</p>
             </div>
           </div>
           <v-divider></v-divider>
@@ -69,11 +69,13 @@
       </div>
     </v-dialog>
     <SignUpModal v-model="dialog2" />
+    <ForgotPasswordModal v-model="dialog3"/>
   </div>
 </template>
 
 <script>
 import SignUpModal from "@/components/SignUpModal.vue";
+import ForgotPasswordModal from "@/components/ForgotPasswordModal.vue";
 
 export default {
   props: {
@@ -87,6 +89,7 @@ export default {
   },
   components: {
     SignUpModal,
+    ForgotPasswordModal,
   },
 
   data() {
@@ -95,6 +98,7 @@ export default {
       animated1: false,
       animated2: false,
       dialog2: false,
+      dialog3: false,
       drawer: false,
       group: null,
       signInModal: false,
@@ -117,6 +121,12 @@ export default {
       this.email = "";
       this.password = "";
       this.dialog2 = true;
+      this.$emit("input", this.$event);
+    },
+     openFPModal() {
+      this.email = "";
+      this.password = "";
+      this.dialog3 = true;
       this.$emit("input", this.$event);
     },
     async login() {
