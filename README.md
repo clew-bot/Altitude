@@ -1,7 +1,7 @@
 # Ultimate Vue Template - Reddit API/JWT/MongoDB/Vuex/Vuetify
 
 **This is a template made by me to help others get started with Vue.**
-<p>This project is consisted of the MEVN stack which is currently using:</p>
+<p>This project is consisted of the MEVN stack</p>
 <b>Application process:</b>
 
 
