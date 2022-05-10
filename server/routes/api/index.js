@@ -131,7 +131,7 @@ router.post("/forgotPassword", async (req, res) => {
       from: process.env.MAIL_USERNAME,
       to: findUser.email,
       subject: "Password Retrieval",
-      text: `Hello ${findUser.username},\n\nYou are receiving this because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\nhttp://localhost:3000/reset/${findUser.username}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n\nThank you,\n\nThe VuetifyRouter Team`,
+      text: `Hello ${findUser.username},\n\nYou are receiving this because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\nhttp://localhost:3000/reset/${findUser.username}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n\nThank you,\n\nThe Altitude Team`,
     };
 
     transporter.sendMail(mailOptions, function (err, data) {

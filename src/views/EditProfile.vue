@@ -1,6 +1,6 @@
 <template>
   <div>
-      Edit Profile
+        <h1>Edit Profile</h1>
   </div>
 </template>
 
