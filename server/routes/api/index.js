@@ -3,8 +3,8 @@ const db = require("../../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
-
 require("isomorphic-fetch");
+
 const authorization = (req, res, next) => {
   const token = req.cookies.accessToken;
   console.log(token);
