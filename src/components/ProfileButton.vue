@@ -37,6 +37,10 @@ export default {
 </script>
 
 <style scoped>
+
+.profileText {
+  color: black !important;
+}
 #username {
     font-size: 14px;
     text-overflow: ellipsis;
@@ -51,7 +55,7 @@ span {
     opacity: 0.6;
 }
 svg {
-    color: rgb(135, 176, 73);
+    color: rgb(21, 19, 19);
 }
     .profileText {
         display: flex;
@@ -64,10 +68,11 @@ svg {
         max-width: 90px;
     }
     .v-btn {
-        background: transparent !important;
+        background: #f9f9f96f !important;
         text-transform: none !important;
         letter-spacing: 0px !important;
         text-align: left !important;
+        padding: 20px !important;
         
     }
 </style>

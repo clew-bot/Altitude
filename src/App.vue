@@ -33,5 +33,6 @@ export default {
 
 * {
   font-family: 'Poppins', sans-serif;
+  
 }
 </style>

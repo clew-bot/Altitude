@@ -14,7 +14,27 @@ const userSchema = new Schema({
   username: {
     type: String,
     required: false,
-  }
+  },
+  favoriteFood: {
+    type: String,
+    required: false,
+  },
+  favoriteHobbies: {
+    type: String,
+    required: false,
+  },
+  favoriteMovies: {
+    type: String,
+    required: false,
+  },
+  favoriteMusic: {
+    type: String,
+    required: false,
+  },
+  favoriteBooks: {
+    type: String,
+    required: false,
+  },
 });
 
 userSchema.pre("save", function () {

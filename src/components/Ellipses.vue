@@ -21,6 +21,7 @@
               <v-list-item
                 v-for="(item, i) in items"
                 :key="i"
+                :to="item.to"
               >
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
@@ -36,7 +37,7 @@ export default {
         expand: false,
         items: [
         { title: "Home", icon: "mdi-home-outline", to: "/" },
-        { title: "Profile", icon: "mdi-help-box", to: "/about" },
+        { title: "Edit Profile", icon: "mdi-help-box", to: "/edit" },
         ],
     }),
 }

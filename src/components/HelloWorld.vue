@@ -1,6 +1,6 @@
 <template>
   <v-container id="">
-    <v-btn @click="checkAuth">CLICK TO TEST!</v-btn>
+    <!-- <v-btn @click="checkAuth">CLICK TO TEST!</v-btn> -->
     <v-row class="text-center">
       <v-col class="mb-4 main-container">
         <h1 class="mb-3 altitude">
@@ -15,7 +15,7 @@
           <div class="shadow"></div>
           <div class="shadow-two"></div>
         </h1>
-        <p>On a higher level</p>
+       <p></p> 
         <HappyPeople />
       </v-col>
     </v-row>
@@ -34,7 +34,7 @@
     <div class="missionStatement">
       <h2 class="text-center missionLine">Mission Statement</h2>
       <div class="mission-box">
-        <p>
+        <p class="">
           Our mission at Altitude is aligning physical and mental well-beings
           with care, thoughtfulness and understanding. <br />Altitude brings
           thoughtfulness and care to men and women delivered with
@@ -97,12 +97,13 @@ export default {
    color: rgb(134, 189, 142)
 }
 .altitude {
-  font-weight: lighter !important;
-  letter-spacing: 0.2rem !important;
-  font-size: 5rem;
+   font-weight: bold !important;
+  letter-spacing: 0.6rem !important;
+  font-size: 6rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  transform: skewY(-5deg);
 }
 .main-container {
   padding-top: 10%;
@@ -112,6 +113,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-left: 1rem;
+   padding-right: 1rem;
 }
 .balloon {
 }
@@ -128,40 +131,47 @@ export default {
 
 
 .a {
-
+  color: rgb(233, 176, 176);
   animation: bounce 1s ease-in-out
 }
 
 .b {
-
+    color: rgb(199, 212, 149);
   animation: bounce 1s ease  .1s;
 }
 
 .c {
+    color: rgb(135, 218, 157);
   animation: bounce 1s ease  .2s;
 }
 
 .d {
+    color: rgb(140, 165, 211);
   animation: bounce 1s ease  .3s;
 }
 
 .e {
+    color: rgb(176, 160, 222);
   animation: bounce 1s ease  .4s;
 }
 
 .f {
+    color: rgb(199, 154, 196);
   animation: bounce 1s ease  .5s;
 }
 .g {
+    color: rgb(189, 133, 156);
   animation: bounce 1s ease  .6s;
 }
 .h {
+    color: rgb(226, 127, 127);
   animation: bounce 1s ease  .7s;
 }
 
  @keyframes bounce {
-        0%   { transform: scale(1,1) translateY(0); }
-        10%  { transform: scale(1.1,.9) translateY(0); }
+        0%   { transform: scale(1,1) translateY(0);
+                color: rgb(162, 48, 48); }
+        10%  { transform: scale(1.1,.9) translateY(0); color: rgb(48, 114, 162); }
         30%  { transform: scale(.9,1.1)   translateY(-55px);}
         50%  { transform: scale(1.05,.95) translateY(0); }
         58%  { transform: scale(1,1) translateY(-7px); }

@@ -2,11 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SignIn from '../views/SignIn.vue'
-import About from '../views/About.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Post from '../views/Post.vue'
 import store from "../store"
 import PageNotFound from '../views/PageNotFound.vue'
+import Journal from '../views/Journal.vue'
+import Profile from '../views/Profile.vue'
+import EditProfile from '../views/EditProfile.vue'
 
 const isAuthenticated = async () => {
   try {
@@ -38,12 +40,6 @@ const routes = [
 
   },
   {
-    path: '/about',
-    name: 'About',
-    component: About,
- 
-  },
-  {
     path: '/login',
     name: 'SignIn',
     component: SignIn,
@@ -56,10 +52,46 @@ const routes = [
       if (await isAuthenticated() === true) {
         next()
       } else if (await isAuthenticated() === false) {
-        next('/login')
+        next('/#signin')
       }
     }
-},
+  },
+  {
+    path: "/journal",
+    name: "Journal",
+    component: Journal,
+    beforeEnter: async (to, from, next) => {  
+      if (await isAuthenticated() === true) {
+        next()
+      } else if (await isAuthenticated() === false) {
+        next('/#signin')
+      }
+    }
+  },
+  {
+    path: "/profile/:id",
+    name: "Profile",
+    component: Profile,
+    beforeEnter: async (to, from, next) => {  
+      if (await isAuthenticated() === true) {
+        next()
+      } else if (await isAuthenticated() === false) {
+        next('/#signin')
+      }
+    }
+  },
+  {
+    path: "/edit",
+    name: "EditProfile",
+    component: EditProfile,
+    beforeEnter: async (to, from, next) => {  
+      if (await isAuthenticated() === true) {
+        next()
+      } else if (await isAuthenticated() === false) {
+        next('/#signin')
+      }
+    }
+  },
 
 {
   path: "/post/:id",

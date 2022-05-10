@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer app v-model="drawer" color="#4d4c4b" dark>
+    <v-navigation-drawer app v-model="drawer" color="#4d4c4b" class="navDrawer">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6" @click="consoleme">{{time}}
@@ -40,20 +40,22 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar app color="#4d4c4b" dark>
+    <v-app-bar app color="#4d4c4b" class="navbar">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+       <h1 class="altitude">Altitude</h1>
       <v-app-bar-title></v-app-bar-title>
       <v-spacer></v-spacer>
         <LoginModal v-model="dialog" />
         <SignUpModal v-model="dialog2"/>
-      <v-text-field
+
+      <!-- <v-text-field
         class="appSearch"
         center
         dense
         outlined
         placeholder="Search"
         prepend-inner-icon="mdi-magnify"
-      ></v-text-field>
+      ></v-text-field> -->
       <div v-if="showUsername">
       <v-btn color="gray lighten-2" dark @click="showingModal">
         <v-icon>mdi-account-box</v-icon>
@@ -85,7 +87,7 @@ export default {
     group: null,
     items: [
       { title: "Home", icon: "mdi-home-outline", to: "/" },
-      { title: "About", icon: "mdi-help-box", to: "/about" },
+      { title: "Journal", icon: "mdi-notebook", to: "/journal" },
     ],
     dialog: false,
     dialog2: false,
@@ -199,6 +201,19 @@ export default {
 </script>
 
 <style scoped>
+.navDrawer {
+  background-color: #c7c6c6 !important;
+background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23373737' fill-opacity='0.12'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E") !important;
+}.navbar {
+  background-color: #c7c6c6 !important;
+}
+.altitude {
+  font-size: 1.5rem;
+  font-weight: bold !important;
+  cursor: pointer;
+}
+
+
 .appSearch {
   padding-top: 25px !important;
   flex-grow: 2;
