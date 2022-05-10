@@ -6,7 +6,7 @@ import About from '../views/About.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Post from '../views/Post.vue'
 import store from "../store"
-
+import PageNotFound from '../views/PageNotFound.vue'
 
 const isAuthenticated = async () => {
   try {
@@ -60,11 +60,13 @@ const routes = [
       }
     }
 },
+
 {
   path: "/post/:id",
   name: "Post",
   component: Post,
-}
+},
+{ path: "*", component: PageNotFound },
 ]
 
 const router = new VueRouter({

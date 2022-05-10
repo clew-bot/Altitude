@@ -1,6 +1,5 @@
-# Ultimate Vue Template - Reddit API/JWT/MongoDB/Vuex/Vuetify
+# Altitude - Positive Psychology 🧠
 
-**This is a template made by me to help others get started with Vue.**
 <p>This project is consisted of the MEVN stack</p>
 <b>Application process:</b>
 
@@ -33,3 +32,5 @@ npm install
 ```
 npm run dev
 ```
+
+**This also serves as a template made by me to help others get started with Vue.**
