@@ -23,6 +23,7 @@
                 :key="i"
                 :to="item.to"
               >
+              
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
