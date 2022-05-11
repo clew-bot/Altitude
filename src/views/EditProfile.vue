@@ -4,31 +4,37 @@
       <!-- <img src="api/images/ed38a63b6ba71283e1e5ff7c08e99bc7" alt=""> -->
       <h2 class="form-title">Edit Profile</h2>
       <p>Any changes will go unsaved unless you click the "Save" button.</p>
-      <FormulateInput type="image" name="profilePic" label="Profile Picture" />
+      
+
 
       <FormulateForm
         @submit="submitEdit"
-        v-model="formValues"
         class="formulate-form"
+
       >
+        <FormulateInput type="image" name="profilePic" label="Profile Picture" upload-behavior="delayed"/>
+
         <FormulateInput
           name="name"
           type="text"
           label="Name"
           placeholder="Name"
-          value=""
+           v-model="name"
+           
         />
         <FormulateInput
           name="headline"
           type="text"
           label="Headline"
           placeholder="Badass who loves walking their dog"
+               v-model="headline"
         />
         <FormulateInput
           name="bio"
           type="textarea"
           label="Bio"
           placeholder="Something that describes you"
+               v-model="bio"
         />
 
         <v-divider></v-divider>
@@ -39,37 +45,42 @@
           type="text"
           label="Favorite Movie"
           placeholder="Spider-Man 2"
+               v-model="movie"
         />
         <FormulateInput
           name="food"
           type="text"
           label="Favorite Food"
           placeholder="Donuts, Sushi, etc"
+               v-model="food"
         />
         <FormulateInput
           name="hobbies"
           type="text"
           label="Favorite Hobbies"
           placeholder="Playing basketball"
+               v-model="hobbies"
         />
         <FormulateInput
           name="music"
           type="text"
           label="Favorite Music"
           placeholder="Classical Jazz"
+               v-model="music"
         />
         <FormulateInput
           name="books"
           type="text"
           label="Favorite Books"
           placeholder="Steve Jobs by Walter Isaacson"
+               v-model="books"
         />
         <div class="double-wide"></div>
         <div class="submitBtn">
           <FormulateInput type="submit" label="Save" />
         </div>
-        <pre class="code" v-text="formValues" />
       </FormulateForm>
+
     </v-card>
   </div>
 </template>
@@ -78,7 +89,14 @@
 export default {
   data() {
     return {
-      formValues: {},
+      name: "",
+      headline: "",
+      bio: "",
+      movie: "",
+      food: "",
+      hobbies: "",
+      music: "",
+      books: "",
       chips: [],
       items: ["Streaming", "Eating"],
     };
@@ -90,13 +108,12 @@ export default {
       this.chips = [...this.chips];
     },
     async submitEdit() {
-      console.log(this.formValues);
       const response = await fetch("api/editprofile", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(this.formValues),
+        body: JSON.stringify({ name: this.name, headline: this.headline, bio: this.bio, movie: this.movie, food: this.food, hobbies: this.hobbies, music: this.music, books: this.books }),
       })
       const data = await response.json();
       console.log(data);

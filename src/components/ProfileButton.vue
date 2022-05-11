@@ -1,5 +1,5 @@
 <template>
-    <v-btn depressed>
+    <v-btn depressed :to='"/profile/" + username'>
             <svg style="border-radius: 10px;" width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="full"><path d="M32 0v32h-6v-8a3.5 3.5 0 00-3.5-3.5h-13A3.5 3.5 9 006 24v8H0V0h32zM16.096 3.5H16c-3.84 0-6.956 3.601-7 8.063v.093c0 3.78 3.143 6.844 7 6.844s7-3.062 7-6.844c0-3.635-2.9-6.608-6.56-6.83a7.26 7.26 0 00-.344-.013V3.501z" fill="currentColor" fill-rule="evenodd"></path></svg>
     <div class="profileText">
         <p id="loggedAs">Logged as</p>
@@ -13,18 +13,37 @@ export default {
     name: 'ProfileButton',
     data() {
         return {
-            
+            profileUser: ""
         }
+},
+methods: {
+     autoLogout() {
+      console.log("Starting")
+      setTimeout(async () => {
+      try {
+        console.log("Starting SetTimeout")
+        const res = await fetch("/api/logout");
+        const data = await res.json();
+        this.$store.dispatch("user/LOGOUT_USER");
+        console.log("data", data);
+        window.localStorage.removeItem("vuelo");
+        this.$router.push("/");
+      } catch (error) {
+        throw new Error(error);
+      }
+      }, 20000);
+    },
 },
 
     computed: {
     username() {
       const localStorage = window.localStorage.getItem("username");
+
       if (this.$store.state.user.username === "") {
         if (localStorage) {
           return localStorage
         } else {
-          return localStorage
+          return
         }
       } else if (this.$store.state.user.loggedIn) {
         return this.$store.state.user.username;

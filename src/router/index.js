@@ -72,13 +72,6 @@ const routes = [
     path: "/profile/:id",
     name: "Profile",
     component: Profile,
-    beforeEnter: async (to, from, next) => {  
-      if (await isAuthenticated() === true) {
-        next()
-      } else if (await isAuthenticated() === false) {
-        next('/#signin')
-      }
-    }
   },
   {
     path: "/edit",

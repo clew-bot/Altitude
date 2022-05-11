@@ -9,6 +9,7 @@ Vue.use(VueFormulate, {
   uploader: async function (file, progress, error) {
     try {
       const formData = new FormData()
+      console.log("DO you see me??")
       formData.append('image', file)
       const result = await fetch("/api/uploadprofilepic", {
         method: 'POST',

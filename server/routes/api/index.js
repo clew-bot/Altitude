@@ -159,8 +159,6 @@ router.post("/forgotPassword", async (req, res) => {
 
 
 router.post("/editprofile", authorization, async (req, res) => {
-  console.log(req.body);
-  console.log("Req.user", req.user);
   const response = await db.User.findOneAndUpdate({ email: req.user.user.email }, {
     headline: req.body.headline,
     bio: req.body.bio,
@@ -170,16 +168,25 @@ router.post("/editprofile", authorization, async (req, res) => {
     favoriteFood: req.body.food,
     favoriteHobbies: req.body.hobbies,
   }
-    )
-  console.log("response = ", response)
+    );
+    console.log("Edit Profile = ", response);
   res.json({ message: "Profile has been updated" });
 });
 
-router.post("/uploadprofilepic", upload.single("image"), async (req, res) => {
+
+
+
+router.post("/uploadprofilepic", authorization, upload.single("image"), async (req, res) => {
+  console.log(req.body);
+  console.log("Req.user", req.user);
   const file = req.file;
   console.log(file);
   const result = await uploadFile(file)
-  console.log(result);
+  console.log("THE RESULT =", result);
+  const updateUserPhoto = await db.User.findOneAndUpdate({ email: req.user.user.email }, {
+    $push: { photos: result.Key }, 
+  });
+  console.log("Update User Photo = ", updateUserPhoto);
   await(unlinkFile(file.path))
   res.send({ "url": "/images/" + file.filename, "name": file.originalname });
 });
@@ -190,7 +197,7 @@ router.get("/images/:key", (req, res) => {
   readStream.pipe(res);
 })
 
-router.post("/profile", authorization, async (req, res) => {
+router.post("/profile", async (req, res) => {
   console.log(req.body)
   try {
   const findUser = await db.User.findOne({ username: req.body.query }).select("-password");
