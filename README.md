@@ -8,7 +8,6 @@
 2. Retrieve JWT
 3. Head to Dashboard
 4. Check out Dashboard
-  1. Search for Subreddits on search
 5. Edit Account (top right)
 6. Look at profile and others by using "/profile/<>username<>"
 
