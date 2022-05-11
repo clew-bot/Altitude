@@ -191,11 +191,15 @@ router.post("/uploadprofilepic", authorization, upload.single("image"), async (r
   res.send({ "url": "/images/" + file.filename, "name": file.originalname });
 });
 
+
+
 router.get("/images/:key", (req, res) => {
   const key = req.params.key;
   const readStream = getFileStream(key);
   readStream.pipe(res);
 })
+
+
 
 router.post("/profile", async (req, res) => {
   console.log(req.body)

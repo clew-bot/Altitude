@@ -1,5 +1,8 @@
 <template>
   <div class="text-center">
+    <div v-if="isThereImages">
+    <img v-for="image in photos" :key="image" :src="'/api/images/' + image" alt="">
+    </div>
     <div>Profile</div>
     <h1 @click="fetchProfileData">Name: @{{ username }}</h1>
     <h2>{{ headline }}</h2>
@@ -32,6 +35,8 @@ export default {
       favoriteMusic: "",
       favoriteFood: "",
       headline: "",
+      photos: [],
+      isThereImages: false,
     };
   },
   name: "Profile",
@@ -59,8 +64,12 @@ export default {
           favoriteMovies,
           headline,
           username,
+          photos
         } = await response.json();
-        console.log(favoriteFood)
+        if (photos.length > 0) {
+          this.isThereImages = true;
+        }
+        console.log(photos);
         this.bio = bio;
         this.username = username;
         this.favoriteBooks = favoriteBooks;
@@ -70,6 +79,7 @@ export default {
         this.headline = headline;
         this.favoriteFood = favoriteFood;
         this.loading = false;
+        this.photos = photos
       } catch (error) {
         console.log(error);
       }
@@ -81,4 +91,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+img {
+  max-height: 100px;
+}
+</style>
