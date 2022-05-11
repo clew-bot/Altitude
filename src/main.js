@@ -4,12 +4,6 @@ import router from './router'
 import vuetify from './plugins/vuetify'
 import store from "./store"
 import VueFormulate from '@braid/vue-formulate'
-// import axios from 'axios'
-
-
-// const axiosInstance = axios.create({
-//   baseURL: '/api/uploadprofilepic'
-// })
 
 Vue.use(VueFormulate, {
   uploader: async function (file, progress, error) {

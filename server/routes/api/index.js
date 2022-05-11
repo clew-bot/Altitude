@@ -161,8 +161,8 @@ router.post("/uploadprofilepic", upload.single("image"), async (req, res) => {
   const file = req.file;
   console.log(file);
   const result = await uploadFile(file)
-  await(unlinkFile(file.path))
   console.log(result);
+  await(unlinkFile(file.path))
   res.send({ "url": "/images/" + file.filename, "name": file.originalname });
 });
 
