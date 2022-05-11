@@ -5,6 +5,10 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const multer = require("multer");
 const { uploadFile, getFileStream } = require("../../s3");
+const fs = require("fs");
+const util = require("util"); 
+const unlinkFile = util.promisify(fs.unlink); 
+
 // const getFileStream = require("../../s3");
 require("isomorphic-fetch");
 
@@ -157,6 +161,7 @@ router.post("/uploadprofilepic", upload.single("image"), async (req, res) => {
   const file = req.file;
   console.log(file);
   const result = await uploadFile(file)
+  await(unlinkFile(file.path))
   console.log(result);
    res.send("Nice");
 });
