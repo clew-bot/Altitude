@@ -164,7 +164,7 @@ router.post("/editprofile", authorization, async (req, res) => {
   const response = await db.User.findOneAndUpdate({ email: req.user.user.email }, {
     headline: req.body.headline,
     bio: req.body.bio,
-    favoriteMovies: req.body.password,
+    favoriteMovies: req.body.movie,
     favoriteMusic: req.body.music,
     favoriteBooks: req.body.books,
     favoriteFood: req.body.food,
@@ -189,5 +189,20 @@ router.get("/images/:key", (req, res) => {
   const readStream = getFileStream(key);
   readStream.pipe(res);
 })
+
+router.post("/profile", authorization, async (req, res) => {
+  console.log(req.body)
+  try {
+  const findUser = await db.User.findOne({ username: req.body.query }).select("-password");
+  if (!findUser) {
+    res.json({ message: "User does not exist" });
+  } else {
+  console.log("findUser = ", findUser)
+  res.json(findUser);
+  }
+  } catch (err) {
+    console.log("Couldn't find any user with that account name ", err)
+  }
+});
 
 module.exports = router;
