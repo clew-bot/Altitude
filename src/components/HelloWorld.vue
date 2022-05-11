@@ -15,12 +15,14 @@
           <div class="shadow"></div>
           <div class="shadow-two"></div>
         </h1>
-       <p></p> 
+        <p></p>
         <HappyPeople />
       </v-col>
     </v-row>
-
-    <h2 class="text-center whoLine">We're here for change <i>(the good kind)</i></h2>
+<v-card class="v-cardhome">
+    <h2 class="text-center whoLine">
+      We're here for change <i>(the good kind)</i>
+    </h2>
     <div class="whoRwe">
       <Friendship class="balloon" />
       <p>
@@ -28,9 +30,9 @@
         providing the best positive psychology .
       </p>
     </div>
+</v-card>
 
-
-
+<v-card class="v-cardhome2">
     <div class="missionStatement">
       <h2 class="text-center missionLine">Mission Statement</h2>
       <div class="mission-box">
@@ -44,6 +46,7 @@
         <PositiveA />
       </div>
     </div>
+    </v-card>
   </v-container>
 </template>
 
@@ -85,19 +88,48 @@ export default {
 </script>
 
 <style scoped>
+.v-cardhome2 {
+
+  background-color: #e07b7b !important;
+}
+.v-cardhome {
+    background-color: #60c490 !important;
+}
+
+@media screen and (max-width: 600px) {
+  .a,
+  .b,
+  .c,
+  .d,
+  .e,
+  .f,
+  .g,
+  .h {
+    font-size: 4.8rem;
+    box-shadow: none !important;
+    letter-spacing: 0 !important;
+    padding: 0px !important;
+    padding-top: 2rem !important;
+    background: none !important;
+  }
+}
 
 .missionLine {
   padding-top: 50px;
-    color: rgb(134, 150, 189)
+  color: rgb(250, 250, 250);
+    font-weight: lighter;
+  font-size: 2rem;
 }
 
 .whoLine {
-   border-top: solid 2px #cecbc8;
-   padding-top: 50px;
-   color: rgb(134, 189, 142)
+  /* border-top: solid 2px #cecbc8; */
+  padding-top: 50px;
+  color: rgb(244, 235, 235);
+  font-weight: lighter;
+  font-size: 2rem;
 }
 .altitude {
-   font-weight: bold !important;
+  font-weight: bold !important;
   letter-spacing: 0.6rem !important;
   font-size: 6rem;
   display: flex;
@@ -114,68 +146,136 @@ export default {
   align-items: center;
   justify-content: center;
   padding-left: 1rem;
-   padding-right: 1rem;
-}
-.balloon {
+  padding-right: 1rem;
 }
 .whoRwe {
   display: flex;
-  border-bottom: solid 2px #cecbc8;
-  
+  /* border-bottom: solid 2px #cecbc8; */
+
   padding: 20px 20px;
   justify-content: center;
   align-items: center;
-
 }
-
-
 
 .a {
   color: rgb(233, 176, 176);
-  animation: bounce 1s ease-in-out
+  animation: bounce 1s ease-in-out;
+  box-shadow: 0 0 0.5rem #fa0bbe;
+  padding: 10px;
+  cursor: default;
+  background: #f4f4f4;
 }
 
 .b {
-    color: rgb(199, 212, 149);
-  animation: bounce 1s ease  .1s;
+  color: rgb(199, 212, 149);
+  animation: bounce 1s ease 0.1s;
+  box-shadow: 0 0 0.5rem #07a0ff;
+  padding: 10px;
+  cursor: default;
+  background: #f4f4f4;
 }
 
 .c {
-    color: rgb(135, 218, 157);
-  animation: bounce 1s ease  .2s;
+  color: rgb(135, 218, 157);
+  animation: bounce 1s ease 0.2s;
+  box-shadow: 0 0 0.5rem #dcb68f;
+  padding: 10px;
+  cursor: default;
+  background: #f4f4f4;
 }
 
 .d {
-    color: rgb(140, 165, 211);
-  animation: bounce 1s ease  .3s;
+  color: rgb(140, 165, 211);
+  animation: bounce 1s ease 0.3s;
+  box-shadow: 0 0 0.5rem #6de4d8;
+  padding: 10px;
+  cursor: default;
+  background: #f4f4f4;
 }
 
 .e {
-    color: rgb(176, 160, 222);
-  animation: bounce 1s ease  .4s;
+  color: rgb(176, 160, 222);
+  animation: bounce 1s ease 0.4s;
+  box-shadow: 0 0 0.5rem #5da464;
+  padding: 10px;
+  cursor: default;
+  background: #f4f4f4;
 }
 
 .f {
-    color: rgb(199, 154, 196);
-  animation: bounce 1s ease  .5s;
+  color: rgb(199, 154, 196);
+  animation: bounce 1s ease 0.5s;
+  box-shadow: 0 0 0.5rem #b6ba43;
+  padding: 10px;
+  cursor: default;
+  background: #f4f4f4;
 }
 .g {
-    color: rgb(189, 133, 156);
-  animation: bounce 1s ease  .6s;
+  color: rgb(189, 133, 156);
+  animation: bounce 1s ease 0.6s;
+  box-shadow: 0 0 0.5rem #ec0404;
+  padding: 10px;
+  cursor: default;
+  background: #f4f4f4;
 }
 .h {
-    color: rgb(226, 127, 127);
-  animation: bounce 1s ease  .7s;
+  color: rgb(226, 127, 127);
+  animation: bounce 1s ease 0.7s;
+  box-shadow: 0 0 0.5rem #ea7fdf;
+  padding: 10px;
+  cursor: default;
+  background: #f4f4f4;
 }
 
- @keyframes bounce {
-        0%   { transform: scale(1,1) translateY(0);
-                color: rgb(162, 48, 48); }
-        10%  { transform: scale(1.1,.9) translateY(0); color: rgb(48, 114, 162); }
-        30%  { transform: scale(.9,1.1)   translateY(-55px);}
-        50%  { transform: scale(1.05,.95) translateY(0); }
-        58%  { transform: scale(1,1) translateY(-7px); }
-        65%  { transform: scale(1,1) translateY(0);}
-        100% { transform: scale(1,1) translateY(0);}
-    }
+@keyframes bounce {
+  0% {
+    transform: scale(1, 1) translateY(0);
+    color: rgb(16, 13, 13);
+  }
+  10% {
+    transform: scale(1.1, 0.9) translateY(0);
+    color: rgb(13, 15, 17);
+  }
+  30% {
+    transform: scale(0.9, 1.1) translateY(-55px);
+  }
+  50% {
+    transform: scale(1.05, 0.95) translateY(0);
+  }
+  58% {
+    transform: scale(1, 1) translateY(-7px);
+  }
+  65% {
+    transform: scale(1, 1) translateY(0);
+  }
+  100% {
+    transform: scale(1, 1) translateY(0);
+  }
+}
+
+@keyframes bounce1 {
+  0% {
+    transform: scale(1, 1) translateY(0);
+    color: rgb(162, 48, 48);
+  }
+  10% {
+    transform: scale(1.1, 0.9) translateY(0);
+    color: rgb(48, 114, 162);
+  }
+  30% {
+    transform: scale(0.9, 1.1) translateY(-55px);
+  }
+  50% {
+    transform: scale(1.05, 0.95) translateY(0);
+  }
+  58% {
+    transform: scale(1, 1) translateY(-7px);
+  }
+  65% {
+    transform: scale(1, 1) translateY(0);
+  }
+  100% {
+    transform: scale(1, 1) translateY(0);
+  }
+}
 </style>

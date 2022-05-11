@@ -3,7 +3,14 @@ const db = require("../../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
+const multer = require("multer");
+const { uploadFile, getFileStream } = require("../../s3");
+// const getFileStream = require("../../s3");
 require("isomorphic-fetch");
+
+const upload = multer({ dest: "uploads/" });
+
+
 
 const authorization = (req, res, next) => {
   const token = req.cookies.accessToken;
@@ -142,8 +149,22 @@ router.post("/forgotPassword", async (req, res) => {
       }
     });
   } else {
-      res.json({ message: "User does not exist" });
+    res.json({ message: "User does not exist" });
   }
 });
+
+router.post("/uploadprofilepic", upload.single("image"), async (req, res) => {
+  const file = req.file;
+  console.log(file);
+  const result = await uploadFile(file)
+  console.log(result);
+   res.send("Nice");
+});
+
+router.get("/images/:key", (req, res) => {
+  const key = req.params.key;
+  const readStream = getFileStream(key);
+  readStream.pipe(res);
+})
 
 module.exports = router;
