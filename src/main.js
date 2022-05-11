@@ -4,16 +4,30 @@ import router from './router'
 import vuetify from './plugins/vuetify'
 import store from "./store"
 import VueFormulate from '@braid/vue-formulate'
-import axios from 'axios'
+// import axios from 'axios'
 
 
-const axiosInstance = axios.create({
-  baseURL: '/api/uploadprofilepic'
-})
+// const axiosInstance = axios.create({
+//   baseURL: '/api/uploadprofilepic'
+// })
 
 Vue.use(VueFormulate, {
-  uploader: axiosInstance,
-  uploadUrl: '/upload'
+  uploader: async function (file, progress, error) {
+    try {
+      const formData = new FormData()
+      formData.append('image', file)
+      const result = await fetch("/api/uploadprofilepic", {
+        method: 'POST',
+        body: formData
+      })
+       progress(100)// (native fetch doesn’t support progress updates)
+      const data = await result.json()
+      console.log(data)
+
+    } catch (err) {
+      error('Unable to upload file')
+    }
+  }
 })
 Vue.config.productionTip = false
 

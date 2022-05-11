@@ -1,7 +1,12 @@
 <template>
 <div class="container">
 <v-card width="500" class="vcard">
-  <img src="api/images/ed38a63b6ba71283e1e5ff7c08e99bc7" alt="">
+  <!-- <img src="api/images/ed38a63b6ba71283e1e5ff7c08e99bc7" alt=""> -->
+          <FormulateInput
+      type="image"
+      name="profilePic"
+      label="Profile Picture"
+    />
   <FormulateForm
   @submit="submitEdit"
     v-model="formValues"
@@ -13,11 +18,7 @@
       Any changes will go unsaved unless you click the "Save" button.
     </p>
      <input type="file"  @change="upload($event)" id="file-input">
-        <!-- <FormulateInput
-      type="image"
-      name="profilePic"
-      label="Profile Picture"
-    /> -->
+
     <FormulateInput
       name="name"
       type="text"
