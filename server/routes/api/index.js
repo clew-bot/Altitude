@@ -157,6 +157,24 @@ router.post("/forgotPassword", async (req, res) => {
   }
 });
 
+
+router.post("/editprofile", authorization, async (req, res) => {
+  console.log(req.body);
+  console.log("Req.user", req.user);
+  const response = await db.User.findOneAndUpdate({ email: req.user.user.email }, {
+    headline: req.body.headline,
+    bio: req.body.bio,
+    favoriteMovies: req.body.password,
+    favoriteMusic: req.body.music,
+    favoriteBooks: req.body.books,
+    favoriteFood: req.body.food,
+    favoriteHobbies: req.body.hobbies,
+  }
+    )
+  console.log("response = ", response)
+  res.json({ message: "Profile has been updated" });
+});
+
 router.post("/uploadprofilepic", upload.single("image"), async (req, res) => {
   const file = req.file;
   console.log(file);

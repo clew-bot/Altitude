@@ -11,6 +11,14 @@ const userSchema = new Schema({
     type: String,
     required: true,
   }, 
+  headline: {
+    type: String,
+    required: false,
+  },
+  bio: {
+    type: String,
+    required: false,
+  },
   username: {
     type: String,
     required: false,
