@@ -4,48 +4,48 @@
     <v-row class="text-center">
       <v-col class="mb-4 main-container">
         <h1 class="mb-3 altitude">
-          <div class="a">A</div>
-          <div class="b">L</div>
-          <div class="c">T</div>
-          <div class="d">I</div>
-          <div class="e">T</div>
-          <div class="f">U</div>
-          <div class="g">D</div>
-          <div class="h">E</div>
-          <div class="shadow"></div>
-          <div class="shadow-two"></div>
+          <p class="a">A</p>
+          <p class="b">L</p>
+          <p class="c">T</p>
+          <p class="d">I</p>
+          <p class="e">T</p>
+          <p class="f">U</p>
+          <p class="g">D</p>
+          <p class="h">E</p>
+          <p class="shadow"></p>
+          <p class="shadow-two"></p>
         </h1>
         <p></p>
         <HappyPeople />
       </v-col>
     </v-row>
-<v-card class="v-cardhome">
-    <h2 class="text-center whoLine">
-      We're here for change <i>(the good kind)</i>
-    </h2>
-    <div class="whoRwe">
-      <Friendship class="balloon" />
-      <p>
-        Altitude offers a unique wellness experience for men and women, by
-        providing the best positive psychology .
-      </p>
-    </div>
-</v-card>
-
-<v-card class="v-cardhome2">
-    <div class="missionStatement">
-      <h2 class="text-center missionLine">Mission Statement</h2>
-      <div class="mission-box">
-        <p class="">
-          Our mission at Altitude is aligning physical and mental well-beings
-          with care, thoughtfulness and understanding. <br />Altitude brings
-          thoughtfulness and care to men and women delivered with
-          thoughtfulness, empathy and trust
+    <v-card class="v-cardhome">
+      <h2 class="text-center whoLine">
+        We're here for change <i>(the good kind)</i>
+      </h2>
+      <div class="whoRwe">
+        <Friendship class="balloon" />
+        <p>
+          Altitude offers a unique wellness experience for men and women, by
+          providing the best positive psychology .
         </p>
-
-        <PositiveA />
       </div>
-    </div>
+    </v-card>
+
+    <v-card class="v-cardhome2">
+      <div class="missionStatement">
+        <h2 class="text-center missionLine">Mission Statement</h2>
+        <div class="mission-box">
+          <p class="">
+            Our mission at Altitude is aligning physical and mental well-beings
+            with care, thoughtfulness and understanding. <br />Altitude brings
+            thoughtfulness and care to men and women delivered with
+            thoughtfulness, empathy and trust
+          </p>
+
+          <PositiveA />
+        </div>
+      </div>
     </v-card>
   </v-container>
 </template>
@@ -89,11 +89,10 @@ export default {
 
 <style scoped>
 .v-cardhome2 {
-
   background-color: #e07b7b !important;
 }
 .v-cardhome {
-    background-color: #60c490 !important;
+  background-color: #60c490 !important;
 }
 
 @media screen and (max-width: 600px) {
@@ -117,7 +116,7 @@ export default {
 .missionLine {
   padding-top: 50px;
   color: rgb(250, 250, 250);
-    font-weight: lighter;
+  font-weight: lighter;
   font-size: 2rem;
 }
 
@@ -164,6 +163,10 @@ export default {
   padding: 10px;
   cursor: default;
   background: #f4f4f4;
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
 }
 
 .b {
@@ -173,6 +176,10 @@ export default {
   padding: 10px;
   cursor: default;
   background: #f4f4f4;
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
 }
 
 .c {
@@ -182,6 +189,10 @@ export default {
   padding: 10px;
   cursor: default;
   background: #f4f4f4;
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
 }
 
 .d {
@@ -191,6 +202,10 @@ export default {
   padding: 10px;
   cursor: default;
   background: #f4f4f4;
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
 }
 
 .e {
@@ -200,6 +215,10 @@ export default {
   padding: 10px;
   cursor: default;
   background: #f4f4f4;
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
 }
 
 .f {
@@ -209,6 +228,10 @@ export default {
   padding: 10px;
   cursor: default;
   background: #f4f4f4;
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
 }
 .g {
   color: rgb(189, 133, 156);
@@ -217,6 +240,10 @@ export default {
   padding: 10px;
   cursor: default;
   background: #f4f4f4;
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
 }
 .h {
   color: rgb(226, 127, 127);
@@ -225,6 +252,10 @@ export default {
   padding: 10px;
   cursor: default;
   background: #f4f4f4;
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
 }
 
 @keyframes bounce {

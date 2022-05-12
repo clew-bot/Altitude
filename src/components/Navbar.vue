@@ -42,7 +42,8 @@
     </v-navigation-drawer>
     <v-app-bar app color="#4d4c4b" class="navbar">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-       <h1 class="altitude">Altitude</h1>
+      <router-link to="/" style="text-decoration: none; color: inherit;"> <h1 class="altitude" >Altitude</h1></router-link>
+ 
        <!-- <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0DDChjnLvpfCfoxXnEN4sw?utm_source=generator" width="100%" height="50" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe> -->
       <v-app-bar-title></v-app-bar-title>
       <v-spacer></v-spacer>

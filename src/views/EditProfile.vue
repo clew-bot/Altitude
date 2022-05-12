@@ -108,6 +108,7 @@ export default {
       this.chips = [...this.chips];
     },
     async submitEdit() {
+      
       const response = await fetch("api/editprofile", {
         method: "POST",
         headers: {
