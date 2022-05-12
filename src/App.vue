@@ -2,7 +2,7 @@
   <v-main>
     <v-app>
       <Navbar />
-      <router-view class="" />
+      <router-view class="" :key="$route.path"/>
     </v-app>
   </v-main>
 </template>
