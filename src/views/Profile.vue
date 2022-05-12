@@ -1,8 +1,8 @@
 <template>
 
   <div class="main-container" v-if="!noUsername">
-    <div class="sub-container">
-    <div class="rows1" :class="{show : show, closed : !show }">
+    <div class="sub-container" >
+    <div v-if="!loading" class="rows1" :class="{show : show, closed : !show }">
       <div class="lastSeen">
         <div class="member-container">
           <div><h3>Member Since: {{this.createdAt}}</h3></div>
@@ -23,13 +23,14 @@
       </div>
         <br/>
 
-      <div class="image-container">
+      <div class="image-container" v-if="!loadingImage">
  
         <div v-if="isThereImages">
           <div>
             <img
               :src="'/api/images/' + profilePic"
               alt=""
+              class="image"
             />
           </div>
           </div>
@@ -42,9 +43,28 @@
         <h2>{{ headline }}</h2>
         <p>{{bio}}</p>
              </div>
+             <div  v-else>
+                <v-progress-circular
+      :size="70"
+      :width="7"
+      color="purple"
+      indeterminate
+    ></v-progress-circular>
+             </div>
                  <!-- <v-icon class="down-icon" @click="dropDown">mdi-chevron-down</v-icon> -->
     </div>
+    <div class="sub-container" v-else>
+          <div class="rows1" :class="{show : show, closed : !show }">
+  <v-progress-circular
+      :size="70"
+      :width="7"
+      color="purple"
+      indeterminate
+    ></v-progress-circular>
+    </div>
 </div>
+</div>
+
   
 
 
@@ -67,7 +87,8 @@ export default {
   data() {
     return {
       show: false,
-      loading: false,
+      loading: true,
+      loadingImage: true,
       bio: "",
       username: "",
       favoriteBooks: "",
@@ -94,7 +115,6 @@ export default {
     },
     async fetchProfileData() {
       const query = this.$router.currentRoute.params.id;
-      this.loading = true;
       const response = await fetch(`/api/profile`, {
         method: "POST",
         headers: {
@@ -145,9 +165,10 @@ export default {
         this.favoriteMusic = favoriteMusic;
         this.headline = headline;
         this.favoriteFood = favoriteFood;
-        this.loading = false;
         this.photos = photos;
         this.profilePic = profilePic;
+        this.loading = false;
+        this.loadingImage = false;
       } catch (error) {
         console.log(error);
       }
@@ -160,6 +181,9 @@ export default {
 </script>
 
 <style scoped>
+.image {
+  animation: fadeIn 5s;
+}
 
 @media screen and (max-width: 600px) {
 
@@ -251,4 +275,10 @@ img {
   border-radius: 5px;
   box-shadow: 0px 0px 10px #1b1919;
 }
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
 </style>

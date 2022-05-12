@@ -4,13 +4,9 @@
 
     <div v-if="!loading">
       <v-container fluid>
-        <v-row dense >
+        <v-row dense>
           <v-col v-for="card in cards.slice(1)" :key="card.id">
-            <v-card
-         
-              class="mx-auto"
-              max-width="344"
-            >
+            <v-card class="mx-auto" max-width="344">
               <v-img :src="card.src" height="200px"></v-img>
 
               <v-card-title id="cardTitle">
@@ -81,136 +77,32 @@ export default {
     show: false,
     loading: false,
     cards: [
-      {
-        title: "Pre-fab homes",
-        src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
-        author: "",
-      },
-      {
-        title: "Favorite road trips",
-        src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        author: "",
-      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
     ],
   }),
   methods: {
@@ -218,12 +110,10 @@ export default {
       const res = await fetch("api/n/programming");
       const data = await res.json();
       for (let i = 0; i < data.length; i++) {
-        console.log("Titles = ", data[i].data.title);
         this.cards[i].title = data[i].data.title;
         this.cards[i].src = data[i].data.url_overridden_by_dest;
         this.cards[i].to = data[i].data.url;
         this.cards[i].author = data[i].data.author;
-        console.log(this.cards[i]);
       }
 
       this.loading = false;

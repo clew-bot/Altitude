@@ -120,6 +120,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/n/programming", authorization, async (req, res) => {
+  console.log("im hit")
   const fetchProgrammingNews = await fetch(
     "https://www.reddit.com/r/ProgrammerHumor.json"
   );

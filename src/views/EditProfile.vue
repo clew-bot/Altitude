@@ -6,13 +6,17 @@
       <p>Any changes will go unsaved unless you click the "Save" button.</p>
 
       <FormulateForm @submit="submitEdit" class="formulate-form">
+<div   class="text-center">
         <FormulateInput
           type="image"
           name="profilePic"
           label="Profile Picture"
           upload-behavior="delayed"
+        
         />
-
+        </div>
+        <div class="field-container">
+<div>
         <FormulateInput
           name="name"
           type="text"
@@ -37,10 +41,8 @@
           v-model="bio"
           :validation="[ ['max', 60], ['min', 0]]"
         />
-
-        <v-divider></v-divider>
-        <br />
-
+</div>
+<div>
         <FormulateInput
           name="movie"
           type="text"
@@ -76,6 +78,8 @@
           placeholder="Steve Jobs by Walter Isaacson"
           v-model="books"
         />
+        </div>
+        </div>
         <div class="double-wide"></div>
         <div class="submitBtn">
           <FormulateInput type="submit" label="Save" />
@@ -146,7 +150,7 @@ export default {
         //   'Content-Type': 'multipart/form-data',
         // },
       });
-      const data2 = await res.json();
+      const data2 = await res.json(); 
       console.log(data2);
     },
   },
@@ -157,6 +161,19 @@ export default {
 </script>
 
 <style scoped>
+
+input {
+  width: 100px !important;
+
+}
+
+.field-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .submitBtn {
   display: flex;
   justify-content: center;
@@ -165,6 +182,7 @@ export default {
 
 .vcard {
   background-color: #f0f0f1 !important;
+  width: 1000px;
 }
 .container {
   display: flex;
@@ -173,7 +191,7 @@ export default {
 }
 
 .formulate-form {
-  padding: 5rem;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
