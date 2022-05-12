@@ -11,11 +11,11 @@
             <v-col>
       <br/>
       <div class="bio">                                     
-      <p >{{ bio }}</p>
+      <b><i >{{ bio }}</i></b>
       </div>
       <br/>
       <br/>
-      <p>Favorite Books: {{ favoriteBooks }}</p>
+      <p>Favorite Book: {{ favoriteBooks }}</p>
       <p>Favorite Hobbies: {{ favoriteHobbies }}</p>
       <p>Favorite Music: {{ favoriteMusic }}</p>
       <p>Favorite Food: {{ favoriteFood }}</p></v-col
@@ -23,7 +23,7 @@
       </div>
         <br/>
 
-      <div>
+      <div class="image-container">
  
         <div v-if="isThereImages">
           <div>
@@ -38,7 +38,7 @@
           </div>
    
         
-        <h1 @click="fetchProfileData">@{{ username }}</h1>
+        <h1 class="username" @click="fetchProfileData">@{{ username }}</h1>
         <h2>{{ headline }}</h2>
         <p>{{bio}}</p>
              </div>
@@ -160,6 +160,26 @@ export default {
 </script>
 
 <style scoped>
+
+@media screen and (max-width: 600px) {
+
+  .username {
+    padding-right:3rem;
+    color: rgb(250, 250, 250);
+  }
+  .sub-container {
+    padding: 10px;
+  }
+  .image-container {
+    padding: 10px;
+    background: rgba(199, 44, 44, 0.878);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  }
+  .rows1 {
+    display: block !important;
+  }
+}
 .bio {
 
     overflow-wrap: break-word;
@@ -168,7 +188,7 @@ export default {
 
 .member-container {
   display: flex;
-  background: rgba(76, 107, 98, 0.395);
+
   padding: 10px;
   border-radius: 10px;
 
