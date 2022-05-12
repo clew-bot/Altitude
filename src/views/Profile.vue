@@ -1,86 +1,91 @@
 <template>
-<div class="entire-container">
-  <div class="main-container" v-if="!noUsername">
-    <div class="sub-container">
-      <div v-if="!loading" class="rows1" :class="{ show: show, closed: !show }">
-        <div class="lastSeen">
-          <div class="member-container">
-            <div>
-              <h3>Member Since: {{ this.createdAt }}</h3>
+  <div class="entire-container">
+    <div class="main-container" v-if="!noUsername">
+      <div class="sub-container">
+        <div
+          v-if="!loading"
+          class="rows1"
+          :class="{ show: show, closed: !show }"
+        >
+          <div class="lastSeen">
+            <div class="member-container">
+              <div>
+                <h3>Member Since: {{ this.createdAt }}</h3>
+              </div>
+              <div>Last Seen: {{ this.lastLogin }}</div>
             </div>
-            <div>Last Seen: {{ this.lastLogin }}</div>
+            <v-col>
+              <br />
+              <div class="bio">
+                <b
+                  ><i>{{ bio }}</i></b
+                >
+              </div>
+              <br />
+              <br />
+              <p>Favorite Book: {{ favoriteBooks }}</p>
+              <p>Favorite Hobbies: {{ favoriteHobbies }}</p>
+              <p>Favorite Music: {{ favoriteMusic }}</p>
+              <p>Favorite Food: {{ favoriteFood }}</p></v-col
+            >
           </div>
-          <v-col>
-            <br />
-            <div class="bio">
-              <b
-                ><i>{{ bio }}</i></b
-              >
-            </div>
-            <br />
-            <br />
-            <p>Favorite Book: {{ favoriteBooks }}</p>
-            <p>Favorite Hobbies: {{ favoriteHobbies }}</p>
-            <p>Favorite Music: {{ favoriteMusic }}</p>
-            <p>Favorite Food: {{ favoriteFood }}</p></v-col
-          >
-        </div>
-        <br />
+          <br />
 
-        <div class="image-container" v-if="!loadingImage">
-          <div v-if="isThereImages">
-            <div>
-              <img :src="'/api/images/' + profilePic" alt="" class="image" />
+          <div class="image-container" v-if="!loadingImage">
+            <div v-if="isThereImages">
+              <div>
+                <img :src="'/api/images/' + profilePic" alt="" class="image" />
+              </div>
             </div>
+            <div v-else>
+              <img
+                src="../assets/nopic.png"
+                alt="No Image Found"
+                class="questionMark"
+              />
+            </div>
+
+            <h1 class="username theHeadline" @click="fetchProfileData">
+              <span class="">@</span>{{ username }}
+            </h1>
+            <h2 class="theHeadline">{{ headline }}</h2>
           </div>
           <div v-else>
-            <img
-              src="../assets/nopic.png"
-              alt="No Image Found"
-              class="questionMark"
-            />
+            <v-progress-circular
+              :size="70"
+              :width="7"
+              color="purple"
+              indeterminate
+            ></v-progress-circular>
           </div>
+          <!-- <v-icon class="down-icon" @click="dropDown">mdi-chevron-down</v-icon> -->
+        </div>
+        <div class="sub-container" v-else>
+          <div class="rows1" :class="{ show: show, closed: !show }">
+            <v-progress-circular
+              :size="70"
+              :width="7"
+              color="purple"
+              indeterminate
+            ></v-progress-circular>
+          </div>
+        </div>
+      </div>
+      <MoreProfiles :profiles="moreProfiles"/>
+    </div>
 
-          <h1 class="username theHeadline" @click="fetchProfileData"><span class="">@</span>{{ username }}</h1>
-          <h2 class='theHeadline'>{{ headline }}</h2>
-        </div>
-        <div v-else>
-          <v-progress-circular
-            :size="70"
-            :width="7"
-            color="purple"
-            indeterminate
-          ></v-progress-circular>
-        </div>
-        <!-- <v-icon class="down-icon" @click="dropDown">mdi-chevron-down</v-icon> -->
-      </div>
-      <div class="sub-container" v-else>
-        <div class="rows1" :class="{ show: show, closed: !show }">
-          <v-progress-circular
-            :size="70"
-            :width="7"
-            color="purple"
-            indeterminate
-          ></v-progress-circular>
-        </div>
+    <div v-else class="sub-container">
+      <div class="rows1" :class="{ show: show, closed: !show }">
+        <h1>no username found 🤔</h1>
       </div>
     </div>
-  </div>
-  <div v-else class="sub-container">
-    <div class="rows1" :class="{ show: show, closed: !show }">
-      <h1>no username found 🤔</h1>
-    </div>
-  </div>
   </div>
 </template>
 
 <script>
 import moment from "moment";
-//check for param in url
-// if param exists, set to that param
+import MoreProfiles from "@/components/MoreProfiles.vue";
 
-//if param exists send request to server to get data for that param
-// if param doesn't exist, set to default
 export default {
   data() {
     return {
@@ -101,7 +106,11 @@ export default {
       photos: [],
       isThereImages: false,
       noUsername: false,
+      moreProfiles: [],
     };
+  },
+  components: {
+    MoreProfiles,
   },
   name: "Profile",
   methods: {
@@ -113,44 +122,44 @@ export default {
     },
     async fetchProfileData() {
       const query = this.$router.currentRoute.params.id;
-      const response = await fetch(`/api/profile`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query }),
-      });
-
-      if (!response) {
-        console.log("no username");
-        return (this.noUsername = true);
-      }
 
       try {
+        const response = await fetch(`/api/profile`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ query }),
+        });
+
+        if (!response) {
+          console.log("no username");
+          return (this.noUsername = true);
+        }
         const {
-          bio,
-          favoriteBooks,
-          favoriteFood,
-          favoriteHobbies,
-          favoriteMusic,
-          favoriteMovies,
-          headline,
-          username,
-          photos,
-          profilePic,
-          message,
-          lastLogin,
-          createdAt,
+          findUser: {
+            username,
+            createdAt,
+            lastLogin,
+            favoriteBooks,
+            favoriteMovies,
+            favoriteMusic,
+            headline,
+            bio,
+            profilePic,
+            favoriteFood,
+            favoriteHobbies,
+            photos,
+          },
+          randomUsers,
         } = await response.json();
+        console.log(randomUsers);
         this.lastLogin = moment(lastLogin).fromNow();
         this.createdAt = moment().format("MMM Do YYYY", createdAt);
         if (profilePic) {
           this.isThereImages = true;
         }
-        if (message) {
-          this.noUsername = true;
-          return;
-        }
+        this.moreProfiles = randomUsers;
         this.bio = bio;
         this.username = username;
         this.favoriteBooks = favoriteBooks;
@@ -164,7 +173,8 @@ export default {
         this.loading = false;
         this.loadingImage = false;
       } catch (error) {
-        console.log(error);
+        this.noUsername = true;
+        throw "No Username Found";
       }
     },
   },
@@ -176,14 +186,16 @@ export default {
 
 <style scoped>
 @font-face {
-  font-family: 'Iceland';
+  font-family: "Iceland";
   font-style: normal;
   font-weight: 100;
-  src: local('Iceland'), local('Iceland-Regular'), url(http://themes.googleusercontent.com/static/fonts/iceland/v3/F6LYTZLHrG9BNYXRjU7RSw.woff) format('woff');
+  src: local("Iceland"), local("Iceland-Regular"),
+    url(http://themes.googleusercontent.com/static/fonts/iceland/v3/F6LYTZLHrG9BNYXRjU7RSw.woff)
+      format("woff");
 }
 
 .theHeadline {
-  font-family: 'Iceland';
+  font-family: "Iceland";
   color: #efdd66;
   font-size: 2.2rem;
 }
@@ -193,24 +205,12 @@ export default {
 } */
 @-webkit-keyframes neon3 {
   from {
-    text-shadow: 0 0 10px #fff,
-               0 0 20px  #fff,
-               0 0 30px  #fff,
-               0 0 40px  #FFDD1B,
-               0 0 70px  #FFDD1B,
-               0 0 80px  #FFDD1B,
-               0 0 100px #FFDD1B,
-               0 0 150px #FFDD1B;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ffdd1b,
+      0 0 70px #ffdd1b, 0 0 80px #ffdd1b, 0 0 100px #ffdd1b, 0 0 150px #ffdd1b;
   }
   to {
-    text-shadow: 0 0 5px #fff,
-               0 0 10px #fff,
-               0 0 15px #fff,
-               0 0 20px #FFDD1B,
-               0 0 35px #FFDD1B,
-               0 0 40px #FFDD1B,
-               0 0 50px #FFDD1B,
-               0 0 75px #FFDD1B;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ffdd1b,
+      0 0 35px #ffdd1b, 0 0 40px #ffdd1b, 0 0 50px #ffdd1b, 0 0 75px #ffdd1b;
   }
 }
 .entire-container {
@@ -223,8 +223,8 @@ export default {
 @media screen and (max-width: 600px) {
   .entire-container {
     margin-top: -2rem;
-  padding: 12px;
-}
+    padding: 12px;
+  }
   .username {
     padding-right: 3rem;
     color: rgb(250, 250, 250);

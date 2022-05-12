@@ -159,10 +159,16 @@ export default {
   created() {
     this.getDetails();
   },
+  
 };
 </script>
 
 <style scoped>
+
+.formulate-input input {
+  border: solid 2px hotpink !important;
+}
+
 .formulate-input {
   margin-top: 5px !important;
   padding: 6px;

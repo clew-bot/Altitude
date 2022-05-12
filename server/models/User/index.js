@@ -55,11 +55,8 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now
 },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
-});
+
+},{ timestamps: true });
 
 userSchema.pre("save", function () {
   this.password = bcrypt.hashSync(this.password, 10);

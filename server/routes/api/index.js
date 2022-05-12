@@ -59,9 +59,9 @@ router.post("/signup", async (req, res) => {
       expiresIn: "20m",
     });
     // save first time logged in date 
-    await user.update({
-      createdAt: new Date(),
-    });
+    // await user.update({
+    //   createdAt: new Date(),
+    // });
     // const refreshToken = jwt.sign({ user }, process.env.REFRESH_TOKEN_SECRET);
     res
       .cookie("accessToken", accessToken, {
@@ -209,6 +209,7 @@ router.post("/uploadprofilepic", authorization, upload.single("image"), async (r
 
 
 
+
 router.get("/images/:key", (req, res) => {
   const key = req.params.key;
   const readStream = getFileStream(key);
@@ -218,15 +219,19 @@ router.get("/images/:key", (req, res) => {
 
 
 router.post("/profile", async (req, res) => {
+
+    //  var random = Math.floor(Math.random() * 3);
+  
+    const randomUsers = await db.User.aggregate([{$sample: {size: 5}}]);
+    console.log(randomUsers)
   console.log(req.body)
   try {
   const findUser = await db.User.findOne({ username: req.body.query }).select("-password");
   if (!findUser) {
-    console.log("img hit")
     res.json({ message: "User does not exist" });
   } else {
-  console.log("findUser = ", findUser)
-  res.json(findUser);
+  // console.log("findUser = ", findUser)
+  res.json({findUser: findUser, randomUsers: randomUsers});
   }
   } catch (err) {
     console.log("Couldn't find any user with that account name ", err)
