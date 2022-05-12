@@ -42,7 +42,16 @@
     </v-navigation-drawer>
     <v-app-bar app color="#4d4c4b" class="navbar">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <router-link to="/" style="text-decoration: none; color: inherit;"> <h1 class="altitude" >Altitude</h1></router-link>
+      <router-link to="/" style="text-decoration: none; color: inherit;"> <h1 class="altitude" >      
+          <span class="a">A</span>
+          <span class="b">l</span>
+          <span class="c">t</span>
+          <span class="d">i</span>
+          <span class="e">t</span>
+          <span class="f">u</span>
+          <span class="g">d</span>
+          <span class="h">e</span></h1></router-link>
+      &nbsp;&nbsp;<Koala/>
  
        <!-- <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0DDChjnLvpfCfoxXnEN4sw?utm_source=generator" width="100%" height="50" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe> -->
       <v-app-bar-title></v-app-bar-title>
@@ -71,6 +80,7 @@ import Ellipses from "@/components/Ellipses.vue";
 import ProfileButton from "@/components/ProfileButton.vue";
 import router from "../router";
 import moment from "moment";
+import Koala from "../assets/svgs/koala.svg";
 
 export default {
   data: () => ({   
@@ -98,7 +108,8 @@ export default {
     LoginModal,
     SignUpModal,
     Ellipses,
-    ProfileButton
+    ProfileButton,
+    Koala,
 },
   methods: {
     consoleme() {
@@ -203,6 +214,9 @@ export default {
   font-size: 1.5rem;
   font-weight: bold !important;
   cursor: pointer;
+  background: #f3efef77 !important;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 
@@ -230,5 +244,109 @@ export default {
 
 .v-input--selection-controls {
   margin-top: 0 !important;
+}
+
+
+/* LOGO */
+.a {
+  color: rgb(233, 176, 176);
+  animation: bounce 1s ease-in-out;
+  
+  padding: 1px;
+  
+  
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
+}
+
+.b {
+  color: rgb(179, 189, 133);
+  animation: bounce 1s ease 0.1s;
+  
+  padding: 1px;
+  
+  
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
+}
+
+.c {
+  color: rgb(135, 218, 157);
+  animation: bounce 1s ease 0.2s;
+  
+  padding: 1px;
+  
+  
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
+}
+
+.d {
+  color: rgb(140, 165, 211);
+  animation: bounce 1s ease 0.3s;
+  
+  padding: 1px;
+  
+  
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
+}
+
+.e {
+  color: rgb(176, 160, 222);
+  animation: bounce 1s ease 0.4s;
+  
+  padding: 1px;
+  
+  
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
+}
+
+.f {
+  color: rgb(199, 154, 196);
+  animation: bounce 1s ease 0.5s;
+  
+  padding: 1px;
+  
+  
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
+}
+.g {
+  color: rgb(189, 133, 156);
+  animation: bounce 1s ease 0.6s;
+  
+  padding: 1px;
+  
+  
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
+}
+.h {
+  color: rgb(226, 127, 127);
+  animation: bounce 1s ease 0.7s;
+  
+  padding: 1px;
+  
+  
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE10+/Edge */
+  user-select: none !important;
 }
 </style>
