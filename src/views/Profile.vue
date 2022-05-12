@@ -1,83 +1,81 @@
 <template>
-
+<div class="entire-container">
   <div class="main-container" v-if="!noUsername">
-    <div class="sub-container" >
-    <div v-if="!loading" class="rows1" :class="{show : show, closed : !show }">
-      <div class="lastSeen">
-        <div class="member-container">
-          <div><h3>Member Since: {{this.createdAt}}</h3></div>
-          <div>Last Seen: {{this.lastLogin}}</div>
+    <div class="sub-container">
+      <div v-if="!loading" class="rows1" :class="{ show: show, closed: !show }">
+        <div class="lastSeen">
+          <div class="member-container">
+            <div>
+              <h3>Member Since: {{ this.createdAt }}</h3>
+            </div>
+            <div>Last Seen: {{ this.lastLogin }}</div>
           </div>
-            <v-col>
-      <br/>
-      <div class="bio">                                     
-      <b><i >{{ bio }}</i></b>
-      </div>
-      <br/>
-      <br/>
-      <p>Favorite Book: {{ favoriteBooks }}</p>
-      <p>Favorite Hobbies: {{ favoriteHobbies }}</p>
-      <p>Favorite Music: {{ favoriteMusic }}</p>
-      <p>Favorite Food: {{ favoriteFood }}</p></v-col
-    >
-      </div>
-        <br/>
+          <v-col>
+            <br />
+            <div class="bio">
+              <b
+                ><i>{{ bio }}</i></b
+              >
+            </div>
+            <br />
+            <br />
+            <p>Favorite Book: {{ favoriteBooks }}</p>
+            <p>Favorite Hobbies: {{ favoriteHobbies }}</p>
+            <p>Favorite Music: {{ favoriteMusic }}</p>
+            <p>Favorite Food: {{ favoriteFood }}</p></v-col
+          >
+        </div>
+        <br />
 
-      <div class="image-container" v-if="!loadingImage">
- 
-        <div v-if="isThereImages">
-          <div>
-            <img
-              :src="'/api/images/' + profilePic"
-              alt=""
-              class="image"
-            />
-          </div>
+        <div class="image-container" v-if="!loadingImage">
+          <div v-if="isThereImages">
+            <div>
+              <img :src="'/api/images/' + profilePic" alt="" class="image" />
+            </div>
           </div>
           <div v-else>
-            <img src="../assets/nopic.png" alt="No Image Found" class="questionMark">
+            <img
+              src="../assets/nopic.png"
+              alt="No Image Found"
+              class="questionMark"
+            />
           </div>
-   
-        
-        <h1 class="username" @click="fetchProfileData">@{{ username }}</h1>
-        <h2>{{ headline }}</h2>
-        <p>{{bio}}</p>
-             </div>
-             <div  v-else>
-                <v-progress-circular
-      :size="70"
-      :width="7"
-      color="purple"
-      indeterminate
-    ></v-progress-circular>
-             </div>
-                 <!-- <v-icon class="down-icon" @click="dropDown">mdi-chevron-down</v-icon> -->
+
+          <h1 class="username theHeadline" @click="fetchProfileData"><span class="">@</span>{{ username }}</h1>
+          <h2 class='theHeadline'>{{ headline }}</h2>
+        </div>
+        <div v-else>
+          <v-progress-circular
+            :size="70"
+            :width="7"
+            color="purple"
+            indeterminate
+          ></v-progress-circular>
+        </div>
+        <!-- <v-icon class="down-icon" @click="dropDown">mdi-chevron-down</v-icon> -->
+      </div>
+      <div class="sub-container" v-else>
+        <div class="rows1" :class="{ show: show, closed: !show }">
+          <v-progress-circular
+            :size="70"
+            :width="7"
+            color="purple"
+            indeterminate
+          ></v-progress-circular>
+        </div>
+      </div>
     </div>
-    <div class="sub-container" v-else>
-          <div class="rows1" :class="{show : show, closed : !show }">
-  <v-progress-circular
-      :size="70"
-      :width="7"
-      color="purple"
-      indeterminate
-    ></v-progress-circular>
-    </div>
-</div>
-</div>
-
-  
-
-
   </div>
-   <div v-else class="sub-container">
-    <div class="rows1" :class="{show : show, closed : !show }">
-    <h1>no username found 🤔</h1>
+  <div v-else class="sub-container">
+    <div class="rows1" :class="{ show: show, closed: !show }">
+      <h1>no username found 🤔</h1>
     </div>
-</div>
+  </div>
+  </div>
 </template>
 
 <script>
-import moment from 'moment';
+import moment from "moment";
 //check for param in url
 // if param exists, set to that param
 
@@ -123,10 +121,9 @@ export default {
         body: JSON.stringify({ query }),
       });
 
-      if(!response) {
-         console.log("no username")
-        return this.noUsername = true;
-       
+      if (!response) {
+        console.log("no username");
+        return (this.noUsername = true);
       }
 
       try {
@@ -152,11 +149,8 @@ export default {
         }
         if (message) {
           this.noUsername = true;
-          console.log("no username", this.noUsername);
-          return
+          return;
         }
-
-        console.log(message);
         this.bio = bio;
         this.username = username;
         this.favoriteBooks = favoriteBooks;
@@ -181,14 +175,58 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'Iceland';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Iceland'), local('Iceland-Regular'), url(http://themes.googleusercontent.com/static/fonts/iceland/v3/F6LYTZLHrG9BNYXRjU7RSw.woff) format('woff');
+}
+
+.theHeadline {
+  font-family: 'Iceland';
+  color: #efdd66;
+  font-size: 2.2rem;
+}
+/* .theHeadline:hover {
+    -webkit-animation: neon3 1.5s ease-in-out infinite alternate;
+    animation: neon3 1.5s ease-in-out infinite alternate; 
+} */
+@-webkit-keyframes neon3 {
+  from {
+    text-shadow: 0 0 10px #fff,
+               0 0 20px  #fff,
+               0 0 30px  #fff,
+               0 0 40px  #FFDD1B,
+               0 0 70px  #FFDD1B,
+               0 0 80px  #FFDD1B,
+               0 0 100px #FFDD1B,
+               0 0 150px #FFDD1B;
+  }
+  to {
+    text-shadow: 0 0 5px #fff,
+               0 0 10px #fff,
+               0 0 15px #fff,
+               0 0 20px #FFDD1B,
+               0 0 35px #FFDD1B,
+               0 0 40px #FFDD1B,
+               0 0 50px #FFDD1B,
+               0 0 75px #FFDD1B;
+  }
+}
+.entire-container {
+  padding: 4rem;
+}
 .image {
   animation: fadeIn 5s;
 }
 
 @media screen and (max-width: 600px) {
-
+  .entire-container {
+    margin-top: -2rem;
+  padding: 12px;
+}
   .username {
-    padding-right:3rem;
+    padding-right: 3rem;
     color: rgb(250, 250, 250);
   }
   .sub-container {
@@ -205,9 +243,8 @@ export default {
   }
 }
 .bio {
-
-    overflow-wrap: break-word;
-    width: 254px;
+  overflow-wrap: break-word;
+  width: 254px;
 }
 
 .member-container {
@@ -228,7 +265,7 @@ export default {
 
 .closed {
   height: 30rem;
-    transition: all 0.5s;
+  transition: all 0.5s;
 }
 .show {
   height: 1000px;
@@ -277,8 +314,11 @@ img {
 }
 
 @keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-
 </style>

@@ -2,21 +2,23 @@
   <div class="container">
     <v-card class="vcard">
       <!-- <img src="api/images/ed38a63b6ba71283e1e5ff7c08e99bc7" alt=""> -->
-      <h2 class="form-title">Edit Profile</h2>
-      <p>Any changes will go unsaved unless you click the "Save" button.</p>
+   
 
       <FormulateForm @submit="submitEdit" class="formulate-form">
-<div   class="text-center">
-        <FormulateInput
+
+    
+
+        <div class="field-container">
+             <h2 class="form-title">Edit Profile</h2>
+      <p>Any changes will go unsaved unless you click the "Save" button.</p>
+<div>
+      <FormulateInput
           type="image"
           name="profilePic"
           label="Profile Picture"
           upload-behavior="delayed"
         
         />
-        </div>
-        <div class="field-container">
-<div>
         <FormulateInput
           name="name"
           type="text"
@@ -161,17 +163,17 @@ export default {
 </script>
 
 <style scoped>
-
-input {
-  width: 100px !important;
+.formulate-input {
+  margin-top: 5px !important;
+  padding: 6px;
 
 }
-
 .field-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center !important; 
 }
 
 .submitBtn {
@@ -181,8 +183,8 @@ input {
 }
 
 .vcard {
-  background-color: #f0f0f1 !important;
-  width: 1000px;
+  background-color: #346e5a !important;
+
 }
 .container {
   display: flex;

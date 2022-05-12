@@ -3,7 +3,7 @@
     <v-navigation-drawer app v-model="drawer" color="#4d4c4b" class="navDrawer">
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6" @click="consoleme">{{time}}
+          <v-list-item-title class="text-h6" style="cursor:default; user-select: none;" @click="consoleme">{{time}}
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -49,15 +49,6 @@
       <v-spacer></v-spacer>
         <LoginModal v-model="dialog" />
         <SignUpModal v-model="dialog2"/>
-
-      <!-- <v-text-field
-        class="appSearch"
-        center
-        dense
-        outlined
-        placeholder="Search"
-        prepend-inner-icon="mdi-magnify"
-      ></v-text-field> -->
       <div v-if="showUsername">
       <v-btn color="gray lighten-2" dark @click="showingModal">
         <v-icon>mdi-account-box</v-icon>
