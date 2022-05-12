@@ -21,6 +21,7 @@
           placeholder="Name"
            v-model="name"
            
+           
         />
         <FormulateInput
           name="headline"
@@ -97,18 +98,23 @@ export default {
       hobbies: "",
       music: "",
       books: "",
-      chips: [],
-      items: ["Streaming", "Eating"],
     };
   },
   name: "EditProfile",
   methods: {
-    remove(item) {
-      this.chips.splice(this.chips.indexOf(item), 1);
-      this.chips = [...this.chips];
+    async getDetails() {
+      const response = await fetch("/api/getEditDetails" );
+      const data = await response.json();
+      this.name = data.name;
+      this.headline = data.headline;
+      this.bio = data.bio;
+      this.movie = data.favoriteMovies;
+      this.food = data.favoriteFood;
+      this.hobbies = data.favoriteHobbies;
+      this.music = data.favoriteMusic;
+      this.books = data.favoriteBooks;
     },
     async submitEdit() {
-      
       const response = await fetch("api/editprofile", {
         method: "POST",
         headers: {
@@ -136,6 +142,9 @@ export default {
       const data2 = await res.json();
       console.log(data2);
     },
+  },
+  created() {
+    this.getDetails();
   },
 };
 </script>

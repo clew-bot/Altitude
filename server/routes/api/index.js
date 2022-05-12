@@ -18,13 +18,10 @@ const upload = multer({ dest: "uploads/" });
 
 const authorization = (req, res, next) => {
   const token = req.cookies.accessToken;
-  console.log(token);
   if (token === undefined) {
-    console.log("No Token");
     return res.sendStatus(403);
   }
   try {
-    console.log("Yes Token");
     const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     req.user = data;
     return next();
@@ -61,6 +58,10 @@ router.post("/signup", async (req, res) => {
     const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "20m",
     });
+    // save first time logged in date 
+    await user.update({
+      createdAt: new Date(),
+    });
     // const refreshToken = jwt.sign({ user }, process.env.REFRESH_TOKEN_SECRET);
     res
       .cookie("accessToken", accessToken, {
@@ -93,6 +94,12 @@ router.post("/login", async (req, res) => {
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: "20m" }
       );
+
+      db.User.findOneAndUpdate({ email: req.body.email }, { $set: { lastLogin: Date.now() }}, {new: true}, function(err,user){
+      })      
+      
+      // const updateLastLogin = db.User.getLastLogin(findUser._id);
+      // console.log("updateLastLogin =", updateLastLogin);
       // const refreshToken = jwt.sign({ findUser }, process.env.REFRESH_TOKEN_SECRET);
       res
         .cookie("accessToken", accessToken, {
@@ -157,6 +164,11 @@ router.post("/forgotPassword", async (req, res) => {
   }
 });
 
+router.get("/getEditDetails", authorization, async(req, res) => {
+  const findUser = await db.User.findOne({ email: req.user.user.email }).select("-password");
+  res.json(findUser);
+})
+
 
 router.post("/editprofile", authorization, async (req, res) => {
   const response = await db.User.findOneAndUpdate({ email: req.user.user.email }, {
@@ -183,10 +195,13 @@ router.post("/uploadprofilepic", authorization, upload.single("image"), async (r
   console.log(file);
   const result = await uploadFile(file)
   console.log("THE RESULT =", result);
-  const updateUserPhoto = await db.User.findOneAndUpdate({ email: req.user.user.email }, {
-    $push: { photos: result.Key }, 
+  // const updateUserPhoto = await db.User.findOneAndUpdate({ email: req.user.user.email }, {
+  //   $push: { profilePic: result.Key }, 
+  // });
+  const updateUserProfilePicture = await db.User.findOneAndUpdate({ email: req.user.user.email }, {
+    profilePic: result.Key,
   });
-  console.log("Update User Photo = ", updateUserPhoto);
+  console.log("Update User Photo = ", updateUserProfilePicture);
   await(unlinkFile(file.path))
   res.send({ "url": "/images/" + file.filename, "name": file.originalname });
 });
@@ -206,6 +221,7 @@ router.post("/profile", async (req, res) => {
   try {
   const findUser = await db.User.findOne({ username: req.body.query }).select("-password");
   if (!findUser) {
+    console.log("img hit")
     res.json({ message: "User does not exist" });
   } else {
   console.log("findUser = ", findUser)

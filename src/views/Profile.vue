@@ -1,10 +1,25 @@
 <template>
-  <div class="main-container">
+
+  <div class="main-container" v-if="!noUsername">
     <div class="sub-container">
     <div class="rows1" :class="{show : show, closed : !show }">
-      <div>
-          <div>Member Since: </div>
-          <div>Last Seen: </div>
+      <div class="lastSeen">
+        <div class="member-container">
+          <div><h3>Member Since: {{this.createdAt}}</h3></div>
+          <div>Last Seen: {{this.lastLogin}}</div>
+          </div>
+            <v-col>
+      <br/>
+      <div class="bio">                                     
+      <p >{{ bio }}</p>
+      </div>
+      <br/>
+      <br/>
+      <p>Favorite Books: {{ favoriteBooks }}</p>
+      <p>Favorite Hobbies: {{ favoriteHobbies }}</p>
+      <p>Favorite Music: {{ favoriteMusic }}</p>
+      <p>Favorite Food: {{ favoriteFood }}</p></v-col
+    >
       </div>
         <br/>
 
@@ -13,34 +28,36 @@
         <div v-if="isThereImages">
           <div>
             <img
-              v-for="image in photos"
-              :key="image"
-              :src="'/api/images/' + image"
+              :src="'/api/images/' + profilePic"
               alt=""
             />
           </div>
+          </div>
+          <div v-else>
+            <img src="../assets/nopic.png" alt="No Image Found" class="questionMark">
           </div>
    
         
         <h1 @click="fetchProfileData">@{{ username }}</h1>
         <h2>{{ headline }}</h2>
-               <h4>{{ bio }}</h4>
+        <p>{{bio}}</p>
              </div>
                  <!-- <v-icon class="down-icon" @click="dropDown">mdi-chevron-down</v-icon> -->
     </div>
 </div>
-    <v-col>
-      <h4>Bio: {{ bio }}</h4>
-      <p>Favorite Books: {{ favoriteBooks }}</p>
-      <p>Favorite Hobbies: {{ favoriteHobbies }}</p>
-      <p>Favorite Music: {{ favoriteMusic }}</p>
-      <p>Favorite Food: {{ favoriteFood }}</p></v-col
-    >
+  
+
 
   </div>
+   <div v-else class="sub-container">
+    <div class="rows1" :class="{show : show, closed : !show }">
+    <h1>no username found 🤔</h1>
+    </div>
+</div>
 </template>
 
 <script>
+import moment from 'moment';
 //check for param in url
 // if param exists, set to that param
 
@@ -59,8 +76,12 @@ export default {
       favoriteMusic: "",
       favoriteFood: "",
       headline: "",
+      profilePic: "",
+      lastLogin: "",
+      createdAt: "",
       photos: [],
       isThereImages: false,
+      noUsername: false,
     };
   },
   name: "Profile",
@@ -81,6 +102,13 @@ export default {
         },
         body: JSON.stringify({ query }),
       });
+
+      if(!response) {
+         console.log("no username")
+        return this.noUsername = true;
+       
+      }
+
       try {
         const {
           bio,
@@ -92,11 +120,23 @@ export default {
           headline,
           username,
           photos,
+          profilePic,
+          message,
+          lastLogin,
+          createdAt,
         } = await response.json();
-        if (photos.length > 0) {
+        this.lastLogin = moment(lastLogin).fromNow();
+        this.createdAt = moment().format("MMM Do YYYY", createdAt);
+        if (profilePic) {
           this.isThereImages = true;
         }
-        console.log(photos);
+        if (message) {
+          this.noUsername = true;
+          console.log("no username", this.noUsername);
+          return
+        }
+
+        console.log(message);
         this.bio = bio;
         this.username = username;
         this.favoriteBooks = favoriteBooks;
@@ -107,6 +147,7 @@ export default {
         this.favoriteFood = favoriteFood;
         this.loading = false;
         this.photos = photos;
+        this.profilePic = profilePic;
       } catch (error) {
         console.log(error);
       }
@@ -119,6 +160,28 @@ export default {
 </script>
 
 <style scoped>
+.bio {
+
+    overflow-wrap: break-word;
+    width: 254px;
+}
+
+.member-container {
+  display: flex;
+  background: rgba(76, 107, 98, 0.395);
+  padding: 10px;
+  border-radius: 10px;
+
+  flex-direction: column;
+}
+.lastSeen {
+  text-align: left;
+  color: rgb(254, 245, 245);
+}
+.questionMark {
+  border-radius: 50%;
+}
+
 .closed {
   height: 30rem;
     transition: all 0.5s;

@@ -47,11 +47,27 @@ const userSchema = new Schema({
     type: [String],
     required: false,
   },
+  profilePic: {
+    type: String,
+    required: false,
+  },
+  lastLogin: {
+    type: Date,
+    default: Date.now
+},
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 userSchema.pre("save", function () {
   this.password = bcrypt.hashSync(this.password, 10);
 });
+
+userSchema.statics.getLastLogin = function login(id, callback) {
+  return this.findByIdAndUpdate(id, { $set : { 'lastLogin' : Date.now() },  new : true }, callback);
+};
 
 userSchema.methods.checkPassword = function (password) {
   //.compare returns promise .compareSync is synchrously //
