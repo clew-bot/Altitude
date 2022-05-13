@@ -216,6 +216,10 @@ export default {
 </script>
 
 <style scoped>
+input:-webkit-autofill {
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0 50px rgb(2, 2, 2) inset;
+}
 .shake {
   animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);

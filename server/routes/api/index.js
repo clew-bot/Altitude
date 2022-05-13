@@ -9,7 +9,9 @@ const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
 const { authorization } = require("../../lib/middleware/index.js");
 const { createTransport } = require("../../lib/utils/index.js");
+const { default: mongoose } = require("mongoose");
 require("isomorphic-fetch");
+const toId = mongoose.Types.ObjectId;
 
 const upload = multer({ dest: "uploads/" });
 
@@ -196,4 +198,29 @@ router.post("/profile", async (req, res) => {
   }
 });
 
+router.post("/savePost", authorization, async (req, res) => {
+  const findUser = await db.User.findOne({ email: req.user.user.email });
+  const author = toId(findUser._id)
+  const newPost = new db.Post({
+    author: author,
+    post: req.body.post,
+})
+   console.log(newPost)
+   newPost.save()
+   findUser.posts.push(newPost)
+    findUser.save()
+    console.log("findUser", findUser)
+})
+
+
+router.get("/allPosts", authorization, async (req, res) => {
+    const Posts = await db.Post.find({}).populate("author")
+    res.json(Posts)
+
+})
+
 module.exports = router;
+
+
+///ObjectId("627bf143de63240e7ba0dde4")
+///ObjectId("627bf143de63240e7ba0dde4")

@@ -5,11 +5,14 @@
       <UnderCon />
       <p>We're working hard on this!</p>
   </div>
-  <div v-else>
-      <v-btn @click="showingModal">
+  <div v-else class="pa-12">
+    <div class="postButton-container">
+      <v-btn @click="showingModal" class="postButton">
         Start a Post
       </v-btn>
+      </div>
       <CreatePostModal v-model="dialog"/>
+      <button @click="getPosts">Get Posts</button>
   </div>
   </div>
 </template>
@@ -31,6 +34,12 @@ export default {
         CreatePostModal
     },
     methods: {
+      async getPosts() {
+        const response = await fetch("/api/allPosts") 
+        const data = await response.json()
+        console.log(data)
+      }
+      ,
         showingModal() {
             this.dialog = !this.dialog;
         },
@@ -39,6 +48,16 @@ export default {
 </script>
 
 <style scoped>
+
+.postButton {
+  padding: 102px !important;
+}
+
+.postButton-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .construction {
   background-color: #a13331;

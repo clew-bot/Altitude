@@ -5,6 +5,7 @@ import Vuex from "vuex"
 import modal from "./modules/modal"
 import user from "./modules/user";
 import profile from "./modules/profile";
+import posts from "./modules/posts";
 
 Vue.use(Vuex)
 
@@ -16,9 +17,9 @@ Vue.use(Vuex)
 const modules = {
   modal,
   user,
-  profile
+  profile,
+  posts
 }
-
 export default new Vuex.Store({
   modules
 })

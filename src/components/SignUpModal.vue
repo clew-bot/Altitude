@@ -273,11 +273,6 @@ export default {
   align-items: center !important;
   padding: 0px 20px 12px 20px;
 }
-
-/* .v-input--selection-controls {
-  margin-top: 0 !important;
-} */
-
 .v-application p {
   margin-bottom: 0px !important;
 }

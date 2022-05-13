@@ -2,20 +2,19 @@
   <div>
     <v-dialog :value="value" @input="$emit('input', $event)" max-width="600">
       <v-card>
-        <v-toolbar dark>Make a Post</v-toolbar>
+        <v-toolbar dark>Share something 💭</v-toolbar>
         <v-card-text>
-          
+
           <div class="text-editor">
-            <div class="text-area" contenteditable="true" @input="handleInput">
-              Hello
+            <div data-text="Say something..." class="text-area" contenteditable="true" @input="handleInput">
+
             </div>
           </div>
         </v-card-text>
         <v-card-actions class="justify-end">
-                <v-btn text @click="dialog.value = false">Save</v-btn>
-          <v-btn text @click="dialog.value = false">Close</v-btn>
+             <v-btn  @click="savePost">Save</v-btn>
         </v-card-actions>
-        <button @click="consoleme">Let's see what we got</button>
+        <!-- <button @click="consoleme">Let's see what we got</button> -->
       </v-card>
     </v-dialog>
   </div>
@@ -43,25 +42,49 @@ export default {
       //replace &nbsp; with a space
       this.content = this.content.replace(/&nbsp;/g, " ");
     },
-  },
+    savePost() {
+      this.$store.dispatch("posts/SAVE_POST", this.content);
+    },
+    }
 };
 </script>
 
-<style>
+<style scoped>
+
+.v-card {
+    background: rgb(91, 91, 94) !important;
+}
 .text-area {
   width: 100%;
-  height: 100%;
-  border: 1px solid rgb(213, 37, 37);
+  display:inline-block;
   padding: 10px;
   font-size: 14px;
   line-height: 1.5;
   resize: none;
+  border-radius: 5px !important;
+
 }
 
 .text-editor {
-  height: 100px;
+  margin-top: 20px;
+  min-height: 90px;
   width: 100%;
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 1px;
+  color: black;
+  background: rgb(233, 233, 233);
+
+    border-radius: 5px !important;
 }
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text);
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 1.5rem;
+    opacity: 0.2;
+}
+  div:focus{
+        outline: none;
+    }
 </style>
