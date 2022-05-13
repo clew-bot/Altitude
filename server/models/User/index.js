@@ -67,7 +67,7 @@ userSchema.statics.getLastLogin = function login(id, callback) {
 };
 
 userSchema.methods.checkPassword = function (password) {
-  //.compare returns promise .compareSync is synchrously //
+
   return bcrypt.compareSync(password, this.password);
 };
 
