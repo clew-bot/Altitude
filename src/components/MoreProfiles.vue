@@ -1,6 +1,7 @@
 <template>
   <div class="profile-container">
-    <div v-for="profile in profiles" :key="profile._id">
+    <div @click="consoleme">Button </div>
+    <div v-for="profile in otherUsers" :key="profile._id">
     
         <v-col class="profilesCol">
           <v-card class="mx-auto theCard" outlined>
@@ -52,10 +53,18 @@ export default {
     };
   },
   methods: {
+    consoleme() {
+        console.log(this.otherUsers)
+    },
     getProfile() {
       console.log("profiles = ", this.profiles);
     },
   },
+  computed: {
+    otherUsers() {
+      return this.$store.getters["profile/getMoreUsers"];
+    },
+  }
 };
 </script>
 

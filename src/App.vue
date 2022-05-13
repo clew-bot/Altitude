@@ -2,7 +2,9 @@
   <v-main>
     <v-app>
       <Navbar />
+          <v-slide-x-transition mode="out-in">
       <router-view class="" :key="$route.path"/>
+      </v-slide-x-transition>
     </v-app>
   </v-main>
 </template>

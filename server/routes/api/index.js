@@ -212,6 +212,11 @@ router.post("/uploadprofilepic", authorization, upload.single("image"), async (r
 
 router.get("/images/:key", (req, res) => {
   const key = req.params.key;
+  console.log("THEY KEY", key)
+  if (key === "undefined") {
+    console.log("bad")
+    return res.status(400).send({ error: "Key is required" });
+  }
   const readStream = getFileStream(key);
   readStream.pipe(res);
 })

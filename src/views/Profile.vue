@@ -10,23 +10,23 @@
           <div class="lastSeen">
             <div class="member-container">
               <div>
-                <h3>Member Since: {{ this.createdAt }}</h3>
+                <h3>Member Since: {{ createdAt }}</h3>
               </div>
-              <div>Last Seen: {{ this.lastLogin }}</div>
+              <div>Last Seen: {{ lastLoggedIn }}</div>
             </div>
             <v-col>
               <br />
               <div class="bio">
                 <b
-                  ><i>{{ bio }}</i></b
+                  ><i>{{ findUser.bio }}</i></b
                 >
               </div>
               <br />
               <br />
-              <p>Favorite Book: {{ favoriteBooks }}</p>
-              <p>Favorite Hobbies: {{ favoriteHobbies }}</p>
-              <p>Favorite Music: {{ favoriteMusic }}</p>
-              <p>Favorite Food: {{ favoriteFood }}</p></v-col
+              <p>Favorite Book: {{ findUser.favoriteBooks }}</p>
+              <p>Favorite Hobbies: {{ findUser.favoriteHobbies }}</p>
+              <p>Favorite Music: {{ findUser.favoriteMusic }}</p>
+              <p>Favorite Food: {{ findUser.favoriteFood }}</p></v-col
             >
           </div>
           <br />
@@ -34,7 +34,11 @@
           <div class="image-container" v-if="!loadingImage">
             <div v-if="isThereImages">
               <div>
-                <img :src="'/api/images/' + profilePic" alt="" class="image" />
+                <img
+                  :src="'/api/images/' + findUser.profilePic"
+                  alt=""
+                  class="image"
+                />
               </div>
             </div>
             <div v-else>
@@ -46,9 +50,9 @@
             </div>
 
             <h1 class="username theHeadline" @click="fetchProfileData">
-              <span class="">@</span>{{ username }}
+              <span class="">@</span>{{ findUser.username }}
             </h1>
-            <h2 class="theHeadline">{{ headline }}</h2>
+            <h2 class="theHeadline">{{ findUser.headline }}</h2>
           </div>
           <div v-else>
             <v-progress-circular
@@ -70,7 +74,7 @@
           </div>
         </div>
       </div>
-      <MoreProfiles :profiles="moreProfiles"/>
+      <MoreProfiles />
     </div>
 
     <div v-else class="sub-container">
@@ -82,30 +86,12 @@
 </template>
 
 <script>
-import moment from "moment";
+//  import moment from "moment";
 import MoreProfiles from "@/components/MoreProfiles.vue";
-
 export default {
   data() {
     return {
       show: false,
-      loading: true,
-      loadingImage: true,
-      bio: "",
-      username: "",
-      favoriteBooks: "",
-      favoriteMovies: "",
-      favoriteHobbies: "",
-      favoriteMusic: "",
-      favoriteFood: "",
-      headline: "",
-      profilePic: "",
-      lastLogin: "",
-      createdAt: "",
-      photos: [],
-      isThereImages: false,
-      noUsername: false,
-      moreProfiles: [],
     };
   },
   components: {
@@ -121,64 +107,43 @@ export default {
     },
     async fetchProfileData() {
       const query = this.$router.currentRoute.params.id;
-
-      try {
-        const response = await fetch(`/api/profile`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ query }),
-        });
-
-        if (!response) {
-          console.log("no username");
-          return (this.noUsername = true);
-        }
-        const {
-          findUser: {
-            username,
-            createdAt,
-            lastLogin,
-            favoriteBooks,
-            favoriteMovies,
-            favoriteMusic,
-            headline,
-            bio,
-            profilePic,
-            favoriteFood,
-            favoriteHobbies,
-            photos,
-          },
-          randomUsers,
-        } = await response.json();
-        console.log(randomUsers);
-        this.lastLogin = moment(lastLogin).fromNow();
-        this.createdAt = moment().format("MMM Do YYYY", createdAt);
-        if (profilePic) {
-          this.isThereImages = true;
-        }
-        this.moreProfiles = randomUsers;
-        this.bio = bio;
-        this.username = username;
-        this.favoriteBooks = favoriteBooks;
-        this.favoriteMovies = favoriteMovies;
-        this.favoriteHobbies = favoriteHobbies;
-        this.favoriteMusic = favoriteMusic;
-        this.headline = headline;
-        this.favoriteFood = favoriteFood;
-        this.photos = photos;
-        this.profilePic = profilePic;
-        this.loading = false;
-        this.loadingImage = false;
-      } catch (error) {
-        this.noUsername = true;
-        throw "No Username Found";
+      this.$store.dispatch("profile/FETCH_PROFILE_DATA", query);
+      setTimeout(() => {
+   
+      }, 1000);
+      this.findUsers = this.$store.state.profile.findUsers;
+      console.log("STATE =", this.$store.getters["profile/findUser"]);
+      console.log(this.findUser);
+      if (this.findUser.profilePic) {
+        this.isThereImages = true;
       }
     },
   },
   created() {
     this.fetchProfileData();
+  },
+  computed: {
+    findUser() {
+      return this.$store.getters["profile/findUser"];
+    },
+    lastLoggedIn() {
+      return this.$store.getters["profile/getLastLoggedin"];
+    },
+    createdAt() {
+      return this.$store.getters["profile/getCreatedAt"];
+    },
+    loading() {
+      return this.$store.state.profile.loading;
+    },
+    isThereImages() {
+      return this.$store.getters["profile/isThereImages"];
+    },
+    loadingImage() {
+      return this.$store.state.profile.loadingImage;
+    },
+      noUsername() {
+      return this.$store.state.profile.noUsername;
+    }
   },
 };
 </script>
@@ -214,10 +179,10 @@ export default {
 }
 .entire-container {
   padding: 4rem;
-    /* background-color: #f0ecf6;
+  /* background-color: #f0ecf6;
     background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2309699c' fill-opacity='0.4'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm40 40c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
-    background-repeat: repeat !important;
-    border:  1px black;
+  background-repeat: repeat !important;
+  border: 1px black;
 }
 .image {
   animation: fadeIn 5s;
@@ -227,7 +192,6 @@ export default {
   .entire-container {
     margin-top: -2rem;
     padding: 12px;
-  
   }
   .username {
     padding-right: 3rem;

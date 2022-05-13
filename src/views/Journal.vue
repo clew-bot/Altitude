@@ -9,7 +9,7 @@
       <v-btn @click="showingModal">
         Start a Post
       </v-btn>
-      <CreatePost v-model="dialog"/>
+      <CreatePostModal v-model="dialog"/>
   </div>
   </div>
 </template>
@@ -17,7 +17,7 @@
 <script>
 
 import UnderCon from "../assets/svgs/under_con.svg";
-import CreatePost from "@/components/CreatePost.vue";
+import CreatePostModal from "@/components/CreatePostModal.vue";
 export default {
     name: 'Journal',
     data() {
@@ -28,7 +28,7 @@ export default {
     },
     components: {
         UnderCon,
-        CreatePost
+        CreatePostModal
     },
     methods: {
         showingModal() {
