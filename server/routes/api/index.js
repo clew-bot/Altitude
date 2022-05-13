@@ -13,7 +13,9 @@ require("isomorphic-fetch");
 
 const upload = multer({ dest: "uploads/" });
 
-
+router.get("/auth/check", authorization, (req, res) => {
+  res.json({ Checking: "World", auth: true });
+});
 
 router.get("/", (req, res) => {
   res.json({ Hello: "World" });
