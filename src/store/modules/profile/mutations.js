@@ -30,5 +30,14 @@ export default {
     },
     setCreatedAt(state, createdAt) {
         state.timeCreated = moment().format("MMM Do YYYY", createdAt)
+    },
+    setNoUsername(state, noUsername) {
+        state.noUsername = noUsername;
+    },
+    setIsThereImages(state, isThereImages) {
+        state.isThereImages = isThereImages;
+    },
+    setLoading(state, loading) {
+        state.loading = loading;
     }
 }

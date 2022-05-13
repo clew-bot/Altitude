@@ -13,6 +13,7 @@ export default {
   },
   async [FETCH_PROFILE_DATA]({commit, state}, query) {
     try {
+      // commit("setLoading", true);
       const response = await fetch(`/api/profile`, {
         method: "POST",
         headers: {
@@ -21,25 +22,27 @@ export default {
         body: JSON.stringify({ query }),
       });
 
-      const {findUser , randomUsers} = await response.json();
-
-      if (findUser.profilePic) {
-        state.isThereImages = true;
-        console.log(state.isThereImages)
-      } else {
-        state.isThereImages = false;
+      const {findUser , randomUsers, message} = await response.json();
+      commit('setNoUsername', false);
+      if (message) {
+        commit('setNoUsername', true);
       }
-      if(!findUser.username) {
-        return state.noUsername = true
+      if (findUser.profilePic) {
+        commit('setIsThereImages', true);
+        console.log("There is image",state.isThereImages)
+      } else {
+        commit('setIsThereImages', false);
+        console.log("There is no image",state.isThereImages)
       }
       console.log(randomUsers);
       commit("setFindUser", findUser);
       commit("setRandomUsers", randomUsers);
       commit("setLastLogin", findUser.lastLogin);
       commit("setCreatedAt", findUser.createdAt);
+      commit("setLoading", false);
     } catch (error) {
       state.noUsername = true
-      throw "No Username Found";
+      console.log("Error: ", error);
     }
   }
 

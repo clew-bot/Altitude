@@ -232,13 +232,16 @@ router.post("/profile", async (req, res) => {
   console.log(req.body)
   try {
   const findUser = await db.User.findOne({ username: req.body.query }).select("-password");
+
   if (!findUser) {
     res.json({ message: "User does not exist" });
   } else {
+    console.log("HI")
   // console.log("findUser = ", findUser)
   res.json({findUser: findUser, randomUsers: randomUsers});
   }
   } catch (err) {
+
     console.log("Couldn't find any user with that account name ", err)
   }
 });

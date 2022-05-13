@@ -1,6 +1,5 @@
 <template>
   <div class="profile-container">
-    <div @click="consoleme">Button </div>
     <div v-for="profile in otherUsers" :key="profile._id">
     
         <v-col class="profilesCol">
@@ -70,6 +69,12 @@ export default {
 
 <style scoped>
 
+@media screen and (max-width: 600px) {
+.profile-container {
+  margin-top: 40% !important;
+}
+}
+
 .avatarPic {
   border-radius: 50%;
   background: none;
@@ -100,7 +105,6 @@ export default {
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;
-
     padding: 20px;
   
 }
