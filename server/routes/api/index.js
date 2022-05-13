@@ -2,45 +2,21 @@ const router = require("express").Router();
 const db = require("../../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer");
 const multer = require("multer");
 const { uploadFile, getFileStream } = require("../../s3");
 const fs = require("fs");
-const util = require("util"); 
-const unlinkFile = util.promisify(fs.unlink); 
-
-// const getFileStream = require("../../s3");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
+const { authorization } = require("../../lib/middleware/index.js");
+const { createTransport } = require("../../lib/utils/index.js");
 require("isomorphic-fetch");
 
 const upload = multer({ dest: "uploads/" });
 
 
 
-const authorization = (req, res, next) => {
-  const token = req.cookies.accessToken;
-  if (token === undefined) {
-    return res.sendStatus(403);
-  }
-  try {
-    const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    req.user = data;
-    return next();
-  } catch {
-    console.log("Token Expired.");
-    return res.sendStatus(403);
-  }
-};
-
 router.get("/", (req, res) => {
   res.json({ Hello: "World" });
-});
-
-router.get("/auth", authorization, (req, res) => {
-  res.json({ Hello: "World", auth: true });
-});
-
-router.get("/auth/check", authorization, (req, res) => {
-  res.json({ Checking: "World", auth: true });
 });
 
 router.post("/signup", async (req, res) => {
@@ -58,11 +34,6 @@ router.post("/signup", async (req, res) => {
     const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "20m",
     });
-    // save first time logged in date 
-    // await user.update({
-    //   createdAt: new Date(),
-    // });
-    // const refreshToken = jwt.sign({ user }, process.env.REFRESH_TOKEN_SECRET);
     res
       .cookie("accessToken", accessToken, {
         httpOnly: true,
@@ -95,12 +66,11 @@ router.post("/login", async (req, res) => {
         { expiresIn: "20m" }
       );
 
-      db.User.findOneAndUpdate({ email: req.body.email }, { $set: { lastLogin: Date.now() }}, {new: true}, function(err,user){
-      })      
-      
-      // const updateLastLogin = db.User.getLastLogin(findUser._id);
-      // console.log("updateLastLogin =", updateLastLogin);
-      // const refreshToken = jwt.sign({ findUser }, process.env.REFRESH_TOKEN_SECRET);
+      db.User.findOneAndUpdate(
+        { email: req.body.email },
+        { $set: { lastLogin: Date.now() } },
+        { new: true },
+      );
       res
         .cookie("accessToken", accessToken, {
           httpOnly: true,
@@ -120,31 +90,19 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/n/programming", authorization, async (req, res) => {
-  console.log("im hit")
+  console.log("im hit");
   const fetchProgrammingNews = await fetch(
     "https://www.reddit.com/r/ProgrammerHumor.json"
   );
   const programmingNews = await fetchProgrammingNews.json();
   let data = programmingNews.data.children;
-
   res.json(data);
 });
 
 router.post("/forgotPassword", async (req, res) => {
   const findUser = await db.User.findOne({ email: req.body.email });
   if (findUser) {
-    console.log("Found");
-    let transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        type: "OAuth2",
-        user: process.env.MAIL_USERNAME,
-        pass: process.env.MAIL_PASSWORD,
-        clientId: process.env.OAUTH_CLIENTID,
-        clientSecret: process.env.OAUTH_CLIENT_SECRET,
-        refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-      },
-    });
+    let transporter = createTransport;
 
     let mailOptions = {
       from: process.env.MAIL_USERNAME,
@@ -153,7 +111,7 @@ router.post("/forgotPassword", async (req, res) => {
       text: `Hello ${findUser.username},\n\nYou are receiving this because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\nhttp://localhost:3000/reset/${findUser.username}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n\nThank you,\n\nThe Altitude Team`,
     };
 
-    transporter.sendMail(mailOptions, function (err, data) {
+    transporter.sendMail(mailOptions, function (err) {
       if (err) {
         console.log("Error " + err);
       } else {
@@ -165,84 +123,74 @@ router.post("/forgotPassword", async (req, res) => {
   }
 });
 
-router.get("/getEditDetails", authorization, async(req, res) => {
-  const findUser = await db.User.findOne({ email: req.user.user.email }).select("-password");
+router.get("/getEditDetails", authorization, async (req, res) => {
+  const findUser = await db.User.findOne({ email: req.user.user.email }).select(
+    "-password"
+  );
   res.json(findUser);
-})
-
+});
 
 router.post("/editprofile", authorization, async (req, res) => {
-  const response = await db.User.findOneAndUpdate({ email: req.user.user.email }, {
-    headline: req.body.headline,
-    bio: req.body.bio,
-    favoriteMovies: req.body.movie,
-    favoriteMusic: req.body.music,
-    favoriteBooks: req.body.books,
-    favoriteFood: req.body.food,
-    favoriteHobbies: req.body.hobbies,
-  }
-    );
-    console.log("Edit Profile = ", response);
+  const response = await db.User.findOneAndUpdate(
+    { email: req.user.user.email },
+    {
+      headline: req.body.headline,
+      bio: req.body.bio,
+      favoriteMovies: req.body.movie,
+      favoriteMusic: req.body.music,
+      favoriteBooks: req.body.books,
+      favoriteFood: req.body.food,
+      favoriteHobbies: req.body.hobbies,
+    }
+  ).select(
+    "-password"
+  );
+  console.log("Edit Profile = ", response);
   res.json({ message: "Profile has been updated" });
 });
 
-
-
-
-router.post("/uploadprofilepic", authorization, upload.single("image"), async (req, res) => {
-  console.log(req.body);
-  console.log("Req.user", req.user);
-  const file = req.file;
-  console.log(file);
-  const result = await uploadFile(file)
-  console.log("THE RESULT =", result);
-  // const updateUserPhoto = await db.User.findOneAndUpdate({ email: req.user.user.email }, {
-  //   $push: { profilePic: result.Key }, 
-  // });
-  const updateUserProfilePicture = await db.User.findOneAndUpdate({ email: req.user.user.email }, {
-    profilePic: result.Key,
-  });
-  console.log("Update User Photo = ", updateUserProfilePicture);
-  await(unlinkFile(file.path))
-  res.send({ "url": "/images/" + file.filename, "name": file.originalname });
-});
-
-
-
+router.post(
+  "/uploadprofilepic",
+  authorization,
+  upload.single("image"),
+  async (req, res) => {
+    const file = req.file;
+    const result = await uploadFile(file);
+    const updateUserProfilePicture = await db.User.findOneAndUpdate(
+      { email: req.user.user.email },
+      {
+        profilePic: result.Key,
+      }
+    );
+    console.log("Update User Photo = ", updateUserProfilePicture);
+    await unlinkFile(file.path);
+    res.send({ url: "/images/" + file.filename, name: file.originalname });
+  }
+);
 
 router.get("/images/:key", (req, res) => {
   const key = req.params.key;
-  console.log("THEY KEY", key)
   if (key === "undefined") {
-    console.log("bad")
     return res.status(400).send({ error: "Key is required" });
   }
   const readStream = getFileStream(key);
   readStream.pipe(res);
-})
-
-
+});
 
 router.post("/profile", async (req, res) => {
-
-    //  var random = Math.floor(Math.random() * 3);
-  
-    const randomUsers = await db.User.aggregate([{$sample: {size: 5}}]);
-    console.log(randomUsers)
-  console.log(req.body)
+  const randomUsers = await db.User.aggregate([{ $sample: { size: 5 } }])
   try {
-  const findUser = await db.User.findOne({ username: req.body.query }).select("-password");
+    const findUser = await db.User.findOne({ username: req.body.query }).select(
+      "-password"
+    );
 
-  if (!findUser) {
-    res.json({ message: "User does not exist" });
-  } else {
-    console.log("HI")
-  // console.log("findUser = ", findUser)
-  res.json({findUser: findUser, randomUsers: randomUsers});
-  }
+    if (!findUser) {
+      res.json({ message: "User does not exist" });
+    } else {
+      res.json({ findUser: findUser, randomUsers: randomUsers });
+    }
   } catch (err) {
-
-    console.log("Couldn't find any user with that account name ", err)
+    console.log("Couldn't find any user with that account name ", err);
   }
 });
 

@@ -1,19 +1,24 @@
-import { FETCH_PROFILE_DATA, SET_USER_LOCATION, CHANGE_DIALOG, LOGIN_USER, LOGOUT_USER } from './types.js'
+import {
+  FETCH_PROFILE_DATA,
+  SET_USER_LOCATION,
+  CHANGE_DIALOG,
+  LOGIN_USER,
+  LOGOUT_USER,
+} from "./types.js";
 
 export default {
-  [LOGIN_USER]({commit}, payload) {
-    commit("isLoggedIn", payload)
+  [LOGIN_USER]({ commit }, payload) {
+    commit("isLoggedIn", payload);
   },
-  [LOGOUT_USER]({commit}, payload) {
-    commit("logOut", payload)
+  [LOGOUT_USER]({ commit }, payload) {
+    commit("logOut", payload);
   },
   [SET_USER_LOCATION]() {},
-  [CHANGE_DIALOG]({commit}, payload) {
-    commit('changeDialog', payload);
+  [CHANGE_DIALOG]({ commit }, payload) {
+    commit("changeDialog", payload);
   },
-  async [FETCH_PROFILE_DATA]({commit, state}, query) {
+  async [FETCH_PROFILE_DATA]({ commit, state }, query) {
     try {
-      // commit("setLoading", true);
       const response = await fetch(`/api/profile`, {
         method: "POST",
         headers: {
@@ -22,17 +27,17 @@ export default {
         body: JSON.stringify({ query }),
       });
 
-      const {findUser , randomUsers, message} = await response.json();
-      commit('setNoUsername', false);
+      const { findUser, randomUsers, message } = await response.json();
+      commit("setNoUsername", false);
       if (message) {
-        commit('setNoUsername', true);
+        commit("setNoUsername", true);
       }
       if (findUser.profilePic) {
-        commit('setIsThereImages', true);
-        console.log("There is image",state.isThereImages)
+        commit("setIsThereImages", true);
+        console.log("There is image", state.isThereImages);
       } else {
-        commit('setIsThereImages', false);
-        console.log("There is no image",state.isThereImages)
+        commit("setIsThereImages", false);
+        console.log("There is no image", state.isThereImages);
       }
       console.log(randomUsers);
       commit("setFindUser", findUser);
@@ -41,9 +46,8 @@ export default {
       commit("setCreatedAt", findUser.createdAt);
       commit("setLoading", false);
     } catch (error) {
-      state.noUsername = true
+      state.noUsername = true;
       console.log("Error: ", error);
     }
-  }
-
-}
+  },
+};
