@@ -214,9 +214,15 @@ export default {
   font-size: 1.5rem;
   font-weight: bold !important;
   cursor: pointer;
-  background: #f3efef77 !important;
+ transition: all 0.5s ease;
   border-radius: 5px;
   padding: 5px;
+   background: #f3f3f3b2 !important;
+}
+
+.altitude:hover {
+  background: #f3efef77 !important;
+  transition: all 0.5s ease;
 }
 
 

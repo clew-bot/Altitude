@@ -6,9 +6,10 @@
       <p>We're working hard on this!</p>
   </div>
   <div v-else>
-      <v-btn>
+      <v-btn @click="showingModal">
         Start a Post
       </v-btn>
+      <CreatePost v-model="dialog"/>
   </div>
   </div>
 </template>
@@ -16,15 +17,23 @@
 <script>
 
 import UnderCon from "../assets/svgs/under_con.svg";
+import CreatePost from "@/components/CreatePost.vue";
 export default {
     name: 'Journal',
     data() {
         return {
             construction: false,
+            dialog : false
         };
     },
     components: {
-        UnderCon
+        UnderCon,
+        CreatePost
+    },
+    methods: {
+        showingModal() {
+            this.dialog = !this.dialog;
+        },
     },
 }
 </script>
