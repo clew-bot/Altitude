@@ -105,6 +105,7 @@ router.get("/n/programming", authorization, async (req, res) => {
     "https://www.reddit.com/r/ProgrammerHumor.json"
   );
   const programmingNews = await fetchProgrammingNews.json();
+  console.log(programmingNews);
   let data = programmingNews.data.children;
   res.json(data);
 });

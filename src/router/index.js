@@ -9,6 +9,7 @@ import PageNotFound from '../views/PageNotFound.vue'
 import Journal from '../views/Journal.vue'
 import Profile from '../views/Profile.vue'
 import EditProfile from '../views/EditProfile.vue'
+import Reddit from "../views/Reddit.vue"
 
 const isAuthenticated = async () => {
   try {
@@ -85,7 +86,18 @@ const routes = [
       }
     }
   },
-
+  {
+    path: "/reddit",
+    name: "Reddit",
+    component: Reddit,
+    beforeEnter: async (to, from, next) => {  
+      if (await isAuthenticated() === true) {
+        next()
+      } else if (await isAuthenticated() === false) {
+        next('/#signin')
+      }
+    }
+  },
 {
   path: "/post/:id",
   name: "Post",
