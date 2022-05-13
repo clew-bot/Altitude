@@ -57,13 +57,19 @@ router.get("/logout", (req, res) => {
 
 router.post("/login", async (req, res) => {
   const findUser = await db.User.findOne({ email: req.body.email });
+  console.log(req.body.password)
   console.log("FINDUSER =", findUser);
+  const pass =findUser.password
   if (findUser) {
+    console.log()
+
     const passwordMatch = await bcrypt.compare(
       req.body.password,
-      findUser.password
+      pass
     );
+    console.log(passwordMatch)
     if (passwordMatch) {
+      console.log("Match");
       const accessToken = jwt.sign(
         { user: { email: req.body.email, password: req.body.password } },
         process.env.ACCESS_TOKEN_SECRET,
@@ -128,9 +134,7 @@ router.post("/forgotPassword", async (req, res) => {
 });
 
 router.get("/getEditDetails", authorization, async (req, res) => {
-  const findUser = await db.User.findOne({ email: req.user.user.email }).select(
-    "-password"
-  );
+  const findUser = await db.User.findOne({ email: req.user.user.email })
   res.json(findUser);
 });
 
@@ -146,9 +150,7 @@ router.post("/editprofile", authorization, async (req, res) => {
       favoriteFood: req.body.food,
       favoriteHobbies: req.body.hobbies,
     }
-  ).select(
-    "-password"
-  );
+  )
   console.log("Edit Profile = ", response);
   res.json({ message: "Profile has been updated" });
 });
@@ -184,9 +186,7 @@ router.get("/images/:key", (req, res) => {
 router.post("/profile", async (req, res) => {
   const randomUsers = await db.User.aggregate([{ $sample: { size: 5 } }])
   try {
-    const findUser = await db.User.findOne({ username: req.body.query }).select(
-      "-password"
-    );
+    const findUser = await db.User.findOne({ username: req.body.query })
 
     if (!findUser) {
       res.json({ message: "User does not exist" });
@@ -199,17 +199,23 @@ router.post("/profile", async (req, res) => {
 });
 
 router.post("/savePost", authorization, async (req, res) => {
-  const findUser = await db.User.findOne({ email: req.user.user.email });
+  const findUser = await db.User.findOne({ email: req.user.user.email }).select(
+    "-password"
+  );
   const author = toId(findUser._id)
   const newPost = new db.Post({
     author: author,
     post: req.body.post,
 })
-   console.log(newPost)
+   console.log(newPost.author)
    newPost.save()
-   findUser.posts.push(newPost)
-    findUser.save()
-    console.log("findUser", findUser)
+   const postId = toId(newPost._id)
+   console.log("NewPost", newPost)
+   const updateMe = await db.User.findOneAndUpdate(
+    { _id: findUser._id }, 
+    { $push: { posts: postId } }
+);
+    console.log("findUser", updateMe)
 })
 
 

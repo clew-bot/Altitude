@@ -137,6 +137,7 @@ export default {
       if(!this.checkbox1) {
         localStorage.removeItem("rememberMe");
       }
+      console.log(this.password)
       const res = await fetch("/api/login", {
         method: "POST",
         headers: {
@@ -144,7 +145,7 @@ export default {
         },
         body: JSON.stringify({
           email: this.email,
-          password: this.password,
+          password: this.password
         }),
       });
       const { message, loggedIn, username } = await res.json();

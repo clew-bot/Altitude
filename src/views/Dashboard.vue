@@ -44,75 +44,43 @@
                 </div>
               </v-expand-transition>
             </v-card>
-            <!-- <v-card>
-            <v-img
-              :src="card.src"
-              class="white--text align-end"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="300px"
-            >
-              <v-card-title v-text="card.title"></v-card-title>
-            </v-img>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card> -->
           </v-col>
         </v-row>
       </v-container>
     </div>
+
     <div v-else>
          <v-card
     max-width="450"
     class="mx-auto"
   >
-    <v-toolbar
-      color="cyan"
-      dark
-    >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
-      <v-toolbar-title>Inbox</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-    </v-toolbar>
-
     <v-list three-line>
-      <template v-for="(item, index) in items">
-        <v-subheader
-          v-if="item.header"
-          :key="item.header"
-          v-text="item.header"
-        ></v-subheader>
-
-        <v-divider
-          v-else-if="item.divider"
-          :key="index"
-          :inset="item.inset"
-        ></v-divider>
-
-        <v-list-item
-          v-else
-          :key="item.title"
-        >
+      <template >
+<div v-for="post in allPosts.slice().reverse()" :key="post._id">
+          <v-list-item>
+            <div v-if="post.author.profilePic">
           <v-list-item-avatar>
-            <v-img :src="item.avatar"></v-img>
+            <v-img :src="'/api/images/'+post.author.profilePic"></v-img>
           </v-list-item-avatar>
+          </div>
+          <div v-else>
+                      <v-list-item-avatar>
+            No Profile Pic
+          </v-list-item-avatar>
+          </div>
+        
 
           <v-list-item-content>
-            <v-list-item-title v-html="item.title"></v-list-item-title>
-            <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+            <router-link :to="'/profile/'+ post.author.username"><v-list-item-title><h3>@{{post.author.username}}</h3></v-list-item-title></router-link>
+
+            <v-list-item-subtitle>{{post.post}}</v-list-item-subtitle>
           </v-list-item-content>
-        </v-list-item>
+            </v-list-item>
+                <v-divider
+
+
+        ></v-divider>
+     </div>
       </template>
     </v-list>
   </v-card>
@@ -123,6 +91,7 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
 export default {
   name: "Dashboard",
   data: () => ({
@@ -203,15 +172,20 @@ export default {
       this.loading = false;
     },
     async getPosts() {
-      const res = await fetch("/api/allPosts");
-      const data = await res.json();
-      console.log(data)
+      this.$store.dispatch("posts/GET_POSTS");
     }
   },
   created() {
     this.loading = true;
     // this.getProgrammingNews();
   },
+     computed: {
+        ...mapState({
+        }),
+      ...mapGetters("posts", [
+      "allPosts",
+    ]),
+    },
 };
 </script>
 

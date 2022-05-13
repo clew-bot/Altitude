@@ -29,7 +29,9 @@ export default {
         state.timeLastLogin = moment(lastLogin).fromNow();
     },
     setCreatedAt(state, createdAt) {
-        state.timeCreated = moment().format("MMM Do YYYY", createdAt)
+        console.log("created", createdAt)
+        state.timeCreated = moment(createdAt).utc().format("MMMM Do YYYY", createdAt)
+        console.log(state.timeCreated )
     },
     setNoUsername(state, noUsername) {
         state.noUsername = noUsername;

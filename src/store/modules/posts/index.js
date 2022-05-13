@@ -3,10 +3,7 @@ import mutations from './mutations.js'
 import getters from './getters.js'
 
 const state = {
-    user: null,
-    token: null,
-    loggedIn: null,
-    username: "",
+    allPosts: [],
 }
 
 export default {

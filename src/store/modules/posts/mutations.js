@@ -13,5 +13,9 @@ export default {
     },
     setToken(state, token) {
         state.token = token;
+    },
+    setAllPosts(state, posts) {
+        state.allPosts = posts
+        console.log("POSTS",state.allPosts)
     }
 }

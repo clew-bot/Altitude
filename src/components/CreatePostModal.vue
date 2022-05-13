@@ -44,6 +44,7 @@ export default {
     },
     savePost() {
       this.$store.dispatch("posts/SAVE_POST", this.content);
+      this.$emit("input", false);
     },
     }
 };
