@@ -4,6 +4,7 @@ import getters from './getters.js'
 
 const state = {
     allPosts: [],
+    createdAtTimes: [],
 }
 
 export default {

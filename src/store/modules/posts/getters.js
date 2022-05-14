@@ -4,5 +4,8 @@ export default {
     },
     allPosts(state) {
         return state.allPosts;
+    },
+    createdAtTimes(state){
+        return state.createdAtTimes;
     }
 }

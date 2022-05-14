@@ -1,7 +1,7 @@
 <template>
   <div class="pa-6">
     <div>
-      <v-card class="mx-auto">
+      <v-card class="mx-auto main-card">
         <v-list three-line>
           <template>
             <div v-for="post in visiblePages" :key="post._id">
@@ -22,11 +22,11 @@
                     style="text-decoration: none; color: inherit"
                     :to="'/profile/' + post.author.username"
                     ><v-list-item-title
-                      ><h3>@{{ post.author.username }}</h3></v-list-item-title
+                      ><h3><span class="username-text">@{{ post.author.username }}</span></h3> <v-list-item-subtitle class="minutes-ago">{{createdAtLog(post.createdAt)}}</v-list-item-subtitle></v-list-item-title
                     ></router-link
                   >
-
-                  <v-list-item-subtitle>{{ post.post }}</v-list-item-subtitle>
+     
+                  <p>{{ post.post }}</p>
                 </v-list-item-content>
               </v-list-item>
               <v-divider></v-divider>
@@ -34,7 +34,7 @@
           </template>
         </v-list>
       </v-card>
-      <v-btn @click="getPosts">CLick</v-btn>
+      <!-- <v-btn @click="getPosts">CLick</v-btn> -->
     </div>
     <v-pagination
       color="#3e69ad"
@@ -47,6 +47,7 @@
 
 <script>
 import NNKoala from "../assets/svgs/NNKoala.svg";
+import moment from "moment";
 import { mapGetters } from "vuex";
 export default {
   name: "Dashboard",
@@ -64,12 +65,15 @@ export default {
     async getPosts() {
       this.$store.dispatch("posts/GET_POSTS");
     },
+    createdAtLog(times) {
+      return moment(times).fromNow();
+    }
   },
   created() {
     this.getPosts();
   },
   computed: {
-    ...mapGetters("posts", ["allPosts"]),
+    ...mapGetters("posts", ["allPosts", "createdAtTimes"]),
     visiblePages() {
       return this.allPosts.slice(
         (this.page - 1) * this.perPage,
@@ -81,6 +85,20 @@ export default {
 </script>
 
 <style scoped>
+.minutes-ago {
+  font-size: 0.8rem;
+  color: #3b423e !important;
+}
+.username-text {
+background: #7821CF;
+background: repeating-radial-gradient(ellipse farthest-corner at top right, #7821CF 5%, #00011C 90%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.theme--light.v-list {
+  background: rgb(186, 186, 185) !important;
+}
 .v-list--three-line .v-list-item .v-list-item__subtitle,
 .v-list-item--three-line .v-list-item__subtitle {
   /* -webkit-box-orient: horizontal !important; */

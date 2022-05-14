@@ -1,3 +1,4 @@
+import moment from 'moment';
 export default {
     isLoggedIn(state, user) {
         state.loggedIn = true;
@@ -17,5 +18,9 @@ export default {
     setAllPosts(state, posts) {
         state.allPosts = posts.reverse();
         console.log("POSTS",state.allPosts)
+    },
+    setCreatedAtTimes(state, times) {
+        const createdAtTimes = times.map(time => moment(time.createdAt).fromNow());
+        state.createdAtTimes = createdAtTimes;
     }
 }

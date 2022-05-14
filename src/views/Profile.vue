@@ -4,8 +4,7 @@
       <div class="sub-container">
         <div
           v-if="!loading"
-          class="rows1"
-          :class="{ show: show, closed: !show }"
+          class="rows1 closed"
         >
           <div class="lastSeen">
             <div class="member-container">
@@ -62,7 +61,9 @@
               indeterminate
             ></v-progress-circular>
           </div>
+             <v-icon class="downIcon" @click="dropDown">mdi-chevron-down</v-icon>
         </div>
+      
         <div class="sub-container" v-else>
           <div class="loading" :class="{ show: show, closed: !show }">
             <v-progress-circular
@@ -73,7 +74,11 @@
             ></v-progress-circular>
           </div>
         </div>
+
       </div>
+            <transition name="fade">
+          <ExtraInformation v-if="show"/>
+          </transition>
       <MoreProfiles />
     </div>
 
@@ -82,11 +87,13 @@
         <h1>no username found 🤔</h1>
       </div>
     </div>
+  
   </div>
 </template>
 
 <script>
 import MoreProfiles from "@/components/Profile/MoreProfiles.vue";
+import ExtraInformation from "@/components/Profile/ExtraInformation.vue";
 import { mapState, mapGetters } from "vuex";
 export default {
   data() {
@@ -96,10 +103,12 @@ export default {
   },
   components: {
     MoreProfiles,
+    ExtraInformation,
   },
   name: "Profile",
   methods: {
     dropDown() {
+      console.log("hi")
       this.show = !this.show;
     },
     async fetchProfileData() {
@@ -124,6 +133,15 @@ export default {
 </script>
 
 <style scoped>
+
+.fade-enter-active, .fade-leave-active {
+  transition: all .2s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  height: 0;
+  transform: skewX(85deg);
+}
 .theHeadline {
   color: #252524;
   font-size: 2.2rem;
@@ -158,6 +176,8 @@ export default {
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    /* margin-bottom: 200px !important;
+    position: absolute; */
   }
   .rows1 {
     display: block !important;
