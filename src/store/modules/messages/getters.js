@@ -10,5 +10,8 @@ export default {
     },
     allMessages(state) {
         return state.totalMessages;
+    },
+    usernames(state) {
+        return state.usernames;
     }
 }

@@ -7,6 +7,7 @@ const state = {
     totalMessages: [],
     totalReadMessages: [],
     createdAtTimes: [],
+    usernames: [],
 
 }
 

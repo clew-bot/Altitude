@@ -246,9 +246,13 @@ router.post("/sendMessage", async (req, res) => {
     message: message.body,
   });
   newMessage.save();
+  const options = {
+    reciever, sender
+  }
   // console.log(newMessage)
-  const testing = await db.Message.find({ to: reciever }).populate("from");
-  console.log("Testing", testing)
+  // const testing = await db.Message.find({ to: reciever }).populate("from");
+  const updateMsg = db.User.updateMany({ username: options }, { $push: { messages: newMessage._id } })
+  console.log("UD", updateMsg)
 //   const updateSender = await db.User.findOneAndUpdate(
 //     { _id: findUser._id }, 
 //     { $push: { messages: postId } }
@@ -256,12 +260,15 @@ router.post("/sendMessage", async (req, res) => {
   res.json({ message: "Message has been sent" });
 })
 
+
+
 router.get("/getMessages", authorization, async (req, res) => {
   const findUser = await db.User.findOne({ email: req.user.user.email }).select(
     "-password"
   );
   const userId = toId(findUser._id)
-  const messages = await db.Message.find({ to: userId }).populate("from")
+  const messages = await db.Message.find({ to: userId }).populate("from");
+
   res.json(messages)
 })
 

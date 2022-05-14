@@ -24,6 +24,7 @@ export default {
       });
       const data = await messages.json();
       commit("setMessages", data);
+      commit("setUsernames", data);
       console.log(data);
     } catch (error) {
       console.log(error);

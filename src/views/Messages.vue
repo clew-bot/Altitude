@@ -1,10 +1,8 @@
 <template>
-  <v-card class="mx-auto" max-width="500">
-    <v-toolbar color="pink" dark>
-      <button @click="fetchMessages">CLICK</button>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+  <v-card class="main-card" >
+    <v-toolbar color="gray" dark>
 
-      <v-toolbar-title>Inbox</v-toolbar-title>
+      <v-toolbar-title>My Messages From Users</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -57,7 +55,7 @@ import moment from "moment";
 export default {
   name: "Messages",
   data: () => ({
-    selected: [2],
+    selected: [],
     items: [
       {
         action: "15 min",
@@ -104,11 +102,20 @@ export default {
   },
   computed: {
     ...mapGetters("messages", [
-      "allMessages", "getCreatedAt",
+      "allMessages", "getCreatedAt","usernames"
 
     ]),
+  },
+  created() {
+    this.fetchMessages();
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+
+.main-card {
+  width: 100% !important;
+}
+
+</style>

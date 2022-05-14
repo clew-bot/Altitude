@@ -144,7 +144,7 @@ export default {
 }
 
 .theme--light.v-list {
-  background: rgb(186, 186, 185) !important;
+  background: rgb(237, 237, 232) !important;
   min-height: 1000px;
 }
 .v-list--three-line .v-list-item .v-list-item__subtitle,
