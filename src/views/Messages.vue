@@ -107,7 +107,6 @@ export default {
     transition: all .3s ease-in-out;
 }
 .lister-sub {
-  z-index: 99 !important;
   background: rgb(133, 122, 122);
 }
 .lister {
