@@ -137,9 +137,15 @@ export default {
 <style scoped>
 .downIcon {
    position: absolute;
-    bottom: 5px;
-    right: 5px;
+    bottom: 20px;
+    right: 20px;
+    border-radius:50%;
 }
+.downIcon:hover {
+background: rgba(229, 202, 202, 0.343);
+border-radius: 50%;
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: all .4s;
   height: 230px;

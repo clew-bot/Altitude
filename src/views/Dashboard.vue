@@ -18,16 +18,28 @@
                 </div>
 
                 <v-list-item-content>
-                  <router-link
-                    style="text-decoration: none; color: inherit"
-                    :to="'/profile/' + post.author.username"
-                    ><v-list-item-title
-                      ><h3><span class="username-text">@{{ post.author.username }}</span></h3> <v-list-item-subtitle class="minutes-ago">{{createdAtLog(post.createdAt)}}</v-list-item-subtitle></v-list-item-title
-                    ></router-link
-                  >
-     
+                 
+                    <v-list-item-title>
+                   
+                      <h3>
+                        <span class="username-text" @click="goToProfile(post.author.username)">
+                          @{{ post.author.username }}</span
+                        >
+                      </h3>
+                      <v-list-item-subtitle class="minutes-ago">{{
+                        createdAtLog(post.createdAt)
+                      }}</v-list-item-subtitle>
+                      </v-list-item-title
+                    >
+
                   <p>{{ post.post }}</p>
                 </v-list-item-content>
+                <v-icon class="like-icon" @click="likePost"
+                  >mdi-thumb-up</v-icon
+                >
+                <v-icon class="report-icon" @click="reportUser"
+                  >mdi-alert-octagon</v-icon
+                >
               </v-list-item>
               <v-divider></v-divider>
             </div>
@@ -67,7 +79,21 @@ export default {
     },
     createdAtLog(times) {
       return moment(times).fromNow();
-    }
+    },
+    reportUser(e) {
+      console.log(e);
+    },
+    likePost() {
+      this.$toasted.show("Liked Post!", {
+        // icon:{ name: "check"},
+        theme: "bubble",
+        position: "top-center",
+        duration: 1000,
+      });
+    },
+    goToProfile(username) {
+      this.$router.push(`/profile/${username}`);
+    },
   },
   created() {
     this.getPosts();
@@ -85,15 +111,39 @@ export default {
 </script>
 
 <style scoped>
+.main-card {
+  position: relative;
+}
+
+.like-icon {
+  position: absolute;
+  right: 0px;
+  top: 30px;
+  color: #139617 !important;
+  padding-left: 12px;
+}
+
+.report-icon {
+  position: absolute;
+  right: 0px;
+  top: 30px;
+  color: #a92727 !important;
+  padding-left: 12px;
+}
 .minutes-ago {
   font-size: 0.8rem;
   color: #3b423e !important;
 }
 .username-text {
-background: #7821CF;
-background: repeating-radial-gradient(ellipse farthest-corner at top right, #7821CF 5%, #00011C 90%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+  background: #7821cf;
+  cursor: pointer;
+  background: repeating-radial-gradient(
+    ellipse farthest-corner at top right,
+    #7821cf 5%,
+    #00011c 90%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .theme--light.v-list {
