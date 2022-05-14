@@ -61,6 +61,39 @@ const userSchema = new Schema({
       ref: "Post",
     },
   ],
+  friends: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  friendRequests: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+
+  friendRequestsSent: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  friendRequestsReceived: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  messages: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Message",
+    },
+  ],
+
+
 
 },{ timestamps: true });
 

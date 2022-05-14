@@ -6,6 +6,7 @@
           v-if="!loading"
           class="rows1 closed"
         >
+                     
           <div class="lastSeen">
             <div class="member-container">
               <div>
@@ -62,6 +63,7 @@
             ></v-progress-circular>
           </div>
           <div>
+            <v-icon @click="showingModal" class="mailbox-icon">mdi-mailbox-open-up</v-icon>
              <v-icon class="downIcon" @click="dropDown">mdi-chevron-down</v-icon>
              </div>
         </div>
@@ -89,11 +91,12 @@
         <h1>no username found 🤔</h1>
       </div>
     </div>
-  
+  <SendMessageModal v-model="dialog" />
   </div>
 </template>
 
 <script>
+import SendMessageModal from "@/components/Modals/SendMessageModal.vue";
 import MoreProfiles from "@/components/Profile/MoreProfiles.vue";
 import ExtraInformation from "@/components/Profile/ExtraInformation.vue";
 import { mapState, mapGetters } from "vuex";
@@ -101,11 +104,13 @@ export default {
   data() {
     return {
       show: false,
+      dialog: false,
     };
   },
   components: {
     MoreProfiles,
     ExtraInformation,
+    SendMessageModal,
   },
   name: "Profile",
   methods: {
@@ -117,6 +122,9 @@ export default {
       const query = this.$router.currentRoute.params.id;
       this.$store.dispatch("profile/FETCH_PROFILE_DATA", query);
     },
+    showingModal() {
+            this.dialog = !this.dialog;
+        },
   },
   mounted() {
     this.fetchProfileData();
@@ -135,6 +143,14 @@ export default {
 </script>
 
 <style scoped>
+
+.mailbox-icon {
+     position: absolute;
+    top: 20px;
+    right: 20px;
+    border-radius:50%;
+    color: rgba(1, 3, 8, 0.652);
+}
 .downIcon {
    position: absolute;
     bottom: 20px;

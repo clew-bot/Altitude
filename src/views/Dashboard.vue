@@ -8,7 +8,7 @@
               <v-list-item>
                 <div v-if="post.author.profilePic">
                   <v-list-item-avatar>
-                    <v-img
+                    <v-img @click="goToProfile(post.author.username)"
                       :src="'/api/images/' + post.author.profilePic"
                     ></v-img>
                   </v-list-item-avatar>
@@ -24,7 +24,12 @@
                       <h3>
                         <span class="username-text" @click="goToProfile(post.author.username)">
                           @{{ post.author.username }}</span
-                        >
+                        ><span>  <v-icon class="like-icon" @click="likePost"
+                  >mdi-star-shooting</v-icon
+                >
+                <v-icon class="report-icon" @click="reportUser"
+                  >mdi-alert-octagon</v-icon
+                ></span>    
                       </h3>
                       <v-list-item-subtitle class="minutes-ago">{{
                         createdAtLog(post.createdAt)
@@ -32,14 +37,9 @@
                       </v-list-item-title
                     >
 
-                  <p>{{ post.post }}</p>
+                  <p v-html="post.post"></p>
                 </v-list-item-content>
-                <v-icon class="like-icon" @click="likePost"
-                  >mdi-thumb-up</v-icon
-                >
-                <v-icon class="report-icon" @click="reportUser"
-                  >mdi-alert-octagon</v-icon
-                >
+          
               </v-list-item>
               <v-divider></v-divider>
             </div>
@@ -106,6 +106,7 @@ export default {
         this.page * this.perPage
       );
     },
+
   },
 };
 </script>
@@ -116,19 +117,15 @@ export default {
 }
 
 .like-icon {
-  position: absolute;
-  right: 0px;
-  top: 30px;
-  color: #139617 !important;
+  color: #a29309 !important;
   padding-left: 12px;
 }
 
+
+
 .report-icon {
-  position: absolute;
-  right: 0px;
-  top: 30px;
-  color: #a92727 !important;
-  padding-left: 12px;
+  color: red !important;
+  padding-left: 8px;
 }
 .minutes-ago {
   font-size: 0.8rem;
@@ -148,11 +145,12 @@ export default {
 
 .theme--light.v-list {
   background: rgb(186, 186, 185) !important;
+  min-height: 1000px;
 }
 .v-list--three-line .v-list-item .v-list-item__subtitle,
 .v-list-item--three-line .v-list-item__subtitle {
   /* -webkit-box-orient: horizontal !important; */
-  padding-right: 100px;
+  /* padding-right: 100px; */
 }
 
 #cardTitle {

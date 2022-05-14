@@ -2,7 +2,7 @@
   <div>
     <v-dialog :value="value" @input="$emit('input', $event)" max-width="600">
       <v-card>
-        <v-toolbar dark>Share something 💭</v-toolbar>
+        <v-toolbar dark>Message 💭</v-toolbar>
         <v-card-text>
 
           <div class="text-editor">
@@ -12,7 +12,7 @@
           </div>
         </v-card-text>
         <v-card-actions class="justify-end">
-             <v-btn  @click="savePost">Save</v-btn>
+             <v-btn  @click="savePost">Send</v-btn>
         </v-card-actions>
         <!-- <button @click="consoleme">Let's see what we got</button> -->
       </v-card>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: "CreatePost",
+  name: "SendMessageModal",
   props: {
     value: {
       type: Boolean,
@@ -44,8 +44,7 @@ export default {
       this.content = this.content.replace(/&nbsp;/g, " ");
     },
     savePost() {
-      this.$store.dispatch("posts/SAVE_POST", this.content);
-      this.$emit("input", false);
+
     },
     }
 };
@@ -69,7 +68,7 @@ export default {
 
 .text-editor {
   margin-top: 20px;
-  min-height: 90px;
+
   width: 100%;
   border: 1px solid #ccc;
   padding: 1px;
