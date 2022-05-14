@@ -30,7 +30,7 @@ export default {
       console.log(error);
     }
   },
-  async [GET_PRIVATE_MESSAGE]({ commit }, name) {
+  async [GET_PRIVATE_MESSAGE]({ commit, state }, name) {
     console.log(commit)
     try {
       const messages = await fetch(`/api/getPrivateMessages`, {
@@ -41,7 +41,10 @@ export default {
         body: JSON.stringify({ name }),
       });
       const data = await messages.json();
-      console.log(data);
+      const msgs = ([...data.toMessages, ...data.fromMessages])
+      console.log("MSG", msgs)
+      commit("setMessages", msgs);
+      console.log(state.totalMessages);
     } catch (error) {
       console.log(error);
     }

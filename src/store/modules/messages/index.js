@@ -8,6 +8,8 @@ const state = {
     totalReadMessages: [],
     createdAtTimes: [],
     usernames: [],
+    toMessages: [],
+    fromMessages: [],
 
 }
 

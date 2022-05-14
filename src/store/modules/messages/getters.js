@@ -1,3 +1,5 @@
+
+
 export default {
     isLoggedIn(state) {
         return !!state.token;
@@ -13,5 +15,8 @@ export default {
     },
     usernames(state) {
         return state.usernames;
+    },
+    messages(state) {
+        return state.totalMessages;
     }
 }

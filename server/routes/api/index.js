@@ -57,17 +57,14 @@ router.get("/logout", (req, res) => {
 
 router.post("/login", async (req, res) => {
   const findUser = await db.User.findOne({ email: req.body.email });
-  console.log(req.body.password)
+  console.log(req.body.password);
   console.log("FINDUSER =", findUser);
-  const pass =findUser.password
+  const pass = findUser.password;
   if (findUser) {
-    console.log()
+    console.log();
 
-    const passwordMatch = await bcrypt.compare(
-      req.body.password,
-      pass
-    );
-    console.log(passwordMatch)
+    const passwordMatch = await bcrypt.compare(req.body.password, pass);
+    console.log(passwordMatch);
     if (passwordMatch) {
       console.log("Match");
       const accessToken = jwt.sign(
@@ -79,7 +76,7 @@ router.post("/login", async (req, res) => {
       db.User.findOneAndUpdate(
         { email: req.body.email },
         { $set: { lastLogin: Date.now() } },
-        { new: true },
+        { new: true }
       );
       res
         .cookie("accessToken", accessToken, {
@@ -135,7 +132,7 @@ router.post("/forgotPassword", async (req, res) => {
 });
 
 router.get("/getEditDetails", authorization, async (req, res) => {
-  const findUser = await db.User.findOne({ email: req.user.user.email })
+  const findUser = await db.User.findOne({ email: req.user.user.email });
   res.json(findUser);
 });
 
@@ -151,7 +148,7 @@ router.post("/editprofile", authorization, async (req, res) => {
       favoriteFood: req.body.food,
       favoriteHobbies: req.body.hobbies,
     }
-  )
+  );
   console.log("Edit Profile = ", response);
   res.json({ message: "Profile has been updated" });
 });
@@ -185,9 +182,9 @@ router.get("/images/:key", (req, res) => {
 });
 
 router.post("/profile", async (req, res) => {
-  const randomUsers = await db.User.aggregate([{ $sample: { size: 5 } }])
+  const randomUsers = await db.User.aggregate([{ $sample: { size: 5 } }]);
   try {
-    const findUser = await db.User.findOne({ username: req.body.query })
+    const findUser = await db.User.findOne({ username: req.body.query });
 
     if (!findUser) {
       res.json({ message: "User does not exist" });
@@ -203,43 +200,41 @@ router.post("/savePost", authorization, async (req, res) => {
   const findUser = await db.User.findOne({ email: req.user.user.email }).select(
     "-password"
   );
-  const author = toId(findUser._id)
+  const author = toId(findUser._id);
   const newPost = new db.Post({
     author: author,
     post: req.body.post,
-})
-   console.log(newPost.author)
-   newPost.save()
-   const postId = toId(newPost._id)
-   console.log("NewPost", newPost)
-   const updateMe = await db.User.findOneAndUpdate(
-    { _id: findUser._id }, 
+  });
+  console.log(newPost.author);
+  newPost.save();
+  const postId = toId(newPost._id);
+  console.log("NewPost", newPost);
+  const updateMe = await db.User.findOneAndUpdate(
+    { _id: findUser._id },
     { $push: { posts: postId } }
-);
-    console.log("findUser", updateMe)
-})
-
+  );
+  console.log("findUser", updateMe);
+});
 
 router.get("/allPosts", authorization, async (req, res) => {
-    const Posts = await db.Post.find({}).populate("author")
-    res.json(Posts)
-})
+  const Posts = await db.Post.find({}).populate("author");
+  res.json(Posts);
+});
 
 router.post("/sendMessage", async (req, res) => {
-
   const { message } = req.body;
   const userToSend = await db.User.findOne({ username: message.from }).select(
     "-password"
   );
 
-  console.log("userToSend", userToSend)
+  console.log("userToSend", userToSend);
 
-  const sender = toId(userToSend._id)
+  const sender = toId(userToSend._id);
   const userToRecieve = await db.User.findOne({ username: message.to }).select(
     "-password"
   );
-  const reciever = toId(userToRecieve._id)
- 
+  const reciever = toId(userToRecieve._id);
+
   const newMessage = new db.Message({
     to: reciever,
     from: sender,
@@ -247,112 +242,53 @@ router.post("/sendMessage", async (req, res) => {
   });
   newMessage.save();
   const options = {
-    reciever, sender
-  }
+    reciever,
+    sender,
+  };
   // console.log(newMessage)
   // const testing = await db.Message.find({ to: reciever }).populate("from");
-  const updateMsg = db.User.updateMany({ username: options }, { $push: { messages: newMessage._id } })
-  console.log("UD", updateMsg)
-//   const updateSender = await db.User.findOneAndUpdate(
-//     { _id: findUser._id }, 
-//     { $push: { messages: postId } }
-// );
+  const updateMsg = db.User.updateMany(
+    { username: options },
+    { $push: { messages: newMessage._id } }
+  );
+  console.log("UD", updateMsg);
+  //   const updateSender = await db.User.findOneAndUpdate(
+  //     { _id: findUser._id },
+  //     { $push: { messages: postId } }
+  // );
   res.json({ message: "Message has been sent" });
-})
-
-
+});
 
 router.get("/getMessages", authorization, async (req, res) => {
   const findUser = await db.User.findOne({ email: req.user.user.email }).select(
     "-password"
   );
-  const userId = toId(findUser._id)
+  const userId = toId(findUser._id);
   const messages = await db.Message.find({ to: userId }).populate("from");
 
-  res.json(messages)
-})
+  res.json(messages);
+});
 
 router.post("/getPrivateMessages", authorization, async (req, res) => {
-  console.log("hi")
+  console.log("hi");
   const { name } = req.body;
   const messagesFrom = await db.User.findOne({ username: name }).select(
     "-password"
   );
-  const user = toId(messagesFrom._id)
+  const user = toId(messagesFrom._id);
 
-  const messages = await db.Message.find({ from: user }).populate("from");
-console.log(messages)
-  res.json(messages)
-  // db.Message.find({ to: user }).populate("from").then(messages => {
-  //   res.json(messages)
-  // })
-//   const theMessages = db.Message.aggregate(
-//     [
-//         // Matching pipeline, similar to find
-//         { 
-//             "$match": { 
-//                 "from": user 
-//             },
-       
-//         },
-//         {
-//             "$lookup": {
-//               from: "user",
-//               localField: "from",
-//               foreignField: "_id",
-//               as: "conversation"
-//             },
-//         }
-//         // Sorting pipeline
-//         // { 
-//         //     "$sort": { 
-//         //         "createdAt": -1 
-//         //     } 
-//         // },
-//         // // Grouping pipeline
-//         // {
-//         //     "$group": {
-//         //         "_id": "$from",
-//         //         "message": {
-//         //             "$first": "$message" 
-//         //         },
-//         //         "createdAt": {
-//         //             "$first": "$createdAt" 
-//         //         }
-//         //     }
-//         // },
-//         // // Project pipeline, similar to select
-//         // {
-//         //      "$project": { 
-//         //         "_id": 0,
-//         //         "from": "$_id",
-//         //         "message": 1,
-//         //         "createdAt": 1
-//         //     }
-//         // }
-//     ],
-//     function(err, messages) {
-//        // Result is an array of documents
-//        if (err) {
-//          console.log("ERROR", err)
-//             return res.status(400).send({
-//                 message: "No"(err)
-//             });
-//         } else {
-          
-//           console.log(messages)
-//           messages.populate("from", (err, messages) => {
-//             console.log(messages)
-//           })
-//           // res.json(messages)
-//         }
-//     }
-// );
-// console.log("HERE", theMessages)
-})
+  const me = await db.User.findOne({ email: req.user.user.email }).select(
+    "-password"
+  );
+  const toMessages = await db.Message.find({ to: user, from: me }).populate("from");
+  const fromMessages = await db.Message.find({ from: user, to: me }).populate("from");
+  console.log("toMessages", toMessages);
+  console.log("fromMessages", fromMessages);
+  res.json({ toMessages, fromMessages });
+
+});
 
 module.exports = router;
-
 
 ///ObjectId("627bf143de63240e7ba0dde4")
 ///ObjectId("627bf143de63240e7ba0dde4")
