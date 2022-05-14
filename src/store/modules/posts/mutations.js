@@ -15,7 +15,7 @@ export default {
         state.token = token;
     },
     setAllPosts(state, posts) {
-        state.allPosts = posts
+        state.allPosts = posts.reverse();
         console.log("POSTS",state.allPosts)
     }
 }

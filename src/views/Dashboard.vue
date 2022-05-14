@@ -37,7 +37,6 @@
       </v-card>
       <v-btn @click="getPosts">CLick</v-btn>
     </div>
-       <!-- {{visiblePages}} -->
             <v-pagination
               v-model="page"
               :length="Math.ceil(allPosts.length / perPage)"
@@ -67,7 +66,7 @@ export default {
   computed: {
     ...mapGetters("posts", ["allPosts"]),
     visiblePages() {
-      return this.allPosts.slice((this.page - 1)* this.perPage, this.page * this.perPage).reverse();
+      return this.allPosts.slice((this.page - 1)* this.perPage, this.page * this.perPage);
     },
   },
 };
