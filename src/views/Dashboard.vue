@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-12">
+  <div class="pa-6">
     <div>
       <v-card class="mx-auto">
         <v-list three-line>
@@ -14,7 +14,7 @@
                   </v-list-item-avatar>
                 </div>
                 <div v-else>
-                  <v-list-item-avatar> No Profile Pic </v-list-item-avatar>
+                  <v-list-item-avatar><NNKoala /></v-list-item-avatar>
                 </div>
 
                 <v-list-item-content>
@@ -31,23 +31,28 @@
               </v-list-item>
               <v-divider></v-divider>
             </div>
-         
           </template>
         </v-list>
       </v-card>
       <v-btn @click="getPosts">CLick</v-btn>
     </div>
-            <v-pagination
-              v-model="page"
-              :length="Math.ceil(allPosts.length / perPage)"
-            ></v-pagination>
+    <v-pagination
+      color="#3e69ad"
+      circle
+      v-model="page"
+      :length="Math.ceil(allPosts.length / perPage)"
+    ></v-pagination>
   </div>
 </template>
 
 <script>
+import NNKoala from "../assets/svgs/NNKoala.svg";
 import { mapGetters } from "vuex";
 export default {
   name: "Dashboard",
+  components: {
+    NNKoala,
+  },
   data: () => ({
     show: false,
     loading: true,
@@ -66,7 +71,10 @@ export default {
   computed: {
     ...mapGetters("posts", ["allPosts"]),
     visiblePages() {
-      return this.allPosts.slice((this.page - 1)* this.perPage, this.page * this.perPage);
+      return this.allPosts.slice(
+        (this.page - 1) * this.perPage,
+        this.page * this.perPage
+      );
     },
   },
 };

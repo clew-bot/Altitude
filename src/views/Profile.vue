@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import MoreProfiles from "@/components/MoreProfiles.vue";
+import MoreProfiles from "@/components/Profile/MoreProfiles.vue";
 import { mapState, mapGetters } from "vuex";
 export default {
   data() {

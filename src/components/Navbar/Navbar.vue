@@ -74,13 +74,13 @@
 </template>
 
 <script>
-import LoginModal from "@/components/LoginModal.vue";
-import SignUpModal from "@/components/SignUpModal.vue";
-import Ellipses from "@/components/Ellipses.vue";
-import ProfileButton from "@/components/ProfileButton.vue";
-import router from "../router";
+import LoginModal from "@/components/Modals/LoginModal.vue";
+import SignUpModal from "@/components/Modals/SignUpModal.vue";
+import Ellipses from "@/components/Navbar/Ellipses.vue";
+import ProfileButton from "@/components/Navbar/ProfileButton.vue";
+import router from "../../router";
 import moment from "moment";
-import Koala from "../assets/svgs/koala.svg";
+import Koala from "../../assets/svgs/koala.svg";
 
 export default {
   data: () => ({   

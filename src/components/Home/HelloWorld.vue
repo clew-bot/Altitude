@@ -51,11 +51,11 @@
 </template>
 
 <script>
-import HappyPeople from "../assets/svgs/happy_people.svg";
+import HappyPeople from "../../assets/svgs/happy_people.svg";
 // import HappyBalloon from "../assets/svgs/happy_balloon.svg";
-import PositiveA from "../assets/svgs/positiveA.svg";
+import PositiveA from "../../assets/svgs/positiveA.svg";
 // import Flower from "../assets/svgs/flower.svg";
-import Friendship from "../assets/svgs/friendship.svg";
+import Friendship from "../../assets/svgs/friendship.svg";
 
 export default {
   name: "HelloWorld",

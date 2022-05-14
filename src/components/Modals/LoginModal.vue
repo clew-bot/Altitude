@@ -74,8 +74,8 @@
 </template>
 
 <script>
-import SignUpModal from "@/components/SignUpModal.vue";
-import ForgotPasswordModal from "@/components/ForgotPasswordModal.vue";
+import SignUpModal from "@/components/Modals/SignUpModal.vue";
+import ForgotPasswordModal from "@/components/Modals/ForgotPasswordModal.vue";
 
 export default {
   props: {

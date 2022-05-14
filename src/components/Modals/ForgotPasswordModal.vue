@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import SignUpModal from "@/components/SignUpModal.vue";
+import SignUpModal from "@/components/Modals/SignUpModal.vue";
 
 export default {
   props: {

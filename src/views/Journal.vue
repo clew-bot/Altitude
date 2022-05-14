@@ -20,7 +20,7 @@
 <script>
 
 import UnderCon from "../assets/svgs/under_con.svg";
-import CreatePostModal from "@/components/CreatePostModal.vue";
+import CreatePostModal from "@/components/Modals/CreatePostModal.vue";
 export default {
     name: 'Journal',
     data() {
