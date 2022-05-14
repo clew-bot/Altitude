@@ -24,5 +24,5 @@ export default {
     // commit("setCreatedAtTimes", data);
     commit("setAllPosts", data);
     // console.log("DATA", data);
-  }
+  },
 }

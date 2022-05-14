@@ -223,7 +223,46 @@ router.post("/savePost", authorization, async (req, res) => {
 router.get("/allPosts", authorization, async (req, res) => {
     const Posts = await db.Post.find({}).populate("author")
     res.json(Posts)
+})
 
+router.post("/sendMessage", async (req, res) => {
+
+  const { message } = req.body;
+  const userToSend = await db.User.findOne({ username: message.from }).select(
+    "-password"
+  );
+
+  console.log("userToSend", userToSend)
+
+  const sender = toId(userToSend._id)
+  const userToRecieve = await db.User.findOne({ username: message.to }).select(
+    "-password"
+  );
+  const reciever = toId(userToRecieve._id)
+ 
+  const newMessage = new db.Message({
+    to: reciever,
+    from: sender,
+    message: message.body,
+  });
+  newMessage.save();
+  // console.log(newMessage)
+  const testing = await db.Message.find({ to: reciever }).populate("from");
+  console.log("Testing", testing)
+//   const updateSender = await db.User.findOneAndUpdate(
+//     { _id: findUser._id }, 
+//     { $push: { messages: postId } }
+// );
+  res.json({ message: "Message has been sent" });
+})
+
+router.get("/getMessages", authorization, async (req, res) => {
+  const findUser = await db.User.findOne({ email: req.user.user.email }).select(
+    "-password"
+  );
+  const userId = toId(findUser._id)
+  const messages = await db.Message.find({ to: userId }).populate("from")
+  res.json(messages)
 })
 
 module.exports = router;

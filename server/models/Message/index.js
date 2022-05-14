@@ -14,8 +14,12 @@ const messageSchema = new Schema({
         type: String,
         required: true,
     },
+    haveRead: {
+        type: Boolean,
+        default: false,
+    },
 },{ timestamps: true });
 
-const Message = mongoose.model("messageSchema", messageSchema);
+const Message = mongoose.model("message", messageSchema);
 
 module.exports = Message;

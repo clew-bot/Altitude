@@ -187,7 +187,6 @@ export default {
     // if (localStorage.getItem("rememberMe") === "true") {
     //   this.email = localStorage.getItem("email");
     //   this.checkbox1 = "true";
-    // }
   },
   watch: {
     checkbox1: function() {

@@ -6,19 +6,15 @@ import modal from "./modules/modal"
 import user from "./modules/user";
 import profile from "./modules/profile";
 import posts from "./modules/posts";
-
+import messages from "./modules/messages";
 Vue.use(Vuex)
-
-// const state = {}
-// const actions = ({})
-// const mutations = ({})
-// const getters = ({})
 
 const modules = {
   modal,
   user,
   profile,
-  posts
+  posts,
+  messages,
 }
 export default new Vuex.Store({
   modules

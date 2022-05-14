@@ -20,6 +20,15 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+           <v-list-item to="/messages" :disabled="isDisabled">
+          <v-list-item-icon>
+            <v-icon>mdi-email-mark-as-unread</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>Messages</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item to="/dashboard" :disabled="isDisabled">
           <v-list-item-icon>
             <v-icon>mdi-desktop-mac-dashboard</v-icon>

@@ -2,7 +2,7 @@
   <div>
     <v-dialog :value="value" @input="$emit('input', $event)" max-width="600">
       <v-card>
-        <v-toolbar dark>Message 💭</v-toolbar>
+        <v-toolbar dark>Send a message to {{person}} 💭</v-toolbar>
         <v-card-text>
 
           <div class="text-editor">
@@ -12,11 +12,12 @@
           </div>
         </v-card-text>
         <v-card-actions class="justify-end">
-             <v-btn  @click="savePost">Send</v-btn>
+             <v-btn  @click="sendMessage">Send</v-btn>
         </v-card-actions>
         <!-- <button @click="consoleme">Let's see what we got</button> -->
       </v-card>
     </v-dialog>
+    <button @click="consoleme">dsdsd</button>
   </div>
 </template>
 
@@ -27,15 +28,20 @@ export default {
     value: {
       type: Boolean,
     },
+    person: {
+      type: String,
+    },
   },
   data() {
     return {
       content: "",
+      myUsername: localStorage.getItem("username"),
     };
   },
   methods: {
     consoleme() {
       console.log(this.content);
+      console.log(this.myUsername)
     },
     handleInput: function (e) {
       console.log(e.target.innerText);
@@ -43,7 +49,14 @@ export default {
       //replace &nbsp; with a space
       this.content = this.content.replace(/&nbsp;/g, " ");
     },
-    savePost() {
+    sendMessage() {
+        const theMessage = {
+            body: this.content,
+            to: this.person,
+            from: this.myUsername,
+        }
+        this.$store.dispatch("messages/SEND_MESSAGE", theMessage);
+        this.$emit("input", false);
 
     },
     }

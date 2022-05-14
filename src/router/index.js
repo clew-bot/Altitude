@@ -10,6 +10,7 @@ import Journal from '../views/Journal.vue'
 import Profile from '../views/Profile.vue'
 import EditProfile from '../views/EditProfile.vue'
 import Reddit from "../views/Reddit.vue"
+import Messages from "../views/Messages.vue"
 
 const isAuthenticated = async () => {
   try {
@@ -104,6 +105,18 @@ const routes = [
   component: Post,
 },
 { path: "*", component: PageNotFound },
+{
+  path: "/messages",
+  name: "Messages",
+  component: Messages,
+  beforeEnter: async (to, from, next) => {  
+    if (await isAuthenticated() === true) {
+      next()
+    } else if (await isAuthenticated() === false) {
+      next('/#signin')
+    }
+  }
+},
 ]
 
 const router = new VueRouter({

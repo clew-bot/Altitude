@@ -91,7 +91,7 @@
         <h1>no username found 🤔</h1>
       </div>
     </div>
-  <SendMessageModal v-model="dialog" />
+  <SendMessageModal v-model="dialog" :person="findUser.username"/>
   </div>
 </template>
 
