@@ -1,4 +1,4 @@
-import { SEND_MESSAGE, GET_MESSAGES } from "./types.js";
+import { SEND_MESSAGE, GET_MESSAGES, GET_PRIVATE_MESSAGE } from "./types.js";
 
 export default {
   async [SEND_MESSAGE]({ commit, state }, message) {
@@ -25,6 +25,22 @@ export default {
       const data = await messages.json();
       commit("setMessages", data);
       commit("setUsernames", data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async [GET_PRIVATE_MESSAGE]({ commit }, name) {
+    console.log(commit)
+    try {
+      const messages = await fetch(`/api/getPrivateMessages`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name }),
+      });
+      const data = await messages.json();
       console.log(data);
     } catch (error) {
       console.log(error);

@@ -272,6 +272,85 @@ router.get("/getMessages", authorization, async (req, res) => {
   res.json(messages)
 })
 
+router.post("/getPrivateMessages", authorization, async (req, res) => {
+  console.log("hi")
+  const { name } = req.body;
+  const messagesFrom = await db.User.findOne({ username: name }).select(
+    "-password"
+  );
+  const user = toId(messagesFrom._id)
+
+  const messages = await db.Message.find({ from: user }).populate("from");
+console.log(messages)
+  res.json(messages)
+  // db.Message.find({ to: user }).populate("from").then(messages => {
+  //   res.json(messages)
+  // })
+//   const theMessages = db.Message.aggregate(
+//     [
+//         // Matching pipeline, similar to find
+//         { 
+//             "$match": { 
+//                 "from": user 
+//             },
+       
+//         },
+//         {
+//             "$lookup": {
+//               from: "user",
+//               localField: "from",
+//               foreignField: "_id",
+//               as: "conversation"
+//             },
+//         }
+//         // Sorting pipeline
+//         // { 
+//         //     "$sort": { 
+//         //         "createdAt": -1 
+//         //     } 
+//         // },
+//         // // Grouping pipeline
+//         // {
+//         //     "$group": {
+//         //         "_id": "$from",
+//         //         "message": {
+//         //             "$first": "$message" 
+//         //         },
+//         //         "createdAt": {
+//         //             "$first": "$createdAt" 
+//         //         }
+//         //     }
+//         // },
+//         // // Project pipeline, similar to select
+//         // {
+//         //      "$project": { 
+//         //         "_id": 0,
+//         //         "from": "$_id",
+//         //         "message": 1,
+//         //         "createdAt": 1
+//         //     }
+//         // }
+//     ],
+//     function(err, messages) {
+//        // Result is an array of documents
+//        if (err) {
+//          console.log("ERROR", err)
+//             return res.status(400).send({
+//                 message: "No"(err)
+//             });
+//         } else {
+          
+//           console.log(messages)
+//           messages.populate("from", (err, messages) => {
+//             console.log(messages)
+//           })
+//           // res.json(messages)
+//         }
+//     }
+// );
+// console.log("HERE", theMessages)
+})
+
 module.exports = router;
 
 

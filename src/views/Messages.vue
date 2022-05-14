@@ -1,4 +1,5 @@
 <template>
+<div class="pa-6">
   <v-card class="main-card" >
     <v-toolbar color="gray" dark>
 
@@ -16,11 +17,16 @@
     </v-toolbar>
 
     <v-list two-line>
-      <v-list-item-group v-model="selected" active-class="pink--text" multiple>
-        <template >
-          <v-list-item v-for="(message) in allMessages" :key="message._id">
+      <v-list-item-group active-class="none" >
+   
+        <div v-for="(username, index) in usernames" :key="username.id" class="lister">
+
+          <v-list-item class="lister-sub">
+
               <v-list-item-content>
-                <v-list-item-title v-text="message.from.username"></v-list-item-title>
+                <router-link :to='"/pm/" + username'>
+                <v-list-item-title v-text="username"></v-list-item-title>
+                </router-link>
 
                 <!-- <v-list-item-subtitle
                   class="text--primary"
@@ -28,68 +34,43 @@
                 ></v-list-item-subtitle> -->
 
                 <v-list-item-subtitle
-                  v-text="message.message"
                 ></v-list-item-subtitle>
               </v-list-item-content>
 
               <v-list-item-action>
                 <v-list-item-action-text
-                >{{createdAtLog(message.createdAt)}}</v-list-item-action-text>
+                ></v-list-item-action-text>
 
-                <!-- <v-icon v-if="!active" color="grey lighten-1">
-                  mdi-star-outline
-                </v-icon> -->
-
-                <!-- <v-icon v-else color="yellow darken-3"> mdi-star </v-icon> -->
               </v-list-item-action>
+
+                 <v-icon class="report-icon" @click="openMessage(index)"
+                  >mdi-chevron-down</v-icon
+                >
+              
           </v-list-item>
-        </template>
+                <!-- <MessageCard :person="username" v-show="selected == index" /> -->
+       
+        </div>
+     
       </v-list-item-group>
     </v-list>
   </v-card>
+
+  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import moment from "moment";
+// import MessageCard from "@/components/Messages/MessageCard.vue";
 export default {
   name: "Messages",
+  components: {
+    // MessageCard,
+  
+  },
   data: () => ({
     selected: [],
-    items: [
-      {
-        action: "15 min",
-        headline: "Brunch this weekend?",
-        subtitle: `I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
-        title: "Ali Connors",
-      },
-      {
-        action: "2 hr",
-        headline: "Summer BBQ",
-        subtitle: `Wish I could come, but I'm out of town this weekend.`,
-        title: "me, Scrott, Jennifer",
-      },
-      {
-        action: "6 hr",
-        headline: "Oui oui",
-        subtitle: "Do you have Paris recommendations? Have you ever been?",
-        title: "Sandra Adams",
-      },
-      {
-        action: "12 hr",
-        headline: "Birthday gift",
-        subtitle:
-          "Have any ideas about what we should get Heidi for her birthday?",
-        title: "Trevor Hansen",
-      },
-      {
-        action: "18hr",
-        headline: "Recipe to try",
-        subtitle:
-          "We should eat this: Grate, Squash, Corn, and tomatillo Tacos.",
-        title: "Britta Holt",
-      },
-    ],
   }),
   methods: {
     fetchMessages() {
@@ -97,6 +78,10 @@ export default {
     },
     createdAtLog(times) {
       return moment(times).fromNow();
+    },
+    openMessage(index) {
+      this.selected = index;
+
     },
     
   },
@@ -114,8 +99,35 @@ export default {
 
 <style scoped>
 
+.v-icon:active {
+  background: #E5E5E5;
+}
+.v-list,.theme--light{
+    background: rgb(196, 232, 172) !important;
+    transition: all .3s ease-in-out;
+}
+.lister-sub {
+  z-index: 99 !important;
+  background: rgb(133, 122, 122);
+}
+.lister {
+  z-index: 99 !important;
+  background: none !important;
+  background : none !important;
+}
+
 .main-card {
   width: 100% !important;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all .5s;
+  opacity: 0;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+  opacity: 0;
+  /* transform: skewX(85deg); */
 }
 
 </style>

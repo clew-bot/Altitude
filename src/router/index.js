@@ -11,6 +11,7 @@ import Profile from '../views/Profile.vue'
 import EditProfile from '../views/EditProfile.vue'
 import Reddit from "../views/Reddit.vue"
 import Messages from "../views/Messages.vue"
+import PrivateMessage from "../views/PrivateMessage.vue"
 
 const isAuthenticated = async () => {
   try {
@@ -116,6 +117,11 @@ const routes = [
       next('/#signin')
     }
   }
+},
+{
+  path: "/pm/:id",
+  name: "PrivateMessage",
+  component: PrivateMessage,
 },
 ]
 
