@@ -10,6 +10,7 @@ const unlinkFile = util.promisify(fs.unlink);
 const { authorization } = require("../../lib/middleware/index.js");
 const { createTransport } = require("../../lib/utils/index.js");
 const { default: mongoose } = require("mongoose");
+const { findOne } = require("../../models/User");
 require("isomorphic-fetch");
 const toId = mongoose.Types.ObjectId;
 
@@ -286,7 +287,32 @@ router.post("/getPrivateMessages", authorization, async (req, res) => {
 
 });
 
+
+router.post("/addComment", authorization, (req, res) => {
+  const postId = toId(req.body.comment.post._id);
+  console.log("POSTID", postId);
+
+  const newComment = new db.PostComments({
+    author: postId,
+    comment: req.body.comment.comment,
+  });
+  newComment.save();
+  console.log("NewComment", newComment);
+  const addReplyNumber = db.Post.findOneAndUpdate(
+    { _id: postId },
+    { $inc : { "replies": 1 }, $push: { "comments": newComment._id } }
+  );
+  addReplyNumber.exec();
+  console.log(addReplyNumber)
+  res.json({ message: "Comment has been added" });
+})
+
 module.exports = router;
+
+
+router.get("/getComments", authorization, (req, res) => {
+  const user = findOne({ email: req.user.user.email }).select("-password");
+})
 
 ///ObjectId("627bf143de63240e7ba0dde4")
 ///ObjectId("627bf143de63240e7ba0dde4")

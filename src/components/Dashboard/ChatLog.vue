@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-card class="mx-auto main-card">
+    <v-card class="mx-auto main-card" >
       <v-list three-line>
         <template>
-          <div v-for="post in visiblePages" :key="post._id">
-            <v-list-item>
+          <div v-for="(post, index) in visiblePages" :key="post._id">
+            <v-list-item :class="index === selected ? 'openCard' : 'closeCard'">
               <div v-if="post.author.profilePic">
                 <v-list-item-avatar>
                   <v-img
@@ -41,9 +41,17 @@
 
                 <p v-html="post.post"></p>
               </v-list-item-content>
+               <v-icon @click="toggleComments(index)" class="down-icon" 
+                        >mdi-chevron-down</v-icon
+                      >
+                  
             </v-list-item>
             <v-divider></v-divider>
+            <!-- <v-slide-x-transition mode="in-out"> -->
+            <MoreComments :post="post" v-if="selected === index"/>
+            <!-- </v-slide-x-transition> -->
           </div>
+          
         </template>
       </v-list>
     </v-card>
@@ -58,10 +66,12 @@
 
 <script>
 import NNKoala from "../../assets/svgs/NNKoala.svg";
+import MoreComments from "@/components/Dashboard/MoreComments.vue";
 import moment from "moment";
 import { mapGetters } from "vuex";
 export default {
   name: "ChatLog",
+  
   data: () => ({
     loadComponent: false,
     show: false,
@@ -69,13 +79,35 @@ export default {
     page: 1,
     perPage: 10,
     pages: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+    selected: null,
+    open: true,
+    post: {},
   }),
     components: {
     NNKoala,
+    MoreComments,
   },
    methods: {
     async getPosts() {
       this.$store.dispatch("posts/GET_POSTS");
+    },
+    toggleComments(index) {
+        document.activeElement.blur();
+        if(this.selected === null) {
+     
+        this.selected = index;
+        this.open = true
+        return
+        }
+
+        if (this.selected === index) {
+          this.selected = null;
+          this.open = false;
+        } else {
+          this.selected = index;
+          this.open = true;
+        }
+
     },
     createdAtLog(times) {
       return moment(times).fromNow();
@@ -116,6 +148,16 @@ export default {
 </script>
 
 <style scoped>
+
+/* .openCard {
+    height: 100%;
+    transition: all 0.5s ease;
+}
+
+.closeCard {
+    height: 90%;
+    transition: all 0.5s ease-in-out;
+} */
 .main-card {
   position: relative;
 }
@@ -125,6 +167,10 @@ export default {
   padding-left: 12px;
 }
 
+.down-icon {
+    color: #704b98 !important;
+    padding-left: 12px;
+}
 
 
 .report-icon {
@@ -149,6 +195,7 @@ export default {
 
 .theme--light.v-list {
   background: rgb(237, 237, 232) !important;
+  transition: all 0.3s ease-in-out;
   min-height: 1000px;
 }
 .v-list--three-line .v-list-item .v-list-item__subtitle,

@@ -40,18 +40,13 @@ export default {
           
           console.log("hi")
                 this.$toasted.show(
-          `Take a break`,
+          `<h4 class="take-break"><i>Take a break</i></h4>`,
           {
             theme: "bubble",
             position: "top-center",
             duration: 3000,
           }
         );
-        if (this.timer === 10 ){
-            setInterval(() => {
-                this.timer--;
-            }, 1000);
-        }
           return
       }
       if (this.clicks === 5) {
@@ -75,6 +70,10 @@ export default {
 </script>
 
 <style scoped>
+
+.take-break {
+    color: yellow;
+}
 .spin {
   animation: rotate 1s infinite;
 }

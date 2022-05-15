@@ -1,4 +1,4 @@
-import {SAVE_POST, GET_POSTS, CHAT_RERENDER } from './types.js'
+import {SAVE_POST, GET_POSTS, CHAT_RERENDER, ADD_COMMENT } from './types.js'
 
 export default {
   async [SAVE_POST]({ commit, state }, post) {
@@ -27,6 +27,22 @@ export default {
   },
   [CHAT_RERENDER]({ commit }) {
     commit("setChatRerender");
+  },
+  async [ADD_COMMENT]({ commit, state }, comment) {
+    console.log(commit, state)
+    console.log("THE COMMENT", comment)
+    try {
+      const response = await fetch("/api/addComment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ comment }),
+      });
+      const data = await response.json();
+      console.log(data);
+  } catch (error) {
+      console.log(error);
+    }
   }
-  
 }
