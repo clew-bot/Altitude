@@ -218,7 +218,7 @@ router.post("/savePost", authorization, async (req, res) => {
 });
 
 router.get("/allPosts", authorization, async (req, res) => {
-  const Posts = await db.Post.find({}).populate("author");
+  const Posts = await db.Post.find({}).populate(["author", "comments"]).populate({path: "comments.author"});
   res.json(Posts);
 });
 
@@ -312,6 +312,9 @@ module.exports = router;
 
 router.get("/getComments", authorization, (req, res) => {
   const user = findOne({ email: req.user.user.email }).select("-password");
+  const userId = toId(user._id);
+  const comments = db.PostComments.find({ author: userId }).populate("author");
+  res.json(comments);
 })
 
 ///ObjectId("627bf143de63240e7ba0dde4")

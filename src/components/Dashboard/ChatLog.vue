@@ -94,7 +94,6 @@ export default {
     toggleComments(index) {
         document.activeElement.blur();
         if(this.selected === null) {
-     
         this.selected = index;
         this.open = true
         return

@@ -23,7 +23,7 @@ export default {
     const data = await response.json();
     // commit("setCreatedAtTimes", data);
     commit("setAllPosts", data);
-    // console.log("DATA", data);
+     console.log("DATA", data);
   },
   [CHAT_RERENDER]({ commit }) {
     commit("setChatRerender");

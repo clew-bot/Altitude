@@ -2,6 +2,7 @@
   <v-card>
       <div class="main-container">Hello World</div>
       <input v-model="comment" type="text" placeholder="Reply.."><v-btn @click="submitComment">Check</v-btn>
+      <v-btn @click="test">Test</v-btn>
   </v-card>
 </template>
 
