@@ -17,10 +17,13 @@ export default {
     },
     setAllPosts(state, posts) {
         state.allPosts = posts.reverse();
-        console.log("POSTS",state.allPosts)
+        // console.log("POSTS",state.allPosts)
     },
     setCreatedAtTimes(state, times) {
         const createdAtTimes = times.map(time => moment(time.createdAt).fromNow());
         state.createdAtTimes = createdAtTimes;
+    },
+    setChatRerender(state) {
+        state.chatRerender++;
     }
 }

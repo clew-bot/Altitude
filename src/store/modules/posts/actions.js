@@ -1,4 +1,4 @@
-import {SAVE_POST, GET_POSTS } from './types.js'
+import {SAVE_POST, GET_POSTS, CHAT_RERENDER } from './types.js'
 
 export default {
   async [SAVE_POST]({ commit, state }, post) {
@@ -25,4 +25,8 @@ export default {
     commit("setAllPosts", data);
     // console.log("DATA", data);
   },
+  [CHAT_RERENDER]({ commit }) {
+    commit("setChatRerender");
+  }
+  
 }

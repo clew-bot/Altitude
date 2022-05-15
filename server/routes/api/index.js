@@ -282,8 +282,6 @@ router.post("/getPrivateMessages", authorization, async (req, res) => {
   );
   const toMessages = await db.Message.find({ to: user, from: me }).populate("from");
   const fromMessages = await db.Message.find({ from: user, to: me }).populate("from");
-  console.log("toMessages", toMessages);
-  console.log("fromMessages", fromMessages);
   res.json({ toMessages, fromMessages });
 
 });

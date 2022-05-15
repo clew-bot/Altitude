@@ -1,61 +1,49 @@
 <template>
-<div class="pa-6">
-  <v-card class="main-card" >
-    <v-toolbar color="gray" dark>
+  <div class="pa-6 main-container">
+    <v-card class="main-card" max-width="500px">
+      <v-toolbar color="gray" dark>
+        <v-toolbar-title>inbox</v-toolbar-title>
 
-      <v-toolbar-title>My Messages From Users</v-toolbar-title>
+        <v-spacer></v-spacer>
+      </v-toolbar>
 
-      <v-spacer></v-spacer>
+      <v-list two-line>
+        <v-list-item-group active-class="none">
+          <div v-if="usernames.length !== 0">
+            <div
+              v-for="username in usernames"
+              :key="username.id"
+              class="lister"
+            >
+              <v-list-item class="lister-sub">
+                <v-list-item-content class="text-center list-names">
+                  <router-link
+                    style="text-decoration: none; color: inherit"
+                    :to="'/pm/' + username"
+                  >
+                    <v-list-item-title
+                      v-text="'@' + username"
+                    ></v-list-item-title>
+                  </router-link>
+                  <v-list-item-subtitle></v-list-item-subtitle>
+                </v-list-item-content>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+                <v-list-item-action>
+                  <v-list-item-action-text></v-list-item-action-text>
+                </v-list-item-action>
 
-      <v-btn icon>
-        <v-icon>mdi-checkbox-marked-circle</v-icon>
-      </v-btn>
-    </v-toolbar>
-
-    <v-list two-line>
-      <v-list-item-group active-class="none" >
-   
-        <div v-for="(username, index) in usernames" :key="username.id" class="lister">
-
-          <v-list-item class="lister-sub">
-
-              <v-list-item-content>
-                <router-link :to='"/pm/" + username'>
-                <v-list-item-title v-text="username"></v-list-item-title>
-                </router-link>
-
-                <!-- <v-list-item-subtitle
-                  class="text--primary"
-                  v-text="item.headline"
-                ></v-list-item-subtitle> -->
-
-                <v-list-item-subtitle
-                ></v-list-item-subtitle>
-              </v-list-item-content>
-
-              <v-list-item-action>
-                <v-list-item-action-text
-                ></v-list-item-action-text>
-
-              </v-list-item-action>
-
-                 <v-icon class="report-icon" @click="openMessage(index)"
-                  >mdi-chevron-down</v-icon
-                >
-              
-          </v-list-item>
-                <!-- <MessageCard :person="username" v-show="selected == index" /> -->
-       
-        </div>
-     
-      </v-list-item-group>
-    </v-list>
-  </v-card>
-
+              </v-list-item>
+            </div>
+          </div>
+          <div v-else>
+            <div class="no-messages"><h1>no messages 🤔</h1>
+                 <v-list-item-subtitle
+              ></v-list-item-subtitle>
+            </div>
+          </div>
+        </v-list-item-group>
+      </v-list>
+    </v-card>
   </div>
 </template>
 
@@ -67,7 +55,6 @@ export default {
   name: "Messages",
   components: {
     // MessageCard,
-  
   },
   data: () => ({
     selected: [],
@@ -81,15 +68,10 @@ export default {
     },
     openMessage(index) {
       this.selected = index;
-
     },
-    
   },
   computed: {
-    ...mapGetters("messages", [
-      "allMessages", "getCreatedAt","usernames"
-
-    ]),
+    ...mapGetters("messages", ["allMessages", "getCreatedAt", "usernames"]),
   },
   created() {
     this.fetchMessages();
@@ -99,12 +81,30 @@ export default {
 
 <style scoped>
 
-.v-icon:active {
-  background: #E5E5E5;
+.no-messages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.v-list,.theme--light{
-    background: rgb(196, 232, 172) !important;
-    transition: all .3s ease-in-out;
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-names {
+  font-size: 4rem !important;
+  font-weight: bolder;
+}
+
+.v-icon:active {
+  background: #e5e5e5;
+}
+.v-list,
+.theme--light {
+  background: hsl(57, 76%, 75%) !important;
+  transition: all 0.3s ease-in-out;
 }
 .lister-sub {
   background: rgb(133, 122, 122);
@@ -112,21 +112,20 @@ export default {
 .lister {
   z-index: 99 !important;
   background: none !important;
-  background : none !important;
+  background: none !important;
 }
 
 .main-card {
   width: 100% !important;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: all .5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s;
   opacity: 0;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-
   opacity: 0;
   /* transform: skewX(85deg); */
 }
-
 </style>

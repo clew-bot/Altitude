@@ -5,6 +5,8 @@ import getters from './getters.js'
 const state = {
     allPosts: [],
     createdAtTimes: [],
+    dashboardLoading: false,
+    chatRerender: 0,
 }
 
 export default {

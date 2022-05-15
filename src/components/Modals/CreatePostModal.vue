@@ -2,9 +2,11 @@
   <div>
     <v-dialog :value="value" @input="$emit('input', $event)" max-width="600">
       <v-card>
-        <v-toolbar dark>Share something 💭</v-toolbar>
-        <v-card-text>
+        <v-toolbar dark> Share something 💭 
+                
+        </v-toolbar>
 
+        <v-card-text>
           <div class="text-editor">
             <div data-text="Say something..." class="text-area" contenteditable="true" @input="handleInput">
 
@@ -38,21 +40,24 @@ export default {
       console.log(this.content);
     },
     handleInput: function (e) {
-      console.log(e.target.innerText);
       this.content = e.target.innerHTML;
-      //replace &nbsp; with a space
       this.content = this.content.replace(/&nbsp;/g, " ");
     },
     savePost() {
       this.$store.dispatch("posts/SAVE_POST", this.content);
+      this.$store.dispatch("posts/CHAT_RERENDER");
       this.$emit("input", false);
+      this.$router.push("/dashboard");
     },
     }
 };
 </script>
 
 <style scoped>
-
+.v-toolbar__content {
+  display: flex;
+  flex-direction: column !;
+}
 .v-card {
     background: rgb(91, 91, 94) !important;
 }

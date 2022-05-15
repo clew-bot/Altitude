@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-card max-width="450" class="mx-auto">
-      <v-toolbar color="cyan" dark>
+    <v-card max-width="600" class="mx-auto">
+      <v-toolbar color="black" dark>
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
         <v-toolbar-title>Chatting with {{ username }}</v-toolbar-title>
@@ -24,7 +24,7 @@
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>{{
+              <v-list-item-title>@{{
                 messagesToOrFrom(message)
               }}</v-list-item-title>
               <v-list-item-subtitle
@@ -92,21 +92,18 @@ export default {
         this.page * this.perPage
       );
     },
-    // visiblePages() {
-    //   return this.allPosts.slice(
-    //     (this.page - 1) * this.perPage,
-    //     this.page * this.perPage
-    //   );
-    // },
   },
   created() {
     this.fetchMessagesWithUser();
-    this.orderedMessages();
   },
 };
 </script>
 
 <style scoped>
+
+.v-card {
+    margin-top: 20px;
+}
 .createdAt {
   font-size: 0.7rem !important;
   color: rgb(41, 109, 58);
