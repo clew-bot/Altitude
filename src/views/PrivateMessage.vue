@@ -36,6 +36,12 @@
         </div>
       </v-list>
     </v-card>
+        <v-pagination
+      color="#3e99ad"
+      circle
+      v-model="page"
+      :length="Math.ceil(messages.length / perPage)"
+    ></v-pagination>
   </div>
 </template>
 
@@ -47,6 +53,9 @@ export default {
   data() {
     return {
       username: "",
+      page: 1,
+      perPage: 10,
+      pages: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
     };
   },
   methods: {
@@ -69,22 +78,28 @@ export default {
     createdAtLog(times) {
       return moment(times).fromNow();
     },
-  
   },
 
   computed: {
     ...mapGetters("messages", ["messages"]),
-      orderedMessages() {
-          let copy = [...this.messages]
-                copy.sort((a, b) => {
-                 return new Date(b.createdAt) - new Date(a.createdAt);
-
-            })
-           return copy;
-        }
+    orderedMessages() {
+      let copy = [...this.messages];
+      copy.sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+      return copy.slice(
+        (this.page - 1) * this.perPage,
+        this.page * this.perPage
+      );
+    },
+    // visiblePages() {
+    //   return this.allPosts.slice(
+    //     (this.page - 1) * this.perPage,
+    //     this.page * this.perPage
+    //   );
+    // },
   },
   created() {
-   
     this.fetchMessagesWithUser();
     this.orderedMessages();
   },
@@ -92,10 +107,8 @@ export default {
 </script>
 
 <style scoped>
-
 .createdAt {
-    font-size: .7rem !important;
-    color: rgb(41, 109, 58);
+  font-size: 0.7rem !important;
+  color: rgb(41, 109, 58);
 }
-
 </style>
