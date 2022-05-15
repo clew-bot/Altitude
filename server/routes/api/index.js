@@ -218,7 +218,17 @@ router.post("/savePost", authorization, async (req, res) => {
 });
 
 router.get("/allPosts", authorization, async (req, res) => {
-  const Posts = await db.Post.find({}).populate(["author", "comments"]).populate({path: "comments.author"});
+  const Posts = await db.Post.find({}).populate({
+    path: 'comments',
+    model: 'PostComments',
+    // select: 'author',
+    populate: {
+      path: 'author',
+      model: 'User'
+    }
+ })
+.populate('author')
+.exec();
   res.json(Posts);
 });
 
@@ -288,22 +298,28 @@ router.post("/getPrivateMessages", authorization, async (req, res) => {
 });
 
 
-router.post("/addComment", authorization, (req, res) => {
+router.post("/addComment", authorization, async (req, res) => {
+  const author = await db.User.findOne({ email: req.user.user.email }).select(
+    "-password"
+  );
+  const authorId = toId(author._id);
+  console.log(req.body)
   const postId = toId(req.body.comment.post._id);
   console.log("POSTID", postId);
 
-  const newComment = new db.PostComments({
-    author: postId,
+  const newComment = await new db.PostComments({
+    postToComment: postId,
     comment: req.body.comment.comment,
+    author: authorId,
   });
   newComment.save();
-  console.log("NewComment", newComment);
+  // console.log("NewComment", newComment);
   const addReplyNumber = db.Post.findOneAndUpdate(
     { _id: postId },
     { $inc : { "replies": 1 }, $push: { "comments": newComment._id } }
   );
   addReplyNumber.exec();
-  console.log(addReplyNumber)
+  // console.log(addReplyNumber)
   res.json({ message: "Comment has been added" });
 })
 
