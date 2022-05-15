@@ -224,7 +224,8 @@ router.get("/allPosts", authorization, async (req, res) => {
     // select: 'author',
     populate: {
       path: 'author',
-      model: 'User'
+      model: 'User',
+      select: "username"
     }
  })
 .populate('author')
