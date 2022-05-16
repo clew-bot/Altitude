@@ -16,7 +16,7 @@ export default {
         state.token = token;
     },
     setAllPosts(state, posts) {
-        state.allPosts = posts.reverse();
+        state.allPosts = posts
         // console.log("POSTS",state.allPosts)
     },
     setCreatedAtTimes(state, times) {

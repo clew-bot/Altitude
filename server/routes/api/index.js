@@ -228,8 +228,7 @@ router.get("/allPosts", authorization, async (req, res) => {
       select: "username"
     }
  })
-.populate('author')
-.exec();
+.populate('author').limit(50).sort({ createdAt: -1 });
   res.json(Posts);
 });
 
