@@ -59,6 +59,7 @@ export default {
         const data = await response.json();
         console.log("DATA = ",data[0].comments);
         commit("setComments", data[0].comments);
+        commit("setCreatedAtTimes", data[0].createdAt);
         console.log("Post = ",  state.postComments)
       } catch (error) {
         console.log(error);

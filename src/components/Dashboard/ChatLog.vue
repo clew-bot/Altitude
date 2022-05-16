@@ -47,14 +47,14 @@
               >
             </v-list-item>
             <v-divider></v-divider>
-            <!-- <v-slide-x-transition mode="in-out"> -->
+            <v-slide-y-transition mode="in-out">
             <MoreComments
               :post="post"
               v-if="selected === index"
               :key="rerenderComments"
             />
 
-            <!-- </v-slide-x-transition>  -->
+            </v-slide-y-transition> 
           </div>
         </template>
       </v-list>
@@ -86,7 +86,6 @@ export default {
     selected: null,
     open: true,
     post: {},
-    testt: 0,
   }),
   components: {
     NNKoala,

@@ -1,4 +1,4 @@
-import moment from 'moment';
+// import moment from 'moment';
 export default {
     isLoggedIn(state, user) {
         state.loggedIn = true;
@@ -19,15 +19,15 @@ export default {
         state.allPosts = posts
         // console.log("POSTS",state.allPosts)
     },
-    setCreatedAtTimes(state, times) {
-        const createdAtTimes = times.map(time => moment(time.createdAt).fromNow());
+    setCreatedAtTimes(state, createdAtTimes) {
+        // const createdAtTimes = times.map(time => moment(time.createdAt).fromNow());
         state.createdAtTimes = createdAtTimes;
     },
     setChatRerender(state) {
         state.chatRerender++;
     },
     setComments(state, comments) {
-        state.postComments = comments;
+        state.postComments = comments.reverse();
     },
     rerenderComments(state) {
         state.commentsRender++
