@@ -4,7 +4,7 @@
       <v-list two-line>
         <v-list-item-group active-class="pink--text" multiple>
           <div>
-            <div v-for="comment in post.comments" :key="comment._id">
+            <div v-for="comment in postComments" :key="comment._id">
               <v-divider></v-divider>
               <v-list-item>
                 <v-list-item-content>
@@ -21,24 +21,24 @@
                     ></v-list-item-subtitle>
                   </div>
                   <div v-else>
-                    <h1>HIIHIHIHIHIHIHIIHHIIHIHIh</h1>
+                    <h1>Placeholder should be something with an emoji or the favicon</h1>
                   </div>
-                  <!-- <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle> -->
                 </v-list-item-content>
 
                 <v-list-item-action>
-                  <!-- <v-list-item-action-text v-text="item.action"></v-list-item-action-text> -->
                 </v-list-item-action>
               </v-list-item>
             </div>
+            <div class="text-container">
             <div
-              data-text="Say something..."
+              data-text="Reply"
               class="text-area"
               contenteditable="true"
               @input="handleInput"
         
             ></div>
-            <v-btn @click="submitComment">Test</v-btn>
+                  <span><v-btn class="send-button" @click="submitComment">Send</v-btn></span> 
+     </div>
           </div>
         </v-list-item-group>
       </v-list>
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "MoreComments",
   data() {
@@ -62,7 +63,8 @@ export default {
   },
   methods: {
     test() {
-      console.log(this.post);
+      this.$store.dispatch("posts/GET_COMMENTS", this.post);
+
     },
     handleInput: function (e) {
       this.content = e.target.innerHTML;
@@ -77,15 +79,54 @@ export default {
         post: this.post,
         comment: this.content,
       });
+      setTimeout(() => {
+      this.$store.dispatch("posts/RERENDER_POSTCOMMENTS");
+      }, 500);
     },
+  },
+  created() {
+      this.test();
+  },
+  computed: {
+    ...mapGetters("posts", ["postComments"]),
   },
 };
 </script>
 
 <style scoped>
 
+.send-button {
+  margin-left: 10px;
+  padding: 1.4rem !important;
+  background: rgba(142, 207, 146, 0.866) !important;
+  color: rgb(65, 65, 70);
+}
+
+.text-container {
+    display: flex;
+    align-items: center;
+}
+
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text);
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 1rem;
+    opacity: 0.2;
+    padding-left: 10px;
+}
+  div:focus{
+        outline: none;
+    }
+
 .text-area {
-    border: solid 2px red !important;
+    border: solid 2px rgb(77, 74, 74) !important;
+    border-radius: 15px;
+    padding-left: 5px;
+    max-width: 20rem;
+    padding: 10px;
+    flex-grow:1;
 }
 .main-container {
   padding: 10px;

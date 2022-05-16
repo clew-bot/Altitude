@@ -2,3 +2,5 @@ export const SAVE_POST = 'SAVE_POST';
 export const GET_POSTS = 'GET_POSTS';
 export const CHAT_RERENDER = 'CHAT_RERENDER';
 export const ADD_COMMENT = 'ADD_COMMENT';
+export const GET_COMMENTS = 'GET_COMMENTS';
+export const RERENDER_POSTCOMMENTS = 'RERENDER_POSTCOMMENTS';

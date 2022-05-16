@@ -25,5 +25,11 @@ export default {
     },
     setChatRerender(state) {
         state.chatRerender++;
+    },
+    setComments(state, comments) {
+        state.postComments = comments;
+    },
+    rerenderComments(state) {
+        state.commentsRender++
     }
 }

@@ -14,5 +14,11 @@ export default {
     },
     chatRerender(state) {
         return state.chatRerender;
+    },
+    postComments(state) {
+        return state.postComments;
+    },
+    rerenderComments(state) {
+        return state.commentsRender;
     }
 }

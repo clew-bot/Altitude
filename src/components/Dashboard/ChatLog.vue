@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="mx-auto main-card" >
+    <v-card class="mx-auto main-card">
       <v-list three-line>
         <template>
           <div v-for="(post, index) in visiblePages" :key="post._id">
@@ -41,17 +41,21 @@
 
                 <p v-html="post.post"></p>
               </v-list-item-content>
-               <v-icon @click="toggleComments(index)" class="down-icon" 
-                        >mdi-chevron-down</v-icon
-                      >
-                  
+              <div>{{ getRepliesEvaluation(post.replies) }}</div>
+              <v-icon @click="toggleComments(index)" class="down-icon"
+                >mdi-chevron-down</v-icon
+              >
             </v-list-item>
             <v-divider></v-divider>
             <!-- <v-slide-x-transition mode="in-out"> -->
-            <MoreComments :post="post" v-if="selected === index"/>
-            <!-- </v-slide-x-transition> -->
+            <MoreComments
+              :post="post"
+              v-if="selected === index"
+              :key="rerenderComments"
+            />
+
+            <!-- </v-slide-x-transition>  -->
           </div>
-          
         </template>
       </v-list>
     </v-card>
@@ -71,7 +75,7 @@ import moment from "moment";
 import { mapGetters } from "vuex";
 export default {
   name: "ChatLog",
-  
+
   data: () => ({
     loadComponent: false,
     show: false,
@@ -82,31 +86,53 @@ export default {
     selected: null,
     open: true,
     post: {},
+    testt: 0,
   }),
-    components: {
+  components: {
     NNKoala,
     MoreComments,
   },
-   methods: {
+  methods: {
+    tester() {
+      this.testt++;
+      console.log(this.testt);
+    },
+    getRepliesEvaluation(replies) {
+        if(replies === 0) {
+            return `No Replies 😪`
+        }
+      if (replies === 1) {
+        return `${replies} reply 💭`;
+      }
+      if (replies < 5) return `${replies} replies 💭`;
+      if (replies >= 5 && replies < 10) {
+        return `${replies} replies 👍`;
+      }
+      if (replies >= 10 && replies < 20) {
+        return `${replies} replies 😃`;
+      }
+      if (replies >= 20) {
+        return `${replies} replies 🔥`;
+      }
+    },
     async getPosts() {
       this.$store.dispatch("posts/GET_POSTS");
     },
     toggleComments(index) {
-        document.activeElement.blur();
-        if(this.selected === null) {
+      document.activeElement.blur();
+      if (this.selected === null) {
         this.selected = index;
-        this.open = true
-        return
-        }
+        this.open = true;
+        return;
+      }
 
-        if (this.selected === index) {
-          this.selected = null;
-          this.open = false;
-        } else {
-          this.selected = index;
-          this.open = true;
-        }
-
+      if (this.selected === index) {
+        this.selected = null;
+        this.open = false;
+      } else {
+        this.selected = index;
+        this.open = true;
+      }
     },
     createdAtLog(times) {
       return moment(times).fromNow();
@@ -126,28 +152,25 @@ export default {
       this.$router.push(`/profile/${username}`);
     },
   },
-    created() {
+  created() {
     this.getPosts();
   },
   computed: {
-    ...mapGetters("posts", ["allPosts", "createdAtTimes"]),
+    ...mapGetters("posts", ["allPosts", "createdAtTimes", "rerenderComments"]),
     visiblePages() {
       return this.allPosts.slice(
         (this.page - 1) * this.perPage,
         this.page * this.perPage
       );
     },
-
   },
   watch: {
-    allPosts: function () {
-    },
+    allPosts: function () {},
   },
 };
 </script>
 
 <style scoped>
-
 /* .openCard {
     height: 100%;
     transition: all 0.5s ease;
@@ -164,13 +187,13 @@ export default {
 .like-icon {
   color: #a29309 !important;
   padding-left: 12px;
+  height: 100%;
 }
 
 .down-icon {
-    color: #704b98 !important;
-    padding-left: 12px;
+  color: #704b98 !important;
+  padding-left: 12px;
 }
-
 
 .report-icon {
   color: red !important;
@@ -207,4 +230,5 @@ export default {
   font-size: 12px !important;
   font-weight: bold;
   line-height: 10px !important;
-}</style>
+}
+</style>

@@ -218,16 +218,17 @@ router.post("/savePost", authorization, async (req, res) => {
 });
 
 router.get("/allPosts", authorization, async (req, res) => {
-  const Posts = await db.Post.find({}).populate({
-    path: 'comments',
-    model: 'PostComments',
-    // select: 'author',
-    populate: {
-      path: 'author',
-      model: 'User',
-      select: "username"
-    }
- })
+  const Posts = await db.Post.find({})
+//   .populate({
+//     path: 'comments',
+//     model: 'PostComments',
+//     // select: 'author',
+//     populate: {
+//       path: 'author',
+//       model: 'User',
+//       select: "username"
+//     }
+//  })
 .populate('author').limit(50).sort({ createdAt: -1 });
   res.json(Posts);
 });
@@ -326,11 +327,36 @@ router.post("/addComment", authorization, async (req, res) => {
 module.exports = router;
 
 
-router.get("/getComments", authorization, (req, res) => {
-  const user = findOne({ email: req.user.user.email }).select("-password");
-  const userId = toId(user._id);
-  const comments = db.PostComments.find({ author: userId }).populate("author");
-  res.json(comments);
+// router.get("/getComments", authorization, (req, res) => {
+//   const user = findOne({ email: req.user.user.email }).select("-password");
+//   const userId = toId(user._id);
+//   const comments = db.PostComments.find({ author: userId }).populate("author");
+//   res.json(comments);
+// })
+
+router.post("/getComments", authorization, async (req, res) => {
+  console.log(req.body.post)
+  const postId = toId(req.body.post._id);
+  console.log("POSTID", postId);
+  const ids = req.body.post.comments
+  console.log(ids)
+  const comments = await db.Post.find({ _id: postId }).populate({
+    path: 'comments',
+    model: 'PostComments',
+    // select: ["username", "comment", "createdAt"],
+    populate: {
+      path: 'author',
+      model: 'User',
+      select: "username"
+    }
+  });
+//   const comments = db.Post.find({
+//     '_id': { $in: [req.body.post.comments]}
+// }, function(err, docs){
+//      console.log(docs);
+// });
+  console.log(comments)
+   res.json(comments);
 })
 
 ///ObjectId("627bf143de63240e7ba0dde4")

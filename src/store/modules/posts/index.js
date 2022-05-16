@@ -7,6 +7,8 @@ const state = {
     createdAtTimes: [],
     dashboardLoading: false,
     chatRerender: 0,
+    postComments: [],
+    commentsRender: 0,
 }
 
 export default {
