@@ -98,7 +98,7 @@ export default {
     items: [
       { title: "Home", icon: "mdi-home-outline", to: "/" },
       { title: "Journal", icon: "mdi-notebook", to: "/journal" },
-      { title: "Reddit", icon: "mdi-notebook", to: "/reddit" },
+      { title: "Reddit", icon: "mdi-reddit", to: "/reddit" },
     ],
     dialog: false,
     dialog2: false,

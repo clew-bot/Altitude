@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div v-if="construction" class="construction">
+  <div v-if="!construction" class="construction">
       <h1>Under Construction</h1>
       <UnderCon />
       <p>We're working hard on this!</p>
