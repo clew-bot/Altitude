@@ -1,4 +1,3 @@
-// import moment from 'moment';
 export default {
     isLoggedIn(state, user) {
         state.loggedIn = true;
@@ -20,7 +19,6 @@ export default {
         // console.log("POSTS",state.allPosts)
     },
     setCreatedAtTimes(state, createdAtTimes) {
-        // const createdAtTimes = times.map(time => moment(time.createdAt).fromNow());
         state.createdAtTimes = createdAtTimes;
     },
     setChatRerender(state) {

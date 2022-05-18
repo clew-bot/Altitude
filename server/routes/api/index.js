@@ -10,7 +10,6 @@ const unlinkFile = util.promisify(fs.unlink);
 const { authorization } = require("../../lib/middleware/index.js");
 const { createTransport } = require("../../lib/utils/index.js");
 const { default: mongoose } = require("mongoose");
-const { findOne } = require("../../models/User");
 require("isomorphic-fetch");
 const toId = mongoose.Types.ObjectId;
 

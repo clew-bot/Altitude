@@ -47,14 +47,11 @@
               >
             </v-list-item>
             <v-divider></v-divider>
-            <v-slide-y-transition mode="in-out">
             <MoreComments
               :post="post"
               v-if="selected === index"
               :key="rerenderComments"
             />
-
-            </v-slide-y-transition> 
           </div>
         </template>
       </v-list>
@@ -71,7 +68,7 @@
 <script>
 import NNKoala from "../../assets/svgs/NNKoala.svg";
 import MoreComments from "@/components/Dashboard/MoreComments.vue";
-import moment from "moment";
+import { createdAtLog } from "../../public/utils.js";
 import { mapGetters } from "vuex";
 export default {
   name: "ChatLog",
@@ -97,9 +94,9 @@ export default {
       console.log(this.testt);
     },
     getRepliesEvaluation(replies) {
-        if(replies === 0) {
-            return `No Replies 😪`
-        }
+      if (replies === 0) {
+        return `No Replies 😪`;
+      }
       if (replies === 1) {
         return `${replies} reply 💭`;
       }
@@ -134,7 +131,7 @@ export default {
       }
     },
     createdAtLog(times) {
-      return moment(times).fromNow();
+      return createdAtLog(times);
     },
     reportUser(e) {
       console.log(e);

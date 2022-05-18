@@ -49,22 +49,14 @@
 
 <script>
 import { mapGetters } from "vuex";
-import moment from "moment";
-// import MessageCard from "@/components/Messages/MessageCard.vue";
 export default {
   name: "Messages",
-  components: {
-    // MessageCard,
-  },
   data: () => ({
     selected: [],
   }),
   methods: {
     fetchMessages() {
       this.$store.dispatch("messages/GET_MESSAGES");
-    },
-    createdAtLog(times) {
-      return moment(times).fromNow();
     },
     openMessage(index) {
       this.selected = index;

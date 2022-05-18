@@ -65,7 +65,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import moment from "moment";
+import { createdAtLog } from "../../public/utils.js";
 export default {
   name: "MoreComments",
   data() {
@@ -100,8 +100,6 @@ export default {
     },
 
     submitComment() {
-      console.log(this.content);
-      console.log(this.post);
       this.$store.dispatch("posts/ADD_COMMENT", {
         post: this.post,
         comment: this.content,
@@ -111,7 +109,7 @@ export default {
       }, 500);
     },
     setCreatedAtTimes(times) {
-      return moment(times).fromNow();
+      return createdAtLog(times);
     },
   },
   created() {

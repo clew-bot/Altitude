@@ -3,7 +3,7 @@
     <v-navigation-drawer app v-model="drawer" color="#4d4c4b" class="navDrawer">
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6" style="cursor:default; user-select: none;" @click="consoleme">{{time}}
+          <v-list-item-title class="text-h6" style="cursor:default; user-select: none;" @click="consoleme"><h2>Menu</h2>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -88,12 +88,10 @@ import SignUpModal from "@/components/Modals/SignUpModal.vue";
 import Ellipses from "@/components/Navbar/Ellipses.vue";
 import ProfileButton from "@/components/Navbar/ProfileButton.vue";
 import router from "../../router";
-import moment from "moment";
 import Koala from "../../assets/svgs/koala.svg";
 
 export default {
   data: () => ({   
-    time: moment().format('h:mm:ss a'),
     expand: false,
     drawer: false,
     group: null,
@@ -124,7 +122,6 @@ export default {
   methods: {
     consoleme() {
       console.log(this.$store.state.user.loggedIn);
-      console.log(moment().format('MMMM Do YYYY, h:mm:ss a'));
     },
     showingModal() {
       this.dialog = !this.dialog;
@@ -142,8 +139,6 @@ export default {
       }
     },
     watchDialog() {
-      console.log("The Dialog 2 =", this.dialog2);
-      // this.$store.state.modal.dialog = this.dialog;
       this.dialog2 = this.$store.state.modal.dialog2;
     },
     async logout() {
@@ -174,9 +169,6 @@ export default {
         return true;
       }
     },
-    //    time() {
-    //      return moment().format('MMMM Do YYYY, h:mm:ss a');
-    //  },
     showUsername() {
       const localStorage = window.localStorage.getItem("vuelo");
       if (this.$store.state.user.loggedIn === null) {
@@ -202,10 +194,6 @@ export default {
 
   },
   mounted() {
-          setInterval(() => {
-            let time = moment().format('h:mm:ss A');
-      this.time = time
-    }, 1000);
   },
 
   created() {

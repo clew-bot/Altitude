@@ -47,7 +47,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import moment from "moment";
+import { createdAtLog } from "../public/utils";
 export default {
   name: "PrivateMessage",
   data() {
@@ -76,7 +76,7 @@ export default {
       this.$router.push(`/profile/${username}`);
     },
     createdAtLog(times) {
-      return moment(times).fromNow();
+      return createdAtLog(times)
     },
   },
 

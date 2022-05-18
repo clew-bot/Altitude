@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { createdAtLog, memberSinceLog } from "../../../public/utils.js";
 export default {
     isLoggedIn(state, user) {
         state.loggedIn = true;
@@ -26,11 +26,10 @@ export default {
         state.otherUsers = randomUsers;
     },
     setLastLogin(state, lastLogin) {
-        state.timeLastLogin = moment(lastLogin).fromNow();
+        state.timeLastLogin = createdAtLog(lastLogin);
     },
     setCreatedAt(state, createdAt) {
-        console.log("created", createdAt)
-        state.timeCreated = moment(createdAt).utc().format("MMMM Do YYYY", createdAt)
+        state.timeCreated = memberSinceLog(createdAt)
         console.log(state.timeCreated )
     },
     setNoUsername(state, noUsername) {
