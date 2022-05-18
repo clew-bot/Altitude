@@ -46,7 +46,7 @@
               @click:append="show1 = !show1"
               :class="{ shake: animated2 }"
             ></v-text-field>
-            <label for="email" class="signInLabels">Confirm that shit</label>
+            <label for="email" class="signInLabels">Confirm password</label>
             <v-text-field
               style="padding-top: 0px !important"
               v-model="passwordConfirm"

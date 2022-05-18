@@ -5,13 +5,11 @@
    
 
       <FormulateForm @submit="submitEdit" class="formulate-form">
-
-    
-
         <div class="field-container">
-             <h2 class="form-title">Edit Profile</h2>
-      <p>Any changes will go unsaved unless you click the "Save" button.</p>
-<div>
+  
+<div class="details-container">
+        <h2>Details</h2>
+         <v-divider class="divider"></v-divider>
       <FormulateInput
           type="image"
           name="profilePic"
@@ -26,10 +24,11 @@
           placeholder="Name"
           v-model="name"
         />
+    
         <FormulateInput
           name="headline"
           type="text"
-          label="Headline"
+          label="Headline 🥳"
           placeholder="Badass who loves walking their dog"
           v-model="headline"
           live-validate
@@ -38,45 +37,49 @@
         <FormulateInput
           name="bio"
           type="textarea"
-          label="Bio"
+          class="bio-textarea"
+          label="Bio 🌅"
           placeholder="Something that describes you"
           v-model="bio"
           :validation="[ ['max', 60], ['min', 0]]"
         />
 </div>
-<div>
+
+<div class="favorites-container">
+  <v-divider class="divider"></v-divider>
+  <h3 class="favorites-text">Favorites <span id="thumbs">👍</span></h3>
         <FormulateInput
           name="movie"
           type="text"
-          label="Favorite Movie"
+          label="Movie 🎬"
           placeholder="Spider-Man 2"
           v-model="movie"
         />
         <FormulateInput
           name="food"
           type="text"
-          label="Favorite Food"
+          label="Food 🍕"
           placeholder="Donuts, Sushi, etc"
           v-model="food"
         />
         <FormulateInput
           name="hobbies"
           type="text"
-          label="Favorite Hobbies"
+          label="Hobbies 🎭"
           placeholder="Playing basketball"
           v-model="hobbies"
         />
         <FormulateInput
           name="music"
           type="text"
-          label="Favorite Music"
+          label="Music 🎧"
           placeholder="Classical Jazz"
           v-model="music"
         />
         <FormulateInput
           name="books"
           type="text"
-          label="Favorite Books"
+          label="Books 📚"
           placeholder="Steve Jobs by Walter Isaacson"
           v-model="books"
         />
@@ -165,21 +168,53 @@ export default {
 
 <style scoped>
 
+.favorites-text:not(#thumbs) {
+    /* background: #c8c3ce;
+  cursor: default;
+  background: repeating-radial-gradient(
+    ellipse farthest-corner at top right,
+    #2167e9 5%,
+    #0ddbfa 90%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+}
+.divider {
+  margin: 15px 10px;
+}
+.details-container {
+  display: flex;
+  flex-direction: column;
+    justify-content: right;
+  /* max-width: 1000px;
+  min-width: 400px; */
+    width: 100%;
+}
+.favorites-container {
+  display: flex;
+  justify-content: right;
+  flex-direction: column;
+  width: 100%;
+}
 .formulate-input input {
   border: solid 2px hotpink !important;
 }
 
+.formulate-input[data-classification=textarea] textarea {
+  height: 1000px !important;
+}
+
 .formulate-input {
-  margin-top: 5px !important;
+
   padding: 6px;
 
 }
 .field-container {
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center !important; 
+  padding: 10px;
 }
 
 .submitBtn {
@@ -189,7 +224,8 @@ export default {
 }
 
 .vcard {
-  background-color: #346e5a !important;
+  background-color: #ebebeb !important;
+  width: 350px;
 
 }
 .container {
