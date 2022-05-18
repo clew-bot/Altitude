@@ -1,4 +1,4 @@
-# Altitude - Taking You Higher 
+# Altitude - Taking You Higher 🤝
 
 <p>This project is consisted of the MEVN stack</p>
 <b>Application process:</b>
