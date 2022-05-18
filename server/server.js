@@ -18,12 +18,21 @@ dotenv.config();
 
 
 
+
 app.use(cors());
 
+let options = {
+    "useNewUrlParser": true
+}
 
-mongoose.connect("mongodb://localhost/vuetify-router", {"useNewUrlParser": true, "useUnifiedTopology": true}, () => {
-    console.log("Connected to MongoDB");
-});
+mongoose.connect(
+    process.env.MONGO_URI,
+    options,
+    (err) => {
+     if(err) console.log(err) 
+     else console.log("mongdb is connected");
+    }
+  );
 
 app.listen(PORT, function() {
     console.log('Server is running on port: ', PORT);

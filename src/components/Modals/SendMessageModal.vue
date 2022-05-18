@@ -17,7 +17,6 @@
         <!-- <button @click="consoleme">Let's see what we got</button> -->
       </v-card>
     </v-dialog>
-    <button @click="consoleme">dsdsd</button>
   </div>
 </template>
 
