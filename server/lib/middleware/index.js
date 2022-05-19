@@ -2,10 +2,13 @@ const jwt = require("jsonwebtoken");
 
 exports.authorization = (req, res, next) => {
   const token = req.cookies.accessToken;
+  console.log("The TOKEN", token);
   if (token === undefined) {
+    console.log("Token is undefined")
     return res.sendStatus(403);
   }
   try {
+
     const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     req.user = data;
     return next();

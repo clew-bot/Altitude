@@ -57,10 +57,9 @@ router.get("/logout", (req, res) => {
 
 router.post("/login", async (req, res) => {
   const findUser = await db.User.findOne({ email: req.body.email });
-  console.log(req.body.password);
-  console.log("FINDUSER =", findUser);
-  const pass = findUser.password;
+
   if (findUser) {
+    const pass = findUser.password;
     console.log();
 
     const passwordMatch = await bcrypt.compare(req.body.password, pass);
