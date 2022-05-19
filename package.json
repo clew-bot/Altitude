@@ -6,8 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "backend": "cd server && nodemon server.js",
-    "dev": "concurrently \"npm run backend\" \"npm run serve\""
+    "backend": "cd server && npm install && node server.js",
+    "dev": "concurrently \"npm run backend\" \"npm run serve\"",
+    "start" : "npm run backend"
   },
   "dependencies": {
     "@braid/vue-formulate": "^2.5.3",
