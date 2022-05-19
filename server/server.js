@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === "production") {
 console.log(__dirname)
 app.use(routes);
 
-app.listen(PORT, function() {
+app.listen(process.env.PORT || PORT, function() {
     console.log('Server is running on port: ', process.env.PORT || 3000);
 })
 
