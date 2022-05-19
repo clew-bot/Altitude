@@ -24,7 +24,9 @@ app.use(cors());
 let options = {
     "useNewUrlParser": true
 }
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 mongoose.connect(
     process.env.MONGO_URI,
     options,
@@ -33,9 +35,9 @@ mongoose.connect(
      else console.log("mongdb is connected");
     }
   );
-
+  app.use(routes);
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static('dist'));
+    app.use(express.static('/dist'));
 
     app.get("*", (req, res) => {
         res.sendFile(path.sendFile( "dist/index.html"));
@@ -43,13 +45,11 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.listen(PORT, function() {
-    console.log('Server is running on port: ', PORT);
+    console.log('Server is running on port: ', process.env.PORT || 3000);
 })
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(routes);
+
+
 
 
 
