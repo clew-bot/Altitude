@@ -9,13 +9,14 @@ const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
 const { authorization } = require("../../lib/middleware/index.js");
 const { createTransport } = require("../../lib/utils/index.js");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 require("isomorphic-fetch");
 const toId = mongoose.Types.ObjectId;
 
 const upload = multer({ dest: "uploads/" });
 
 router.get("/auth/check", authorization, (req, res) => {
+  console.log("Cookie", req.cookies.accessToken)
   res.json({ Checking: "World", auth: true });
 });
 
@@ -42,8 +43,6 @@ router.post("/signup", async (req, res) => {
       .cookie("accessToken", accessToken, {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        secure: true,
-        domain: "https://peaceful-plateau-10421.herokuapp.com/",
       })
       .json({
         message: "User has been created",
@@ -83,8 +82,6 @@ router.post("/login", async (req, res) => {
         .cookie("accessToken", accessToken, {
           httpOnly: true,
           maxAge: 1000 * 60 * 60 * 24 * 7,
-          secure: true,
-          domain: "https://peaceful-plateau-10421.herokuapp.com/",
         })
         .json({
           message: "User has been logged in",
