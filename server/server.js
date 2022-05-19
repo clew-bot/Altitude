@@ -1,18 +1,13 @@
 const express = require('express');
 const app = express();
-// const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = 3000;
 const routes = require('./routes')
-// let rando = require('crypto').randomBytes(64).toString('hex')
 const dotenv = require('dotenv');
 const cookieParser = require("cookie-parser");
 const path = require('path');
-// const nodemailer = require("nodemailer");
 
-// console.log(rando)
-// get config vars
 dotenv.config();
 
 

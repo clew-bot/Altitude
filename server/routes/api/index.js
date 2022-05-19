@@ -16,7 +16,6 @@ const toId = mongoose.Types.ObjectId;
 const upload = multer({ dest: "uploads/" });
 
 router.get("/auth/check", authorization, (req, res) => {
-  console.log("Cookie", req.cookies.accessToken)
   res.json({ Checking: "World", auth: true });
 });
 
@@ -25,8 +24,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  console.log(req.body);
-  console.log("I'm Hit!");
   const findUser = await db.User.findOne({ email: req.body.email });
   if (findUser) {
     res.json({ message: "User already exists" });
@@ -218,16 +215,6 @@ router.post("/savePost", authorization, async (req, res) => {
 
 router.get("/allPosts", authorization, async (req, res) => {
   const Posts = await db.Post.find({})
-//   .populate({
-//     path: 'comments',
-//     model: 'PostComments',
-//     // select: 'author',
-//     populate: {
-//       path: 'author',
-//       model: 'User',
-//       select: "username"
-//     }
-//  })
 .populate('author').limit(50).sort({ createdAt: -1 });
   res.json(Posts);
 });
@@ -256,17 +243,12 @@ router.post("/sendMessage", async (req, res) => {
     reciever,
     sender,
   };
-  // console.log(newMessage)
-  // const testing = await db.Message.find({ to: reciever }).populate("from");
+
   const updateMsg = db.User.updateMany(
     { username: options },
     { $push: { messages: newMessage._id } }
   );
   console.log("UD", updateMsg);
-  //   const updateSender = await db.User.findOneAndUpdate(
-  //     { _id: findUser._id },
-  //     { $push: { messages: postId } }
-  // );
   res.json({ message: "Message has been sent" });
 });
 
@@ -303,9 +285,7 @@ router.post("/addComment", authorization, async (req, res) => {
     "-password"
   );
   const authorId = toId(author._id);
-  console.log(req.body)
   const postId = toId(req.body.comment.post._id);
-  console.log("POSTID", postId);
 
   const newComment = await new db.PostComments({
     postToComment: postId,
@@ -313,25 +293,15 @@ router.post("/addComment", authorization, async (req, res) => {
     author: authorId,
   });
   newComment.save();
-  // console.log("NewComment", newComment);
   const addReplyNumber = db.Post.findOneAndUpdate(
     { _id: postId },
     { $inc : { "replies": 1 }, $push: { "comments": newComment._id } }
   );
   addReplyNumber.exec();
-  // console.log(addReplyNumber)
   res.json({ message: "Comment has been added" });
 })
 
-module.exports = router;
 
-
-// router.get("/getComments", authorization, (req, res) => {
-//   const user = findOne({ email: req.user.user.email }).select("-password");
-//   const userId = toId(user._id);
-//   const comments = db.PostComments.find({ author: userId }).populate("author");
-//   res.json(comments);
-// })
 
 router.post("/getComments", authorization, async (req, res) => {
   console.log(req.body.post)
@@ -349,14 +319,7 @@ router.post("/getComments", authorization, async (req, res) => {
       select: "username"
     }
   });
-//   const comments = db.Post.find({
-//     '_id': { $in: [req.body.post.comments]}
-// }, function(err, docs){
-//      console.log(docs);
-// });
   console.log(comments)
    res.json(comments);
 })
-
-///ObjectId("627bf143de63240e7ba0dde4")
-///ObjectId("627bf143de63240e7ba0dde4")
+module.exports = router;
