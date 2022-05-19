@@ -42,6 +42,8 @@ router.post("/signup", async (req, res) => {
       .cookie("accessToken", accessToken, {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 7,
+        secure: true,
+        domain: "https://peaceful-plateau-10421.herokuapp.com/",
       })
       .json({
         message: "User has been created",
@@ -67,7 +69,7 @@ router.post("/login", async (req, res) => {
     if (passwordMatch) {
       console.log("Match");
       const accessToken = jwt.sign(
-        { user: { email: req.body.email, password: req.body.password } },
+        { user: { email: req.body.email} },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: "20m" }
       );
@@ -81,6 +83,8 @@ router.post("/login", async (req, res) => {
         .cookie("accessToken", accessToken, {
           httpOnly: true,
           maxAge: 1000 * 60 * 60 * 24 * 7,
+          secure: true,
+          domain: "https://peaceful-plateau-10421.herokuapp.com/",
         })
         .json({
           message: "User has been logged in",
