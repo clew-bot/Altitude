@@ -17,8 +17,6 @@ dotenv.config();
 
 
 
-
-
 app.use(cors());
 
 let options = {
@@ -35,14 +33,17 @@ mongoose.connect(
      else console.log("mongdb is connected");
     }
   );
-  app.use(routes);
+
 if (process.env.NODE_ENV === "production") {
     app.use(express.static('/dist'));
 
     app.get("*", (req, res) => {
-        res.sendFile(path.sendFile( "dist/index.html"));
+        res.sendFile(path.sendFile( "/dist/index.html"));
     });
 }
+
+console.log(__dirname)
+app.use(routes);
 
 app.listen(PORT, function() {
     console.log('Server is running on port: ', process.env.PORT || 3000);
