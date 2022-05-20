@@ -7,12 +7,7 @@ const routes = require('./routes')
 const dotenv = require('dotenv');
 const cookieParser = require("cookie-parser");
 const path = require('path');
-
 dotenv.config();
-
-
-
-
 app.use(cors());
 
 let options = {
@@ -30,20 +25,16 @@ mongoose.connect(
      else console.log("mongdb is connected");
     }
   );
+
+//   Heroku
 app.use(express.static(path.join(__dirname, '../dist')));
 app.use(routes);
-
-
 
 if (process.env.NODE_ENV === "production") {
     app.get("*", (req, res) => {
         res.sendFile(path.join( "/app/dist/index.html"));
     });
 }
-
-console.log(__dirname)
-
-
 app.listen(process.env.PORT || PORT, function() {
     console.log('Server is running on port: ', process.env.PORT || 3000);
 })

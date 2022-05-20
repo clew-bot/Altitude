@@ -258,6 +258,7 @@ router.get("/getMessages", authorization, async (req, res) => {
   );
   const userId = toId(findUser._id);
   const messages = await db.Message.find({ to: userId }).populate("from");
+  console.log("the messages", messages)
 
   res.json(messages);
 });

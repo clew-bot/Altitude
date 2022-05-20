@@ -47,7 +47,6 @@ export default {
       this.$store.dispatch("posts/SAVE_POST", this.content);
       this.$store.dispatch("posts/CHAT_RERENDER");
       this.$emit("input", false);
-      this.$router.push("/dashboard");
     },
     }
 };

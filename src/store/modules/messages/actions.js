@@ -23,14 +23,15 @@ export default {
         },
       });
       const data = await messages.json();
+      
       commit("setMessages", data);
+     
       commit("setUsernames", data);
-      console.log("Get messages", data);
     } catch (error) {
       console.log(error);
     }
   },
-  async [GET_PRIVATE_MESSAGE]({ commit, state }, name) {
+  async [GET_PRIVATE_MESSAGE]({ commit }, name) {
     try {
       const messages = await fetch(`/api/getPrivateMessages`, {
         method: "POST",
@@ -42,14 +43,12 @@ export default {
       const data = await messages.json();
       const msgs = ([...data.toMessages, ...data.fromMessages])
       commit("setMessages", msgs);
-      console.log("state.totalMessages = ",state.totalMessages);
     } catch (error) {
       console.log(error);
     }
   },
 
   async [GET_LIKED_USERS]({ commit }) {
-    console.log(commit)
     try {
       const response = await fetch("/api/getLikedUsers", {
         method: "GET",
@@ -58,25 +57,24 @@ export default {
         }
       });
       const data = await response.json();
-      console.log("Data.likedUsers", data.likedUsers);
       commit("setLikedUsers", data.likedUsers);
     }
     catch (error) {
       console.log("Something went wrong", error);
     }
   },
-  async [REMOVE_LIKED_USER]({ commit }, id) {
-    console.log(commit, id)
+  async [REMOVE_LIKED_USER]({ commit }, name) {
+    console.log(commit, name)
     try {
       const response = await fetch("/api/removeLikedUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id })
+        body: JSON.stringify({ name })
       });
+      // eslint-disable-next-line no-unused-vars
       const data = await response.json();
-      console.log("Data.likedUsers", data.likedUsers);
     }
     catch (error) {
       console.log("Something went wrong", error);

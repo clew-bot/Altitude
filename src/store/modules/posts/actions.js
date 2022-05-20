@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import {GET_COMMENTS, SAVE_POST, GET_POSTS, CHAT_RERENDER, ADD_COMMENT, RERENDER_POSTCOMMENTS } from './types.js'
 
 export default {
   async [SAVE_POST]({ commit, state }, post) {
-    console.log(commit, state)
+    // console.log(commit, state)
     const response = await fetch(`/api/savePost`, {
       method: "POST",
       headers: {
@@ -11,8 +12,9 @@ export default {
       },
       body: JSON.stringify({ post }),
     });
+    // eslint-disable-next-line no-unused-vars
     const data = await response.json();
-    console.log(data);
+
   },
   async [GET_POSTS]({ commit }) {
     const response = await fetch(`/api/allPosts`, {
@@ -24,7 +26,6 @@ export default {
     const data = await response.json();
     // commit("setCreatedAtTimes", data);
     commit("setAllPosts", data);
-     console.log("DATA", data);
   },
   [CHAT_RERENDER]({ commit }) {
     commit("setChatRerender");
@@ -40,14 +41,13 @@ export default {
         },
         body: JSON.stringify({ comment }),
       });
+      // eslint-disable-next-line no-unused-vars
       const data = await response.json();
-      console.log(data);
   } catch (error) {
       console.log(error);
     }
   },
-  async [GET_COMMENTS]({ commit, state }, post) {
-      console.log(commit, state)
+  async [GET_COMMENTS]({ commit }, post) {
       console.log("THE POST", post._id)
       try {
         const response = await fetch(`/api/getComments`, {
@@ -58,16 +58,13 @@ export default {
           body: JSON.stringify({ post }),
         });
         const data = await response.json();
-        console.log("DATA = ",data[0].comments);
         commit("setComments", data[0].comments);
         commit("setCreatedAtTimes", data[0].createdAt);
-        console.log("Post = ",  state.postComments)
       } catch (error) {
         console.log(error);
       }
   },
-  [RERENDER_POSTCOMMENTS]({ commit, state }) {
-    console.log(commit, state)
+  [RERENDER_POSTCOMMENTS]({ commit }) {
     commit("rerenderComments");
   }
 

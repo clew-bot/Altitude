@@ -45,8 +45,16 @@
         </v-list>
       </v-card>
     </div>
+    <!-- TO BE IMPLEMENTED -->
+    <!-- <v-icon>mdi-magnify</v-icon>
+       <v-text-field
+            label="Outlined"
+            outlined
+          ></v-text-field> -->
     <LikedFriends />
+    
   </div>
+
 </template>
 
 <script>

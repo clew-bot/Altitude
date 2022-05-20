@@ -45,7 +45,6 @@ export const memberSinceLog = (times) => {
     11: "November",
     12: "December",
   };
-  console.log(monthHash)
   const date = new Date(times).toLocaleDateString();
   let month = "";
   let array = [...date]

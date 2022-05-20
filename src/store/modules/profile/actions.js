@@ -34,13 +34,9 @@ export default {
       }
       if (findUser.profilePic) {
         commit("setIsThereImages", true);
-        console.log("There is image", state.isThereImages);
       } else {
         commit("setIsThereImages", false);
-        console.log("There is no image", state.isThereImages);
       }
-      console.log("FIne", findUser);
-      console.log(randomUsers);
       commit("setFindUser", findUser);
       commit("setRandomUsers", randomUsers);
       commit("setLastLogin", findUser.updatedAt);

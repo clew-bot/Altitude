@@ -16,11 +16,14 @@
       <v-list three-line v-for="message in orderedMessages" :key="message._id">
         <div>
           <v-list-item>
-            <v-list-item-avatar>
+            <v-list-item-avatar v-if="message.from.profilePic">
               <v-img
                 @click="goToProfile(message.from.username)"
                 :src="'/api/images/' + message.from.profilePic"
               ></v-img>
+            </v-list-item-avatar>
+            <v-list-item-avatar v-else>
+             <NNKoala/>
             </v-list-item-avatar>
 
             <v-list-item-content>
@@ -48,8 +51,12 @@
 <script>
 import { mapGetters } from "vuex";
 import { createdAtLog } from "../public/utils";
+import NNKoala from "../assets/svgs/NNKoala.svg"
 export default {
   name: "PrivateMessage",
+  components: {
+    NNKoala
+  },
   data() {
     return {
       username: "",
@@ -65,7 +72,7 @@ export default {
       this.$store.dispatch("messages/GET_PRIVATE_MESSAGE", query);
     },
     messagesToOrFrom(message) {
-      console.log(message);
+      // console.log(message);
       if (!message.from.username) {
         return message.to.username;
       } else {
