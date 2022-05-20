@@ -1,13 +1,26 @@
 <template>
+
   <div v-if="likedUsers">
     <v-divider></v-divider>
     <h3 class="liked">people i like 🤝</h3>
     <div class="outer-container">
       <v-card v-for="user in likedUsers" :key="user._id" class="user-card">
         <div v-if="user.profilePic">
-        <span class="username">@{{user.username}}</span>
-        <img :src="'/api/images/' + user.profilePic" alt="" /></div>
-        <div v-else>   <span class="username">@{{user.username}}</span><NNKoala class="no-profilepic"/></div>
+         <v-tooltip top>
+               <template v-slot:activator="{ on, attrs }">
+          <img      v-bind="attrs"
+          v-on="on" :src="'/api/images/' + user.profilePic" alt="" />
+      </template>
+      <span>@{{user.username}}</span></v-tooltip></div>
+        <div v-else>  
+           <v-tooltip top>
+               <template v-slot:activator="{ on, attrs }">
+          <NNKoala v-bind="attrs"
+          v-on="on"  class="no-profilepic"/>
+      </template>
+      <span>@{{user.username}}</span>
+      </v-tooltip>
+          </div>
       </v-card>
     </div>
   </div>
@@ -51,8 +64,8 @@ export default {
 
 }
 .no-profilepic {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   display: flex;
   justify-content: center;  
   align-items: center;
@@ -80,16 +93,16 @@ export default {
   z-index: 1;
   background: none !important;
   box-shadow: none !important; 
-  height: 200px;
-  width: 200px;
+  height: 100px;
+  width: 100px;
 }
 
 .user-card img {
   z-index: -1 !important;
   position: absolute;
   object-fit: cover !important;
-  height: 200px;
-  width: 200px;
+  height: 100px;
+  width: 100px;
   mix-blend-mode: soft-light;
   transition: all 0.3s ease-in-out;
   border-radius: 5px;

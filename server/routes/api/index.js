@@ -327,11 +327,7 @@ router.post("/likeUser", authorization, async (req, res) => {
   const personToLike = await db.User.findOne({ username: req.body.username }).select(
     "-password"
   );
-  console.log("Personto like",personToLike)
   const user = await db.User.findOne({ email: req.user.user.email }).select("-password");
-  console.log("User", user.username)
-  // const userAlreadyLiked = await db.User.findOne({likedUsers: personToLike._id})
-
   if (user.likedUsers.includes(personToLike._id)) {
     res.json({ liked: false});
   } else {
@@ -344,16 +340,6 @@ router.post("/likeUser", authorization, async (req, res) => {
     res.json({ liked: true });
   }
 });
-
-
-  // console.log("User already liked", userAlreadyLiked)
-  // if (!userAlreadyLiked) {
-  //   console.log("hit")
-
-  // } else {
-  //   console.log("false")
-  //   res.json({ liked: false });
-  // }
 
 
 router.get("/getLikedUsers", authorization, async (req, res) => {

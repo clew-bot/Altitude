@@ -67,6 +67,12 @@
               >mdi-account-star</v-icon
             >
             </div>
+            <div>
+              <!-- TO BE IMPLEMENTED? -->
+             <!-- <v-icon @click="likeUser" class="thumb-icon"
+              >mdi-emoticon-happy</v-icon
+            > -->
+            </div>
             <v-icon class="downIcon" @click.prevent="dropDown"
               >mdi-chevron-down</v-icon
             >
