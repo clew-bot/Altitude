@@ -32,7 +32,6 @@ export default {
   },
   async [ADD_COMMENT]({ commit, state }, comment) {
     console.log(commit, state)
-    console.log("THE COMMENT", comment)
     try {
       const response = await fetch("/api/addComment", {
         method: "POST",

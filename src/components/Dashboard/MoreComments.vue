@@ -96,7 +96,6 @@ export default {
     handleInput: function (e) {
       this.content = e.target.innerHTML;
       this.content = this.content.replace(/&nbsp;/g, " ");
-      console.log(this.content);
     },
 
     submitComment() {

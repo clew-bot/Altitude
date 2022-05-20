@@ -29,23 +29,27 @@
                       <v-icon class="like-icon" @click="likePost"
                         >mdi-star-shooting</v-icon
                       >
-                      <v-icon class="report-icon" @click="reportUser"
-                        >mdi-alert-octagon</v-icon
-                      ></span
+                    </span
                     >
                   </h3>
                   <v-list-item-subtitle class="minutes-ago">{{
                     createdAtLog(post.createdAt)
                   }}</v-list-item-subtitle>
+                  
                 </v-list-item-title>
 
                 <p v-html="post.post"></p>
               </v-list-item-content>
-              <div>{{ getRepliesEvaluation(post.replies) }}</div>
+              <div class="replies">{{ getRepliesEvaluation(post.replies) }}</div>
+              
               <v-icon @click="toggleComments(index)" class="down-icon"
                 >mdi-chevron-down</v-icon
               >
+                    <v-icon class="report-icon" @click="reportUser"
+                        >mdi-alert-octagon</v-icon
+                      >
             </v-list-item>
+            
             <v-divider></v-divider>
             <MoreComments
               :post="post"
@@ -91,7 +95,6 @@ export default {
   methods: {
     tester() {
       this.testt++;
-      console.log(this.testt);
     },
     getRepliesEvaluation(replies) {
       if (replies === 0) {
@@ -167,15 +170,17 @@ export default {
 </script>
 
 <style scoped>
-/* .openCard {
-    height: 100%;
-    transition: all 0.5s ease;
+
+@media screen and (max-width: 400px) {
+ .replies {
+   display: none;
+}
 }
 
-.closeCard {
-    height: 90%;
-    transition: all 0.5s ease-in-out;
-} */
+.replies {
+  font-size: 0.8rem;
+}
+
 .main-card {
   position: relative;
 }
@@ -192,7 +197,10 @@ export default {
 }
 
 .report-icon {
-  color: red !important;
+  color: rgba(163, 20, 20, 0.406) !important;
+  position: absolute;
+  right: 7px;
+  top: 2px;
   padding-left: 8px;
 }
 .minutes-ago {
@@ -209,6 +217,9 @@ export default {
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  z-index: 99 !important;
+  flex-grow: 1 !important;
+
 }
 
 .theme--light.v-list {

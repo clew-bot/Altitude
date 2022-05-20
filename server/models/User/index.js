@@ -101,6 +101,10 @@ const userSchema = new Schema({
   likedMe: {
     type: Schema.Types.ObjectId,
     ref: "User",
+  },
+  banned: {
+    type: Boolean,
+    default: false,
   }
 
 
