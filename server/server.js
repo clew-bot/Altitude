@@ -17,8 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 mongoose.connect(
-    process.env.MONGO_URI,
-    // "mongodb://localhost/vuetify-router",
+    // process.env.MONGO_URI,
+    "mongodb://localhost/vuetify-router",
     options,
     (err) => {
      if(err) console.log(err) 
