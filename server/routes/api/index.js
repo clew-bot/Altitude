@@ -350,7 +350,10 @@ router.get("/getLikedUsers", authorization, async (req, res) => {
   console.log(user)
   res.json(user);
   }
-  
+})
+
+router.get("/removeLikedUser", authorization, async (req, res) => {
+  console.log(req.body)
 })
 
 module.exports = router;

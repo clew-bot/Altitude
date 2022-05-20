@@ -1,4 +1,4 @@
-import { SEND_MESSAGE, GET_MESSAGES, GET_PRIVATE_MESSAGE, GET_LIKED_USERS } from "./types.js";
+import { SEND_MESSAGE, GET_MESSAGES, GET_PRIVATE_MESSAGE, GET_LIKED_USERS, REMOVE_LIKED_USER } from "./types.js";
 
 export default {
   async [SEND_MESSAGE]({ commit, state }, message) {
@@ -64,5 +64,22 @@ export default {
     catch (error) {
       console.log("Something went wrong", error);
     }
+  },
+  async [REMOVE_LIKED_USER]({ commit }, name) {
+    console.log(commit, name)
+    try {
+      const response = await fetch("/api/removeLikedUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name })
+      });
+      const data = await response.json();
+      console.log("Data.likedUsers", data.likedUsers);
+    }
+    catch (error) {
+      console.log("Something went wrong", error);
+    }
+    }  
   }
-};

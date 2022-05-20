@@ -26,7 +26,7 @@
         <br/>
         <v-icon @click="showingModal(user.username)">mdi-fountain-pen</v-icon>
         <v-icon @click="goToAccount(user.username)">mdi-account-search</v-icon>
-        <v-icon @click="removeLike(user._id)">mdi-close-thick</v-icon>
+        <v-icon @click="removeLikeModal(user)">mdi-close-thick</v-icon>
 
 </div>
     </div>
@@ -43,6 +43,7 @@
         </div>
       </v-card>
             <SendMessageModal v-model="dialog" :person="theUsername"/>
+             <ConfirmDeleteModal v-model="dialog2" :person="removedUser"/>
     </div>
   </div>
   <div v-else>
@@ -55,19 +56,24 @@
 import { mapGetters } from "vuex";
 import NNKoala from "../../assets/svgs/NNKoala.svg";
 import SendMessageModal from "@/components/Modals/SendMessageModal.vue";
+import ConfirmDeleteModal from "@/components/Modals/ConfirmDeleteModal.vue";
+
 
 export default {
   name: "LikedFriends",
   components: {
     NNKoala,
     SendMessageModal,
+    ConfirmDeleteModal,
   },
   data() {
     return {
       show: false,
       selected: null, 
       dialog: false,
+      dialog2: false,
       theUsername:"",
+      removedUser: undefined,
     };
   },
   methods: {
@@ -81,8 +87,9 @@ export default {
     goToAccount(username) {
       this.$router.push("/profile/" + username);
     },
-    removeLike(id) {
-      console.log(id);
+    removeLikeModal(user) {
+      this.removedUser = user;
+      this.dialog2 = !this.dialog2;
     },
   },
   computed: {
