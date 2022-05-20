@@ -342,11 +342,20 @@ router.post("/likeUser", authorization, async (req, res) => {
       { $push: { likedUsers: personToLike._id } }
     );
     console.log("LikeUser", likeUser);
-    res.json({ message: "User has been liked" });
+    res.json({ liked: true });
   } else {
-    res.json({ message: "Already liked user." });
+    res.json({ liked: false });
   }
 })
 
+router.get("/getLikedUsers", authorization, async (req, res) => {
+  const user = await db.User.findOne({ email: req.user.user.email }).select("-password").populate("likedUsers");
+  if (user.likedUsers < 1) {
+    res.json({message: "No Liked Users"})
+  }
+  console.log(user)
+  res.json(user);
+  
+})
 
 module.exports = router;

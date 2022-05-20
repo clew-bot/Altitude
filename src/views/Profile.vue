@@ -135,8 +135,20 @@ export default {
           username: this.findUser.username,
         }),
       });
-      const data = await response.json();
-      console.log(data);
+      const { liked } = await response.json();
+      if (liked) {
+        this.$toasted.show("Liked User!", {
+        theme: "bubble",
+        position: "top-center",
+        duration: 3000,
+      });
+      } else {
+        this.$toasted.show("Already Liked!", {
+        theme: "bubble",
+        position: "top-center",
+        duration: 3000,
+      });
+      }
     },
   },
   mounted() {

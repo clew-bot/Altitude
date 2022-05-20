@@ -18,5 +18,8 @@ export default {
     },
     messages(state) {
         return state.totalMessages;
+    },
+    likedUsers(state) {
+        return state.likedUsers;
     }
 }

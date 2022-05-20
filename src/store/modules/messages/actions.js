@@ -1,4 +1,4 @@
-import { SEND_MESSAGE, GET_MESSAGES, GET_PRIVATE_MESSAGE } from "./types.js";
+import { SEND_MESSAGE, GET_MESSAGES, GET_PRIVATE_MESSAGE, GET_LIKED_USERS } from "./types.js";
 
 export default {
   async [SEND_MESSAGE]({ commit, state }, message) {
@@ -25,13 +25,12 @@ export default {
       const data = await messages.json();
       commit("setMessages", data);
       commit("setUsernames", data);
-      console.log(data);
+      console.log("Get messages", data);
     } catch (error) {
       console.log(error);
     }
   },
   async [GET_PRIVATE_MESSAGE]({ commit, state }, name) {
-    console.log(commit)
     try {
       const messages = await fetch(`/api/getPrivateMessages`, {
         method: "POST",
@@ -42,11 +41,28 @@ export default {
       });
       const data = await messages.json();
       const msgs = ([...data.toMessages, ...data.fromMessages])
-      console.log("MSG", msgs)
       commit("setMessages", msgs);
-      console.log(state.totalMessages);
+      console.log("state.totalMessages = ",state.totalMessages);
     } catch (error) {
       console.log(error);
     }
   },
+
+  async [GET_LIKED_USERS]({ commit }) {
+    console.log(commit)
+    try {
+      const response = await fetch("/api/getLikedUsers", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+      const data = await response.json();
+      console.log("Data.likedUsers", data.likedUsers);
+      commit("setLikedUsers", data.likedUsers);
+    }
+    catch (error) {
+      console.log("Something went wrong", error);
+    }
+  }
 };

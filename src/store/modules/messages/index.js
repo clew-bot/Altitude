@@ -10,6 +10,7 @@ const state = {
     usernames: [],
     toMessages: [],
     fromMessages: [],
+    likedUsers: [],
 
 }
 
