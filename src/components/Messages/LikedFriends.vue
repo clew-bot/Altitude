@@ -3,53 +3,82 @@
     <v-divider></v-divider>
     <h3 class="liked">people i like 🤝</h3>
     <div class="outer-container">
-      <v-card v-for="(user) in likedUsers" :key="user._id" class="user-card">
+      <v-card v-for="user in likedUsers" :key="user._id" class="user-card">
         <div v-if="user.profilePic">
-           <v-menu>
-    <template #activator="{ on: onMenu }">
-      <v-tooltip top color="#5d3b78">
-        <template #activator="{ on: onTooltip }">
-            <img
-                v-on="{ ...onMenu, ...onTooltip }"
-                :src="'/api/images/' + user.profilePic"
-                alt=""
-              />
-        </template>
+          <v-menu>
+            <template #activator="{ on: onMenu }">
+              <v-tooltip top color="#5d3b78">
+                <template #activator="{ on: onTooltip }">
+                  <img
+                    v-on="{ ...onMenu, ...onTooltip }"
+                    :src="'/api/images/' + user.profilePic"
+                    alt=""
+                    style="cursor:pointer"
+                  />
+                </template>
 
-        <span>{{user.username}}</span>
-      </v-tooltip>
-    </template>
+                <span>{{ user.username }}</span>
+              </v-tooltip>
+            </template>
 
-    <div class="menu-person">
-      <div>
-       <b><i>{{user.headline}}</i></b> 
-        <br/>
-        <v-icon @click="showingModal(user.username)">mdi-fountain-pen</v-icon>
-        <v-icon @click="goToAccount(user.username)">mdi-account-search</v-icon>
-        <v-icon @click="removeLikeModal(user)">mdi-close-thick</v-icon>
-
-</div>
-    </div>
-  </v-menu>
-
+            <div class="menu-person">
+              <div>
+                <b
+                  ><i>{{ user.headline }}</i></b
+                >
+                <br />
+                <v-icon @click="showingModal(user.username)"
+                  >mdi-fountain-pen</v-icon
+                >
+                <v-icon @click="goToAccount(user.username)"
+                  >mdi-account-search</v-icon
+                >
+                <v-icon @click="removeLikeModal(user)">mdi-close-thick</v-icon>
+              </div>
+            </div>
+          </v-menu>
         </div>
         <div v-else>
-          <v-tooltip top color="#5d3b78">
-            <template v-slot:activator="{ on, attrs }">
-              <NNKoala v-bind="attrs" v-on="on" class="no-profilepic" />
+          <v-menu>
+            <template #activator="{ on: onMenu }">
+              <v-tooltip top color="#5d3b78">
+                <template #activator="{ on: onTooltip }">
+                  <NNKoala
+                    v-on="{ ...onMenu, ...onTooltip }"
+                    class="no-profilepic"
+                  />
+                </template>
+
+                <span>{{ user.username }}</span>
+              </v-tooltip>
             </template>
-            <span>@{{ user.username }}</span>
-          </v-tooltip>
+
+            <div class="menu-person">
+              <div>
+                <b v-if="user.headline"
+                  ><i>{{ user.headline }}</i></b
+                >
+                <span v-else>😎😎😎😎</span>
+                <br />
+                <v-icon @click="showingModal(user.username)"
+                  >mdi-fountain-pen</v-icon
+                >
+                <v-icon @click="goToAccount(user.username)"
+                  >mdi-account-search</v-icon
+                >
+                <v-icon @click="removeLikeModal(user)">mdi-close-thick</v-icon>
+              </div>
+            </div>
+          </v-menu>
         </div>
       </v-card>
-            <SendMessageModal v-model="dialog" :person="theUsername"/>
-             <ConfirmDeleteModal v-model="dialog2" :person="removedUser"/>
+      <SendMessageModal v-model="dialog" :person="theUsername" />
+      <ConfirmDeleteModal v-model="dialog2" :person="removedUser" />
     </div>
   </div>
   <div v-else>
     <h1 class="no-likes">no likes 🧐</h1>
   </div>
-  
 </template>
 
 <script>
@@ -57,7 +86,6 @@ import { mapGetters } from "vuex";
 import NNKoala from "../../assets/svgs/NNKoala.svg";
 import SendMessageModal from "@/components/Modals/SendMessageModal.vue";
 import ConfirmDeleteModal from "@/components/Modals/ConfirmDeleteModal.vue";
-
 
 export default {
   name: "LikedFriends",
@@ -69,10 +97,10 @@ export default {
   data() {
     return {
       show: false,
-      selected: null, 
+      selected: null,
       dialog: false,
       dialog2: false,
-      theUsername:"",
+      theUsername: "",
       removedUser: undefined,
     };
   },
@@ -134,6 +162,8 @@ export default {
   align-items: center;
   background: rgb(62, 38, 117);
   border-radius: 40%;
+  outline: none !important;
+  cursor: pointer;
 }
 
 .username {
