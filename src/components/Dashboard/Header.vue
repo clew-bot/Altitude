@@ -7,7 +7,11 @@
       <h1 class="global-chat">
         <span class="first-talk">🗣</span>GLOBAL CHAT<span>🗣</span>
       </h1>
-      <v-btn class="say-something" @click="openPostModal">say something</v-btn>
+
+
+<div class="outer-bg">
+      <v-btn class="say-something" @click="openPostModal" :class="{isCLicked: clicked}"><i>say something</i></v-btn>
+</div>
     </div>
     <CreatePostModal v-model="dialog" />
   </v-card>
@@ -24,6 +28,7 @@ export default {
       isDisabled: false,
       clicks: 0,
       timer: 10,
+      clicked: false,
     };
   },
   components: {
@@ -31,7 +36,12 @@ export default {
   },
   methods: {
     openPostModal() {
+      this.clicked = true;
+      setTimeout(() => {
+        this.clicked =false
       this.dialog = !this.dialog;
+      }, 350);
+
     },
     
     reloadChat() {
@@ -71,6 +81,40 @@ export default {
 
 <style scoped>
 
+@media screen and (max-width: 767px) {
+ .main-container {
+   height: 100px;
+ }
+}
+
+.outer-bg {
+  background: rgb(76, 211, 108);
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  display: inline-block !important;
+  border-radius:  10px;
+  transform: translateY(20px);
+  height: 30px;
+}
+.isCLicked {
+  animation: clickDownAndUp 0.3s ease-in-out;
+}
+
+
+@keyframes clickDownAndUp{
+  0%{
+  }
+  30%{
+    transform: translateY(-.8rem);
+  }
+  60%{
+    /* transform: translateY(0.225px); */
+  }
+  100%{
+    
+  }
+}
 .take-break {
     color: yellow;
 }
@@ -104,10 +148,21 @@ export default {
 } */
 
 .say-something {
+  border-radius:  10px;
+font-size: 16px;
   margin-top: 5px;
-  /* text-transform: none; */
+     transform: translateY(-1.225rem);
+  text-transform: none;
+  letter-spacing: 0px;
   padding: 10px !important;
-  background: rgba(212, 209, 209, 0.981) !important;
+  color: rgb(25, 26, 25);
+  font-weight: bold;
+  background: linear-gradient(90deg, rgb(147, 215, 144) 0%, rgb(147, 179, 76) 14.06%, rgb(170, 215, 107) 83.85%, rgb(140, 225, 120) 100%);
+  
+}
+
+.say-something:hover{
+  transform: translateY(-1.425rem);
 }
 
 @media screen and (max-width: 767px) {

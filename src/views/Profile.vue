@@ -227,6 +227,7 @@ export default {
 }
 .image {
   animation: fadeIn 5s;
+  box-shadow: none !important;
 }
 
 @media screen and (max-width: 600px) {

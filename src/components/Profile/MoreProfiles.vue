@@ -55,7 +55,7 @@ export default {
     return {
       favoriteBooks: "",
       colors: ["#5de4ce", "#b9a6da", "#5de4ce", "#b9a6da", "#5de4ce"],
-      boxShadow: ["0px 0px 10px rgba(9, 155, 94, 0.986) !important;","0px 0px 10px rgba(245, 20, 245, 0.986) !important","0px 0px 10px rgba(224, 177, 8, 0.986) !important", "0px 0px 10px rgba(230, 176, 202, 0.986) !important","0px 0px 10px rgba(207, 247, 6, 0.986) !important"]
+      boxShadow: ["0px 0px 10px rgba(9, 155, 94, 0.986);","0px 0px 10px rgba(245, 20, 245, 0.986)","0px 0px 10px rgba(224, 177, 8, 0.986)", "0px 0px 10px rgba(230, 176, 202, 0.986)","0px 0px 10px rgba(207, 247, 6, 0.986)"]
     };
   },
   methods: {
@@ -75,6 +75,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 
 .headline-text {
   font-size: 1rem;
@@ -138,7 +140,6 @@ export default {
 .theCard:hover {
   transition: all 0.5s ease;
   transform: skew(0deg, 0deg);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 20px rgba(10, 232, 65, 0.986) !important;
 
 }

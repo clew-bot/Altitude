@@ -14,7 +14,7 @@
           </div>
         </v-card-text>
         <v-card-actions class="justify-end">
-             <v-btn  @click="savePost">Save</v-btn>
+             <v-btn  @click="savePost">Post</v-btn>
         </v-card-actions>
         <!-- <button @click="consoleme">Let's see what we got</button> -->
       </v-card>
