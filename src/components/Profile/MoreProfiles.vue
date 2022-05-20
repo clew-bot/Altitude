@@ -3,7 +3,7 @@
     <div v-for="profile, index in otherUsers" :key="profile._id">
     
         <v-col class="profilesCol"  outlined  >
-          <v-card class="mx-auto theCard" :style="{'background': colors[index]}" >
+          <v-card class="mx-auto theCard" :style="{'background': colors[index], 'box-shadow': boxShadow[index]}" >
             <v-list-item three-line>
               <v-list-item-content >
                 <div class=" mb-4 username-text"><b>@{{profile.username}}</b></div>
@@ -50,6 +50,7 @@ export default {
     return {
       favoriteBooks: "",
       colors: ["#e6e689", "#b9a6da", "#dab672", "#e08b95", "#dad5d5"],
+      boxShadow: ["0px 0px 10px rgba(9, 155, 94, 0.986) !important;","0px 0px 10px rgba(245, 20, 245, 0.986) !important","0px 0px 10px rgba(224, 177, 8, 0.986) !important", "0px 0px 10px rgba(230, 176, 202, 0.986) !important","0px 0px 10px rgba(207, 247, 6, 0.986) !important"]
     };
   },
   methods: {
@@ -111,7 +112,6 @@ export default {
   min-width: 320px;
   max-width: 400px;
   min-height: 120px;
-  box-shadow: 0px 0px 20px rgba(93, 9, 248, 0.986) !important;
     /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask6359%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='url(%23SvgjsLinearGradient6360)'%3e%3c/rect%3e%3cpath d='M0 0L60.07 0L0 61.05z' fill='rgba(255%2c 255%2c 255%2c .1)'%3e%3c/path%3e%3cpath d='M0 61.05L60.07 0L195.35 0L0 190.51999999999998z' fill='rgba(255%2c 255%2c 255%2c .075)'%3e%3c/path%3e%3cpath d='M0 190.51999999999998L195.35 0L307.28999999999996 0L0 213.14999999999998z' fill='rgba(255%2c 255%2c 255%2c .05)'%3e%3c/path%3e%3cpath d='M0 213.14999999999998L307.28999999999996 0L894.91 0L0 287.79999999999995z' fill='rgba(255%2c 255%2c 255%2c .025)'%3e%3c/path%3e%3cpath d='M1440 560L824.25 560L1440 361.72z' fill='rgba(0%2c 0%2c 0%2c .1)'%3e%3c/path%3e%3cpath d='M1440 361.72L824.25 560L504.52 560L1440 235.87000000000003z' fill='rgba(0%2c 0%2c 0%2c .075)'%3e%3c/path%3e%3cpath d='M1440 235.87L504.52 560L381.15999999999997 560L1440 185.54000000000002z' fill='rgba(0%2c 0%2c 0%2c .05)'%3e%3c/path%3e%3cpath d='M1440 185.54000000000002L381.1600000000001 560L304.36000000000007 560L1440 178.44000000000003z' fill='rgba(0%2c 0%2c 0%2c .025)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask6359'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='15.28%25' y1='-39.29%25' x2='84.72%25' y2='139.29%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient6360'%3e%3cstop stop-color='rgba(151%2c 188%2c 207%2c 0.99)' offset='0.01'%3e%3c/stop%3e%3cstop stop-color='rgba(118%2c 255%2c 132%2c 1)' offset='1'%3e%3c/stop%3e%3cstop stop-color='rgba(110%2c 101%2c 216%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e");
     border: none; */
    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);

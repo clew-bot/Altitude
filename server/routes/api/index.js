@@ -354,7 +354,7 @@ router.get("/getLikedUsers", authorization, async (req, res) => {
 })
 
 router.post("/removeLikedUser", authorization, async (req, res) => {
-
+  console.log(req.body)
   const { id } = req.body;
   const userToRemoveID = toId(id);
   const updatedUser = await db.User.updateOne({ email: req.user.user.email }, { $pull: { likedUsers: userToRemoveID } });
