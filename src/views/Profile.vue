@@ -59,12 +59,14 @@
             ></v-progress-circular>
           </div>
           <div>
+            <div v-if="findUser.username !== myUsername">
             <v-icon @click="showingModal" class="mailbox-icon"
               >mdi-mailbox-open-up</v-icon
             >
             <v-icon @click="likeUser" class="thumb-icon"
               >mdi-account-star</v-icon
             >
+            </div>
             <v-icon class="downIcon" @click.prevent="dropDown"
               >mdi-chevron-down</v-icon
             >
@@ -163,6 +165,9 @@ export default {
       "getCreatedAt",
       "getLastLoggedin",
     ]),
+    myUsername() {
+      return localStorage.getItem("username");
+    },
   },
 };
 </script>

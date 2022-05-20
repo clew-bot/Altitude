@@ -324,18 +324,17 @@ router.post("/getComments", authorization, async (req, res) => {
 })
 
 router.post("/likeUser", authorization, async (req, res) => {
-  console.log(req.body)
-  console.log("Im hit")
   const personToLike = await db.User.findOne({ username: req.body.username }).select(
     "-password"
   );
   console.log("Personto like",personToLike)
   const user = await db.User.findOne({ email: req.user.user.email }).select("-password");
-  console.log("User", user)
-  const userAlreadyLiked = await db.User.exists({likedUsers: personToLike._id})
-  console.log("User already liked", userAlreadyLiked)
-  if (!userAlreadyLiked) {
-    console.log("hit")
+  console.log("User", user.username)
+  // const userAlreadyLiked = await db.User.findOne({likedUsers: personToLike._id})
+
+  if (user.likedUsers.includes(personToLike._id)) {
+    res.json({ liked: false});
+  } else {
     const userId = toId(user._id);
     const likeUser = await db.User.findOneAndUpdate(
       { _id: userId },
@@ -343,18 +342,28 @@ router.post("/likeUser", authorization, async (req, res) => {
     );
     console.log("LikeUser", likeUser);
     res.json({ liked: true });
-  } else {
-    res.json({ liked: false });
   }
-})
+});
+
+
+  // console.log("User already liked", userAlreadyLiked)
+  // if (!userAlreadyLiked) {
+  //   console.log("hit")
+
+  // } else {
+  //   console.log("false")
+  //   res.json({ liked: false });
+  // }
+
 
 router.get("/getLikedUsers", authorization, async (req, res) => {
   const user = await db.User.findOne({ email: req.user.user.email }).select("-password").populate("likedUsers");
   if (user.likedUsers < 1) {
     res.json({message: "No Liked Users"})
-  }
+  } else {
   console.log(user)
   res.json(user);
+  }
   
 })
 

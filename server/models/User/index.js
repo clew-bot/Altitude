@@ -98,6 +98,10 @@ const userSchema = new Schema({
       ref: "User",
     },
   ],
+  likedMe: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  }
 
 
 
