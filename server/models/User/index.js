@@ -92,6 +92,12 @@ const userSchema = new Schema({
       ref: "Message",
     },
   ],
+  likedUsers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 
 
 

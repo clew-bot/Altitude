@@ -2,11 +2,7 @@
   <div class="entire-container">
     <div class="main-container" v-if="!noUsername">
       <div class="sub-container">
-        <div
-          v-if="!loading"
-          class="rows1 closed"
-        >
-                     
+        <div v-if="!loading" class="rows1 closed">
           <div class="lastSeen">
             <div class="member-container">
               <div>
@@ -63,25 +59,30 @@
             ></v-progress-circular>
           </div>
           <div>
-            <v-icon @click="showingModal" class="mailbox-icon">mdi-mailbox-open-up</v-icon>
-             <v-icon class="downIcon" @click.prevent="dropDown">mdi-chevron-down</v-icon>
-             </div>
+            <v-icon @click="showingModal" class="mailbox-icon"
+              >mdi-mailbox-open-up</v-icon
+            >
+            <v-icon @click="likeUser" class="thumb-icon"
+              >mdi-account-star</v-icon
+            >
+            <v-icon class="downIcon" @click.prevent="dropDown"
+              >mdi-chevron-down</v-icon
+            >
+          </div>
         </div>
-      
+
         <div class="sub-container" v-else>
-            <v-progress-circular
-              :size="70"
-              :width="7"
-              color="orange"
-              indeterminate
-            ></v-progress-circular>
-
+          <v-progress-circular
+            :size="70"
+            :width="7"
+            color="orange"
+            indeterminate
+          ></v-progress-circular>
         </div>
-
       </div>
-            <transition name="fades">
-          <ExtraInformation v-show="show"/>
-          </transition>
+      <transition name="fades">
+        <ExtraInformation v-show="show" />
+      </transition>
       <MoreProfiles />
     </div>
 
@@ -90,7 +91,7 @@
         <h1 class="no-username">no username found 🤔</h1>
       </div>
     </div>
-  <SendMessageModal v-model="dialog" :person="findUser.username"/>
+    <SendMessageModal v-model="dialog" :person="findUser.username" />
   </div>
 </template>
 
@@ -114,7 +115,7 @@ export default {
   name: "Profile",
   methods: {
     dropDown() {
-      console.log("hi")
+      console.log("hi");
       this.show = !this.show;
     },
     async fetchProfileData() {
@@ -122,8 +123,21 @@ export default {
       this.$store.dispatch("profile/FETCH_PROFILE_DATA", query);
     },
     showingModal() {
-            this.dialog = !this.dialog;
+      this.dialog = !this.dialog;
+    },
+    async likeUser() {
+      const response = await fetch("/api/likeUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          username: this.findUser.username,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+    },
   },
   mounted() {
     this.fetchProfileData();
@@ -142,27 +156,35 @@ export default {
 </script>
 
 <style scoped>
+.thumb-icon {
+  position: absolute;
+  top: 20px;
+  right: 55px;
+  border-radius: 50%;
+  color: rgba(1, 3, 8, 0.652);
+}
 
 .mailbox-icon {
-     position: absolute;
-    top: 20px;
-    right: 20px;
-    border-radius:50%;
-    color: rgba(1, 3, 8, 0.652);
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border-radius: 50%;
+  color: rgba(1, 3, 8, 0.652);
 }
 .downIcon {
-   position: absolute;
-    bottom: 20px;
-    right: 20px;
-    border-radius:50%;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 50%;
 }
 .downIcon:hover {
-background: rgba(229, 202, 202, 0.343);
-border-radius: 50%;
+  background: rgba(229, 202, 202, 0.343);
+  border-radius: 50%;
 }
 
-.fades-enter-active, .fades-leave-active {
-  transition: all .4s;
+.fades-enter-active,
+.fades-leave-active {
+  transition: all 0.4s;
   height: 230px;
 }
 .fades-enter, .fades-leave-to /* .fade-leave-active below version 2.1.8 */ {
@@ -187,7 +209,8 @@ border-radius: 50%;
 @media screen and (max-width: 600px) {
   .no-username {
     padding: 10px;
-    font-size: 23px;}
+    font-size: 23px;
+  }
   .closed {
     height: 100% !important;
     width: 100% !important;
@@ -199,18 +222,18 @@ border-radius: 50%;
   .no-username-container {
     width: 100% !important;
     flex-direction: column;
-      margin-top: 5%;
-  display: flex;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  justify-content: space-around !important;
-  width: 1000px;
-  text-align: right;
-  align-items: center;
-  background: white;
-  margin-top: 25%;
+    margin-top: 5%;
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    justify-content: space-around !important;
+    width: 1000px;
+    text-align: right;
+    align-items: center;
+    background: white;
+    margin-top: 25%;
   }
-  .sub-container{
+  .sub-container {
     width: 100%;
   }
   .loading {
@@ -221,7 +244,6 @@ border-radius: 50%;
     padding: 12px;
   }
   .username {
-
     color: rgb(250, 250, 250);
   }
   .sub-container {
@@ -284,10 +306,10 @@ border-radius: 50%;
   height: 100%;
 }
 
-  .no-username-container {
-    width: 100% !important;
-    flex-direction: column;
-      margin-top: 5%;
+.no-username-container {
+  width: 100% !important;
+  flex-direction: column;
+  margin-top: 5%;
   display: flex;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -298,7 +320,7 @@ border-radius: 50%;
   background: white;
   margin-top: 25%;
   padding: 4rem 4rem;
-  }
+}
 .loading {
   position: relative;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask5291%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='url(%23SvgjsLinearGradient5292)'%3e%3c/rect%3e%3cpath d='M0 0L60.07 0L0 61.05z' fill='rgba(255%2c 255%2c 255%2c .1)'%3e%3c/path%3e%3cpath d='M0 61.05L60.07 0L195.35 0L0 190.51999999999998z' fill='rgba(255%2c 255%2c 255%2c .075)'%3e%3c/path%3e%3cpath d='M0 190.51999999999998L195.35 0L307.28999999999996 0L0 213.14999999999998z' fill='rgba(255%2c 255%2c 255%2c .05)'%3e%3c/path%3e%3cpath d='M0 213.14999999999998L307.28999999999996 0L894.91 0L0 287.79999999999995z' fill='rgba(255%2c 255%2c 255%2c .025)'%3e%3c/path%3e%3cpath d='M1440 560L824.25 560L1440 361.72z' fill='rgba(0%2c 0%2c 0%2c .1)'%3e%3c/path%3e%3cpath d='M1440 361.72L824.25 560L504.52 560L1440 235.87000000000003z' fill='rgba(0%2c 0%2c 0%2c .075)'%3e%3c/path%3e%3cpath d='M1440 235.87L504.52 560L381.15999999999997 560L1440 185.54000000000002z' fill='rgba(0%2c 0%2c 0%2c .05)'%3e%3c/path%3e%3cpath d='M1440 185.54000000000002L381.1600000000001 560L304.36000000000007 560L1440 178.44000000000003z' fill='rgba(0%2c 0%2c 0%2c .025)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask5291'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='15.28%25' y1='-39.29%25' x2='84.72%25' y2='139.29%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient5292'%3e%3cstop stop-color='rgba(34%2c 145%2c 200%2c 0.99)' offset='0.06'%3e%3c/stop%3e%3cstop stop-color='rgba(110%2c 101%2c 216%2c 1)' offset='1'%3e%3c/stop%3e%3cstop stop-color='rgba(110%2c 101%2c 216%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e");
@@ -309,7 +331,6 @@ border-radius: 50%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   justify-content: space-around !important;
   width: 1000px;
-  ;
   text-align: right;
   align-items: center;
 }

@@ -322,4 +322,31 @@ router.post("/getComments", authorization, async (req, res) => {
   console.log(comments)
    res.json(comments);
 })
+
+router.post("/likeUser", authorization, async (req, res) => {
+  console.log(req.body)
+  console.log("Im hit")
+  const personToLike = await db.User.findOne({ username: req.body.username }).select(
+    "-password"
+  );
+  console.log("Personto like",personToLike)
+  const user = await db.User.findOne({ email: req.user.user.email }).select("-password");
+  console.log("User", user)
+  const userAlreadyLiked = await db.User.exists({likedUsers: personToLike._id})
+  console.log("User already liked", userAlreadyLiked)
+  if (!userAlreadyLiked) {
+    console.log("hit")
+    const userId = toId(user._id);
+    const likeUser = await db.User.findOneAndUpdate(
+      { _id: userId },
+      { $push: { likedUsers: personToLike._id } }
+    );
+    console.log("LikeUser", likeUser);
+    res.json({ message: "User has been liked" });
+  } else {
+    res.json({ message: "Already liked user." });
+  }
+})
+
+
 module.exports = router;

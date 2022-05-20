@@ -1,56 +1,60 @@
 <template>
-  <div class="pa-6 main-container">
-    <v-card class="main-card" max-width="500px">
-      <v-toolbar color="gray" dark>
-        <v-toolbar-title>inbox</v-toolbar-title>
+  <div>
+    <div class="pa-6 main-container">
+      <v-card class="main-card" max-width="500px">
+        <v-toolbar color="gray" dark>
+          <v-toolbar-title>inbox</v-toolbar-title>
 
-        <v-spacer></v-spacer>
-      </v-toolbar>
+          <v-spacer></v-spacer>
+        </v-toolbar>
 
-      <v-list two-line>
-        <v-list-item-group active-class="none">
-          <div v-if="usernames.length !== 0">
-            <div
-              v-for="username in usernames"
-              :key="username.id"
-              class="lister"
-            >
-              <v-list-item class="lister-sub">
-                <v-list-item-content class="text-center list-names">
-                  <router-link
-                    style="text-decoration: none; color: inherit"
-                    :to="'/pm/' + username"
-                  >
-                    <v-list-item-title
-                      v-text="'@' + username"
-                    ></v-list-item-title>
-                  </router-link>
-                  <v-list-item-subtitle></v-list-item-subtitle>
-                </v-list-item-content>
+        <v-list two-line>
+          <v-list-item-group active-class="none">
+            <div v-if="usernames.length !== 0">
+              <div
+                v-for="username in usernames"
+                :key="username.id"
+                class="lister"
+              >
+                <v-list-item class="lister-sub">
+                  <v-list-item-content class="text-center list-names">
+                    <router-link
+                      style="text-decoration: none; color: inherit"
+                      :to="'/pm/' + username"
+                    >
+                      <v-list-item-title
+                        v-text="'@' + username"
+                      ></v-list-item-title>
+                    </router-link>
+                    <v-list-item-subtitle></v-list-item-subtitle>
+                  </v-list-item-content>
 
-                <v-list-item-action>
-                  <v-list-item-action-text></v-list-item-action-text>
-                </v-list-item-action>
-
-              </v-list-item>
+                  <v-list-item-action>
+                    <v-list-item-action-text></v-list-item-action-text>
+                  </v-list-item-action>
+                </v-list-item>
+              </div>
             </div>
-          </div>
-          <div v-else>
-            <div class="no-messages"><h1>no messages 🤔</h1>
-                 <v-list-item-subtitle
-              ></v-list-item-subtitle>
+            <div v-else>
+              <div class="no-messages">
+                <h1>no messages 🤔</h1>
+                <v-list-item-subtitle></v-list-item-subtitle>
+              </div>
             </div>
-          </div>
-        </v-list-item-group>
-      </v-list>
-    </v-card>
+          </v-list-item-group>
+        </v-list>
+      </v-card>
+    </div>
+    <LikedFriends />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import LikedFriends from "@/components/Messages/LikedFriends.vue";
 export default {
   name: "Messages",
+  components: { LikedFriends },
   data: () => ({
     selected: [],
   }),
@@ -72,7 +76,6 @@ export default {
 </script>
 
 <style scoped>
-
 .no-messages {
   display: flex;
   justify-content: center;

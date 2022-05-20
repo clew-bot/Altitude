@@ -17,7 +17,7 @@
               name="email"
               v-model="email"
             ></v-text-field>
-                 <label for="username" class="signInLabels">Username</label>
+            <label for="username" class="signInLabels">Username</label>
             <v-text-field
               style="padding-top: 0px !important"
               label="pikachu27"
@@ -60,18 +60,18 @@
               :class="{ shake: animated3 }"
               @click:append="show2 = !show2"
             ></v-text-field>
-    
-          <div class="bottomModalRow">
-            <v-checkbox
-              v-model="ex4"
-              label="Remember me"
-              color="orange"
-              value="orange"
-              hide-details
-            ></v-checkbox>
-            <p style="margin-bottom: 0 !important">Forgot password?</p>
+
+            <div class="bottomModalRow">
+              <v-checkbox
+                v-model="ex4"
+                label="Remember me"
+                color="orange"
+                value="orange"
+                hide-details
+              ></v-checkbox>
+              <p style="margin-bottom: 0 !important">Forgot password?</p>
+            </div>
           </div>
-                </div>
           <v-divider></v-divider>
 
           <v-card-actions>
@@ -93,23 +93,17 @@
 <script>
 import router from "../../router";
 export default {
-  
   props: {
     value: {},
   },
   data() {
     return {
-      username: "",
       email: "",
       drawer: false,
       group: null,
-      items: [
-        { title: "Dashboard", icon: "mdi-view-dashboard" },
-        { title: "Photos", icon: "mdi-image" },
-        { title: "About", icon: "mdi-help-box" },
-      ],
       show1: false,
       show2: false,
+      username: "",
       password: "",
       passwordConfirm: "",
       rules: {
@@ -157,14 +151,14 @@ export default {
         setTimeout(() => {
           this.animated1 = false;
         }, 1000);
-        return
+        return;
       }
       if (!this.password) {
         this.animated2 = true;
         setTimeout(() => {
           this.animated2 = false;
         }, 1000);
-        return
+        return;
       }
       if (this.password !== this.passwordConfirm) {
         this.animated3 = true;
@@ -185,34 +179,39 @@ export default {
             username: this.username,
           }),
         });
-        const {  message, token, loggedIn } = await response.json();
-        console.log(message);
-        console.log(token);
+        const { message, token, loggedIn } = await response.json();
         this.$store.commit("user/setToken", token);
-        console.log(this.$store.state.user.token);
-        console.log(message ,loggedIn)
+        console.log(message, loggedIn);
         if (loggedIn) {
           this.password = "";
           this.$store.dispatch("user/LOGIN_USER", {
             email: this.email,
-            username: this.username
-          })
+            username: this.username,
+          });
           window.localStorage.setItem("username", this.username);
           window.localStorage.setItem("vuelo", true);
-          this.$emit('input', this.$event);
+          this.$emit("input", this.$event);
           router.push("/dashboard");
         } else {
-          console.log("hi")
+          console.log("hi");
         }
-        } catch (error) {
-          console.log(error);
-        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   computed: {},
   watch: {
-    email: function () {
-
+    value: function (val) {
+      if (localStorage.getItem("rememberMe") == "true") {
+        this.email = localStorage.getItem("email");
+        this.checkbox1 = "true";
+      } else if (!val) {
+        this.email = "";
+        this.password = "";
+        this.passwordConfirm = "";
+        this.username = "";
+      }
     },
   },
 };
@@ -220,7 +219,7 @@ export default {
 
 <style scoped>
 .signInLabels {
-  margin-top: 100px!important;
+  margin-top: 100px !important;
   padding: 26px;
   box-sizing: border-box;
 }
