@@ -157,7 +157,7 @@ font-size: 16px;
   padding: 10px !important;
   color: rgb(25, 26, 25);
   font-weight: bold;
-  background: linear-gradient(90deg, rgb(147, 215, 144) 0%, rgb(147, 179, 76) 14.06%, rgb(170, 215, 107) 83.85%, rgb(140, 225, 120) 100%);
+  background: linear-gradient(90deg, rgb(120, 179, 108) 0%, rgb(147, 179, 76) 14.06%, rgb(170, 215, 107) 83.85%, rgb(120, 179, 108) 100%);
   
 }
 
