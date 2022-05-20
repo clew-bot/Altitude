@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     removeLikedUser() {
-      this.$store.dispatch("messages/REMOVE_LIKED_USER", this.user._id);
+      this.$store.dispatch("messages/REMOVE_LIKED_USER", this.person._id);
       this.$emit("input", false);
     },
     nevermind() {

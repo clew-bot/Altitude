@@ -352,8 +352,13 @@ router.get("/getLikedUsers", authorization, async (req, res) => {
   }
 })
 
-router.get("/removeLikedUser", authorization, async (req, res) => {
-  console.log(req.body)
+router.post("/removeLikedUser", authorization, async (req, res) => {
+
+  const { id } = req.body;
+  const userToRemoveID = toId(id);
+  const updatedUser = await db.User.updateOne({ email: req.user.user.email }, { $pull: { likedUsers: userToRemoveID } });
+  console.log("updatedUser", updatedUser);
+  
 })
 
 module.exports = router;

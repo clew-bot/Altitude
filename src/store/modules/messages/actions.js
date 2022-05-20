@@ -65,15 +65,15 @@ export default {
       console.log("Something went wrong", error);
     }
   },
-  async [REMOVE_LIKED_USER]({ commit }, name) {
-    console.log(commit, name)
+  async [REMOVE_LIKED_USER]({ commit }, id) {
+    console.log(commit, id)
     try {
       const response = await fetch("/api/removeLikedUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name })
+        body: JSON.stringify({ id })
       });
       const data = await response.json();
       console.log("Data.likedUsers", data.likedUsers);
