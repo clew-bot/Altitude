@@ -13,6 +13,7 @@
             <label for="email" class="signInLabels" @click="consoleme"
               >Email</label
             >
+            <v-form>
             <v-text-field            
               style="padding-top: 0px !important"
               label="masquerena@protonmail.com"
@@ -36,7 +37,9 @@
               dense
               :class="{ shake: animated2 }"
               @click:append="show1 = !show1"
-            ></v-text-field>
+            >
+            </v-text-field>
+            </v-form>
             <div class="bottomModalRow">
               <v-checkbox
                 v-model="checkbox1"

@@ -99,10 +99,32 @@ router.get("/n/programming", authorization, async (req, res) => {
     "https://www.reddit.com/r/ProgrammerHumor.json"
   );
   const programmingNews = await fetchProgrammingNews.json();
-  console.log(programmingNews);
   let data = programmingNews.data.children;
   res.json(data);
 });
+
+
+router.post("/n/search", authorization, async (req, res) => {
+  console.log(req.body)
+  const { search } = req.body;
+  try {
+  const fetchNewSubreddit = await fetch(
+    `https://www.reddit.com/r/${search}.json`
+  );
+  let newSubreddit = await fetchNewSubreddit.json();
+  let data = newSubreddit.data.children;
+  res.json(data);
+  } catch (err) {
+    console.log(err);
+    res.json({ message: "Subreddit not found", success: false });
+  }
+})
+
+
+
+
+
+
 
 router.post("/forgotPassword", async (req, res) => {
   const findUser = await db.User.findOne({ email: req.body.email });
