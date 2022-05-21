@@ -3,6 +3,7 @@
     <h1 class="header">Reddit</h1>
 
     <div class="text-container">
+       <input type="password" style="display:none"/>
       <input
         v-model="search"
         class="search-bar"

@@ -10,6 +10,9 @@
           <v-card-title dark @click="$emit('events')"> Sign In </v-card-title>
           <v-divider></v-divider>
           <div class="pa-6" >
+            <v-form>
+              <input type="text" id="username" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0" />
+              <input type="password" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0" />
             <label for="email" class="signInLabels" @click="consoleme"
               >Email</label
             >
@@ -22,8 +25,8 @@
               name="email"
               v-model="email"
             ></v-text-field>
-
-            <label for="email" class="signInLabels">Password</label>
+ 
+            <label for="Password" class="signInLabels">Password</label>
             <v-text-field
               style="padding-top: 0px !important"
               v-model="password"
@@ -48,6 +51,7 @@
               ></v-checkbox>
               <p style="margin-bottom: 0 !important; cursor: pointer;" @click="openFPModal">Forgot password?</p>
             </div>
+            </v-form>
           </div>
           <v-divider></v-divider>
 
