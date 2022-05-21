@@ -6,6 +6,7 @@
           <v-card-title dark> Let's Sign Up for an Account! 😃 </v-card-title>
           <v-divider></v-divider>
           <div class="pa-2">
+            <v-form>
             <label for="email" class="signInLabels">Email Required</label>
             <v-text-field
               style="padding-top: 0px !important"
@@ -69,8 +70,9 @@
                 value="orange"
                 hide-details
               ></v-checkbox>
-              <p style="margin-bottom: 0 !important">Forgot password?</p>
+
             </div>
+            </v-form>
           </div>
           <v-divider></v-divider>
 
@@ -80,18 +82,20 @@
             </v-btn>
           </v-card-actions>
           <div class="text-center">
-            <p class="font-weight-medium" style="color: orange">
+            <p @click="openPPModal" class="font-weight-medium" style="margin:10px !important;color: orange; cursor: pointer;">
               Privacy Policy
             </p>
           </div>
         </v-card>
       </div>
     </v-dialog>
+    <PrivacyPolicyModal v-model="dialog2"/>
   </div>
 </template>
 
 <script>
 import router from "../../router";
+import PrivacyPolicyModal from "@/components/Modals/PrivacyPolicyModal.vue";
 export default {
   props: {
     value: {},
@@ -99,6 +103,7 @@ export default {
   data() {
     return {
       email: "",
+      dialog2: false,
       drawer: false,
       group: null,
       show1: false,
@@ -135,6 +140,9 @@ export default {
       animated3: false,
     };
   },
+  components: {
+    PrivacyPolicyModal,
+  },
 
   methods: {
     matchEmail(email) {
@@ -143,6 +151,9 @@ export default {
         .match(
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
+    },
+    openPPModal() {
+      this.dialog2 = !this.dialog2;
     },
 
     async signUpAccount() {

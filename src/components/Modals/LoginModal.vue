@@ -46,7 +46,7 @@
                 value="true"
                 hide-details
               ></v-checkbox>
-              <p style="margin-bottom: 0 !important" @click="openFPModal">Forgot password?</p>
+              <p style="margin-bottom: 0 !important; cursor: pointer;" @click="openFPModal">Forgot password?</p>
             </div>
           </div>
           <v-divider></v-divider>
@@ -60,9 +60,9 @@
               class="font-weight-medium"
               style="color: orange; padding-bottom: 12px"
             >
-              Still new here? Cool, let's
+              Still new here? Let's
               <span class="signUpLink" @click="openSignInModal"
-                >sign up then</span
+                >sign up</span
               >
             </p>
           </div>
