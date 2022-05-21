@@ -13,7 +13,6 @@
             <label for="email" class="signInLabels" @click="consoleme"
               >Email</label
             >
-            <v-form>
             <v-text-field            
               style="padding-top: 0px !important"
               label="masquerena@protonmail.com"
@@ -39,7 +38,6 @@
               @click:append="show1 = !show1"
             >
             </v-text-field>
-            </v-form>
             <div class="bottomModalRow">
               <v-checkbox
                 v-model="checkbox1"
@@ -140,7 +138,6 @@ export default {
       if(!this.checkbox1) {
         localStorage.removeItem("rememberMe");
       }
-      console.log(this.password)
       const res = await fetch("/api/login", {
         method: "POST",
         headers: {
