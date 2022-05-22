@@ -67,6 +67,22 @@
               >mdi-account-star</v-icon
             >
             </div>
+            <div v-if="findUser.isAdmin">
+                 <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <v-icon
+        class="admin-icon"
+          color="orange"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          mdi-crown
+        </v-icon>
+      </template>
+      <span>Admin</span>
+    </v-tooltip>
+            </div>
             <div>
               <!-- TO BE IMPLEMENTED? -->
              <!-- <v-icon @click="likeUser" class="thumb-icon"
@@ -193,6 +209,14 @@ export default {
   position: absolute;
   top: 20px;
   right: 55px;
+  border-radius: 50%;
+  color: rgba(1, 3, 8, 0.652);
+}
+
+.admin-icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
   border-radius: 50%;
   color: rgba(1, 3, 8, 0.652);
 }
