@@ -21,5 +21,8 @@ export default {
     },
     likedUsers(state) {
         return state.likedUsers;
+    },
+    refreshMessages(state) {
+        return state.refreshMessages;
     }
 }

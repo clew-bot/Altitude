@@ -248,7 +248,7 @@ router.post("/savePost", authorization, async (req, res) => {
 
 router.get("/allPosts", authorization, async (req, res) => {
   const Posts = await db.Post.find({})
-.populate('author').limit(50).sort({ createdAt: -1 });
+.populate('author').limit(50).sort({ createdAt: -1 }).lean();
   res.json(Posts);
 });
 
@@ -290,7 +290,7 @@ router.get("/getMessages", authorization, async (req, res) => {
     "-password"
   );
   const userId = toId(findUser._id);
-  const messages = await db.Message.find({ to: userId }).populate("from");
+  const messages = await db.Message.find({ to: userId }).populate("from").lean();
   console.log("the messages", messages)
 
   res.json(messages);
@@ -377,7 +377,7 @@ router.post("/likeUser", authorization, async (req, res) => {
 
 
 router.get("/getLikedUsers", authorization, async (req, res) => {
-  const user = await db.User.findOne({ email: req.user.user.email }).select("-password").populate("likedUsers");
+  const user = await db.User.findOne({ email: req.user.user.email }).select("-password").populate("likedUsers").lean();
   if (user.likedUsers < 1) {
     res.json({message: "No Liked Users"})
   } else {

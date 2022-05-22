@@ -17,12 +17,6 @@
                   ><i>{{ findUser.bio }}</i></b
                 >
               </div>
-              <!-- <br />
-              <br />
-              <p>Favorite Book: {{ findUser.favoriteBooks }}</p>
-              <p>Favorite Hobbies: {{ findUser.favoriteHobbies }}</p>
-              <p>Favorite Music: {{ findUser.favoriteMusic }}</p>
-              <p>Favorite Food: {{ findUser.favoriteFood }}</p> -->
               </v-col>
           </div>
           <br />
@@ -142,7 +136,6 @@ export default {
   name: "Profile",
   methods: {
     dropDown() {
-      console.log(this.getBackgroundColor)
       this.show = !this.show;
     },
     async fetchProfileData() {
@@ -150,7 +143,9 @@ export default {
       const query = this.$router.currentRoute.params.id;
       this.$store.dispatch("profile/RESET_BACKGROUND");
       this.$store.dispatch("profile/FETCH_PROFILE_DATA", query);
-      this.loading=false
+      setTimeout(() => {
+        this.loading = false;
+      }, 350);
     },
     showingModal() {
       this.dialog = !this.dialog;
@@ -185,7 +180,7 @@ export default {
     this.fetchProfileData();
   },
   computed: {
-    ...mapState("profile", ["loading", "loadingImage", "noUsername"]),
+    ...mapState("profile", ["loadingImage", "noUsername"]),
     ...mapGetters("profile", [
       "findUser",
       "lastLoggedIn",
@@ -203,8 +198,15 @@ export default {
 
 <style scoped>
 
+@media screen and (max-width: 600px) {
+ #check-out {
+  margin-top: 50% !important;
+}
+  
+}
+
 #check-out {
-  margin-top: 50%;
+  margin-top: 20%;
   text-align: center;
   color: white;
 }

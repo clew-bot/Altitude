@@ -1,4 +1,4 @@
-import { SEND_MESSAGE, GET_MESSAGES, GET_PRIVATE_MESSAGE, GET_LIKED_USERS, REMOVE_LIKED_USER } from "./types.js";
+import { SEND_MESSAGE, GET_MESSAGES, GET_PRIVATE_MESSAGE, GET_LIKED_USERS, REMOVE_LIKED_USER, REFRESH_MESSAGES } from "./types.js";
 
 export default {
   async [SEND_MESSAGE]({ commit, state }, message) {
@@ -79,5 +79,8 @@ export default {
     catch (error) {
       console.log("Something went wrong", error);
     }
-    }  
+    },
+  async [REFRESH_MESSAGES]({ commit }) {
+    commit("setRefreshMessages");
   }
+}

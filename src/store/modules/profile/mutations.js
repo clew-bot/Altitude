@@ -4,12 +4,9 @@ export default {
         state.loggedIn = true;
         state.username = user.username
         state.user = user;
-        console.log('user', user);
-        console.log("Logged? ",state.loggedIn)
     },
     logOut(state) {
         state.loggedIn = false;
-        console.log("User is logged out, state is: ", state.loggedIn);
         state.user = null
     },
     setToken(state, token) {
@@ -30,7 +27,6 @@ export default {
     },
     setCreatedAt(state, createdAt) {
         state.timeCreated = memberSinceLog(createdAt)
-        console.log(state.timeCreated )
     },
     setNoUsername(state, noUsername) {
         state.noUsername = noUsername;
@@ -45,7 +41,6 @@ export default {
         state.backgroundColor = backgroundColor;
     },
     setClearBackground(state) {
-        console.log("hit")
         state.backgroundColor = null;
     }
 }

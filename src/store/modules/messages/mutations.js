@@ -1,4 +1,3 @@
-
 export default {
     setMessages(state, messages) {
          state.totalMessages = messages.reverse();
@@ -9,6 +8,10 @@ export default {
     },
     setLikedUsers(state, likedUsers) {
         state.likedUsers = likedUsers;
+    },
+    setRefreshMessages(state) {
+        state.refreshMessages++;
+        console.log("STATTE",state.refreshMessages);
     }
 
 }

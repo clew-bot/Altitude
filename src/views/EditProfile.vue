@@ -128,7 +128,6 @@ export default {
     async getDetails() {
       const response = await fetch("/api/getEditDetails");
       const data = await response.json();
-      console.log(data)
       this.name = data.name;
       this.headline = data.headline;
       this.bio = data.bio;
@@ -163,6 +162,12 @@ export default {
       console.log(this.color)
       const data = await response.json();
       console.log(data);
+       window.scrollTo(0,0);
+      this.$toasted.show("Profile Updated 😎", {
+        theme: "bubble",
+        position: "top-center",
+        duration: 1500,
+      });
       this.$router.push("/profile/" + this.username)
       } catch (err) {
         console.log(err);

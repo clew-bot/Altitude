@@ -1,45 +1,32 @@
 <template>
-  <div>
-    <v-card max-width="600" class="mx-auto">
+  <div class="pa-6">
+    <v-card max-width="800" class="mx-auto">
       <v-toolbar color="black" dark>
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
         <v-toolbar-title>Chatting with {{ username }}</v-toolbar-title>
 
         <v-spacer></v-spacer>
 
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
+        <v-btn icon> </v-btn>
       </v-toolbar>
-
-      <v-list three-line v-for="message in orderedMessages" :key="message._id">
-        <div>
-          <v-list-item>
-            <v-list-item-avatar v-if="message.from.profilePic">
-              <v-img
-                @click="goToProfile(message.from.username)"
-                :src="'/api/images/' + message.from.profilePic"
-              ></v-img>
-            </v-list-item-avatar>
-            <v-list-item-avatar v-else>
-             <NNKoala/>
-            </v-list-item-avatar>
-
-            <v-list-item-content>
-              <v-list-item-title>@{{
-                messagesToOrFrom(message)
-              }}</v-list-item-title>
-              <v-list-item-subtitle
-                v-html="message.message"
-              ></v-list-item-subtitle>
-            </v-list-item-content>
-            <p class="createdAt">{{ createdAtLog(message.createdAt) }}</p>
-          </v-list-item>
+      <div class="text-container">
+        <div
+          data-text="Reply.."
+          class="text-area"
+          contenteditable="true"
+          @input="handleInput"
+        ></div>
+        <div class="outer-bg">
+          <v-btn
+            class="say-something"
+            @click="sendMessage"
+            :class="{ isCLicked: clicked }"
+            ><i>send</i></v-btn
+          >
         </div>
-      </v-list>
+      </div>
+      <PrivateMessagesLog :orderedMessages="orderedMessages" :key="refreshMessages"/>
     </v-card>
-        <v-pagination
+    <v-pagination
       color="#3e99ad"
       circle
       v-model="page"
@@ -49,13 +36,12 @@
 </template>
 
 <script>
+import PrivateMessagesLog from '@/components/Messages/PrivateMessagesLog.vue'
 import { mapGetters } from "vuex";
-import { createdAtLog } from "../public/utils";
-import NNKoala from "../assets/svgs/NNKoala.svg"
 export default {
   name: "PrivateMessage",
   components: {
-    NNKoala
+    PrivateMessagesLog
   },
   data() {
     return {
@@ -63,32 +49,63 @@ export default {
       page: 1,
       perPage: 10,
       pages: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+      content: "",
+      clicked: false,
+      myUsername: localStorage.getItem("username"),
     };
   },
   methods: {
+    sendMessage() {
+      const query = this.$router.currentRoute.params.id;
+      this.username = query;
+      this.clicked = true;
+      setTimeout(() => {
+        this.clicked = false;
+      }, 350);
+
+      const theMessage = {
+        body: this.content,
+        to: this.username,
+        from: this.myUsername,
+      };
+      if (this.content === "") {
+        this.$toasted.show("message can't be blank 🤔", {
+          position: "top-center",
+          duration: 1000,
+        });
+        return;
+      }
+      this.$store.dispatch("messages/SEND_MESSAGE", theMessage);
+      document.querySelector(".text-area").innerHTML = "";
+      this.content = "";
+        
+      setTimeout(() => {
+      this.$store.dispatch("messages/GET_PRIVATE_MESSAGE", query);
+          this.$store.dispatch("messages/REFRESH_MESSAGES");
+      }, 500);
+    
+    },
+
     fetchMessagesWithUser() {
       const query = this.$router.currentRoute.params.id;
       this.username = query;
       this.$store.dispatch("messages/GET_PRIVATE_MESSAGE", query);
     },
-    messagesToOrFrom(message) {
-      // console.log(message);
-      if (!message.from.username) {
-        return message.to.username;
-      } else {
-        return message.from.username;
-      }
-    },
+
     goToProfile(username) {
       this.$router.push(`/profile/${username}`);
     },
-    createdAtLog(times) {
-      return createdAtLog(times)
+ 
+    handleInput: function (e) {
+      console.log(e.target.innerText);
+      this.content = e.target.innerHTML;
+      //replace &nbsp; with a space
+      this.content = this.content.replace(/&nbsp;/g, " ");
     },
   },
 
   computed: {
-    ...mapGetters("messages", ["messages"]),
+    ...mapGetters("messages", ["messages", "refreshMessages"]),
     orderedMessages() {
       let copy = [...this.messages];
       copy.sort((a, b) => {
@@ -107,12 +124,91 @@ export default {
 </script>
 
 <style scoped>
+.outer-bg {
+  background: rgb(50, 52, 50);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: inline-block !important;
+  border-radius: 10px;
+  transform: translateY(20px);
+  height: 30px;
+  margin-left: 8px !important;
+}
+
+.say-something {
+  border-radius: 10px;
+  color: rgb(227, 225, 225) !important;
+  font-size: 16px;
+  margin-top: 5px;
+  transform: translateY(-1.225rem);
+  text-transform: none;
+  letter-spacing: 0px;
+  padding: 10px !important;
+  font-weight: bold;
+  background: linear-gradient(
+    90deg,
+    rgb(94, 96, 93) 0%,
+    rgb(74, 75, 69) 14.06%,
+    rgb(76, 80, 71) 83.85%,
+    rgb(96, 97, 96) 100%
+  );
+}
+.say-something:hover {
+  transform: translateY(-1.425rem);
+}
+
+.isCLicked {
+  animation: clickDownAndUp 0.3s ease-in-out;
+}
+
+@keyframes clickDownAndUp {
+  0% {
+  }
+  30% {
+    transform: translateY(-0.8rem);
+  }
+  60% {
+    /* transform: translateY(0.225px); */
+  }
+  100% {
+  }
+}
+
+.send-button {
+  display: block !important;
+  background: orange !important;
+}
+
+.text-container {
+  padding: 10px;
+  display: flex;
+}
+
+.text-area {
+  margin-top: 4px;
+  width: 87%;
+  display: inline-block;
+  padding: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: none;
+  border-radius: 5px !important;
+  outline: none;
+  border: solid 2px black;
+}
+
+[contentEditable="true"]:empty:not(:focus):before {
+  content: attr(data-text);
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-size: 0.88rem;
+  opacity: 0.2;
+}
 
 .v-card {
-    margin-top: 20px;
+  margin-top: 20px;
 }
-.createdAt {
-  font-size: 0.7rem !important;
-  color: rgb(41, 109, 58);
-}
+
 </style>
