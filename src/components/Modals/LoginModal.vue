@@ -153,7 +153,6 @@ export default {
         }),
       });
       const { message, loggedIn, username } = await res.json();
-      console.log(message, loggedIn);
       if (message === "User does not exist") {
         this.errorMessage = message + " 🙅";
         // Add shake to password input
@@ -188,22 +187,11 @@ export default {
 
   computed: {},
   mounted() {
-    // if (localStorage.getItem("rememberMe") === "true") {
-    //   this.email = localStorage.getItem("email");
-    //   this.checkbox1 = "true";
   },
   watch: {
     checkbox1: function() {
       console.log(this.checkbox1)
     },
-    // value: function (val) {
-    //  if(val) {
-    //    console.log("first")
-    //     this.email = '';
-    //     this.password = '';
-    //     this.checkbox1 = false;
-    //   }
-    // },
     email: function () {},
     value: function (val) {
     if (localStorage.getItem("rememberMe") == "true") {

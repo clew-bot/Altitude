@@ -32,7 +32,7 @@
           placeholder="Badass who loves walking their dog"
           v-model="headline"
           live-validate
-          :validation="[ ['max', 20], ['min', 0]]"
+          :validation="[ ['max', 16], ['min', 0]]"
         />
         <FormulateInput
           name="bio"
@@ -52,7 +52,12 @@
       v-model="color"
       class="ma-4 color-switcher"
       swatches-max-height="200px"
-    ></v-color-picker>
+    >
+    
+    </v-color-picker>
+    <div class="checkbox">
+
+ </div>
   <h3 class="favorites-text">Favorites <span id="thumbs">👍</span></h3>
         <FormulateInput
           name="movie"
@@ -113,6 +118,7 @@ export default {
       music: "",
       books: "",
       color: "",
+      username: "",
     };
   },
   name: "EditProfile",
@@ -123,6 +129,7 @@ export default {
     async getDetails() {
       const response = await fetch("/api/getEditDetails");
       const data = await response.json();
+      console.log(data)
       this.name = data.name;
       this.headline = data.headline;
       this.bio = data.bio;
@@ -131,8 +138,12 @@ export default {
       this.hobbies = data.favoriteHobbies;
       this.music = data.favoriteMusic;
       this.books = data.favoriteBooks;
+      this.color = data.backgroundColor;
+      this.username = data.username;
     },
+  
     async submitEdit() {
+      try {
       const response = await fetch("api/editprofile", {
         method: "POST",
         headers: {
@@ -150,8 +161,13 @@ export default {
           backgroundColor: this.color,
         }),
       });
+      console.log(this.color)
       const data = await response.json();
       console.log(data);
+      this.$router.push("/profile/" + this.username)
+      } catch (err) {
+        console.log(err);
+      }
     },
     async upload(event) {
       let fd = new FormData();
@@ -178,6 +194,12 @@ export default {
 </script>
 
 <style scoped>
+
+.checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .color-switcher {
   width: 100%;

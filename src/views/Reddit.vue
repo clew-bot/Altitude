@@ -107,19 +107,23 @@ export default {
       let word2 = process.env.VUE_APP_REDDIT_FORMAT;
       for (let i = 0; i < image.length; i++) {
         setTimeout(() => {
-          if (image[i].data.url_overridden_by_dest.includes(word)) {
+          if (image[i].data.url_overridden_by_dest?.includes(word)) {
             image[i].data.url_overridden_by_dest = image[
               i
             ].data.url_overridden_by_dest.replace("gifv", "mp4");
             this.videos.push(image[i].data.url_overridden_by_dest);
           }
-          if (image[i].data.url_overridden_by_dest.includes(word2)) {
+          if (image[i].data.url_overridden_by_dest?.includes(word2)) {
             this.otherVideos.push(
               image[i].data.url_overridden_by_dest.split("/").pop()
             );
           }
         }, 2000);
       }
+      setTimeout(() => {
+             console.clear();
+      }, 10000);
+
       // console.log("videos", this.otherVideos)
     },
 

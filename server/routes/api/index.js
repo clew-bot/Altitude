@@ -202,11 +202,16 @@ router.get("/images/:key", (req, res) => {
 });
 
 router.post("/profile", authorization, async (req, res) => {
+  console.log(req.body);
+  const theProfile = await db.User.findOne({ username: req.body.query });
   const me = await db.User.findOne({ email: req.user.user.email });
+  const theUser = toId(theProfile._id);
   const id = toId(me._id);
-  console.log(id)
+  console.log("My ID",  id)
+  console.log("The User ID,", theUser)
   const randomUsers = await db.User.aggregate([
-    { "$match": { "_id": { "$ne": id } } },
+    { "$match": { "_id": { "$ne": theUser} } },
+    { "$match": { "_id": { "$ne": id} } },
     { $sample: { size: 5} }]);
   try {
     const findUser = await db.User.findOne({ username: req.body.query });
