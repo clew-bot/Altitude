@@ -17,13 +17,13 @@
                   ><i>{{ findUser.bio }}</i></b
                 >
               </div>
-              <br />
+              <!-- <br />
               <br />
               <p>Favorite Book: {{ findUser.favoriteBooks }}</p>
               <p>Favorite Hobbies: {{ findUser.favoriteHobbies }}</p>
               <p>Favorite Music: {{ findUser.favoriteMusic }}</p>
-              <p>Favorite Food: {{ findUser.favoriteFood }}</p></v-col
-            >
+              <p>Favorite Food: {{ findUser.favoriteFood }}</p> -->
+              </v-col>
           </div>
           <br />
 
@@ -88,9 +88,11 @@
           ></v-progress-circular>
         </div>
       </div>
+    
       <transition name="fades">
-        <ExtraInformation v-show="show" />
+        <ExtraInformation v-show="show" :extraInfo="findUser"/>
       </transition>
+        <h3 id="check-out">Check out these other profiles 🔥</h3>
       <MoreProfiles />
     </div>
 
@@ -124,6 +126,7 @@ export default {
   methods: {
     dropDown() {
       console.log("hi");
+      console.log(this.findUser)
       this.show = !this.show;
     },
     async fetchProfileData() {
@@ -180,6 +183,12 @@ export default {
 </script>
 
 <style scoped>
+
+#check-out {
+  margin-top: 50%;
+  text-align: center;
+  color: white;
+}
 .thumb-icon {
   position: absolute;
   top: 20px;
@@ -209,12 +218,12 @@ export default {
 .fades-enter-active,
 .fades-leave-active {
   transition: all 0.4s;
-  height: 230px;
+  height: auto;
 }
 .fades-enter, .fades-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
-  height: 0;
-  transform: skewX(85deg);
+
+  /* transform: skewX(25deg); */
 }
 .theHeadline {
   color: #252524;
@@ -250,7 +259,8 @@ export default {
   }
   .no-username {
     padding: 10px;
-    font-size: 23px;
+    font-size: 18px;
+    text-align: center;
   }
   .closed {
     height: 100% !important;

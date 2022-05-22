@@ -179,6 +179,7 @@ export default {
         window.localStorage.setItem("vuelo", true);
         window.localStorage.setItem("username", username);
         this.$emit("input", this.$event);
+        this.$router.push("/dashboard");
       } else {
         console.log("hi");
       }

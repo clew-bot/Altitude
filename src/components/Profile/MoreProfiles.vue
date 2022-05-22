@@ -118,7 +118,6 @@ export default {
 
 @media screen and (max-width: 600px) {
 .profile-container {
-  margin-top: 40% !important;
 }
 }
 
@@ -149,7 +148,6 @@ export default {
 }
 .profile-container {
   border-radius: 5px;
-  margin-top: 60px;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
