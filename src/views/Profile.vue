@@ -145,7 +145,7 @@ export default {
       this.$store.dispatch("profile/FETCH_PROFILE_DATA", query);
       setTimeout(() => {
         this.loading = false;
-      }, 350);
+      }, 500);
     },
     showingModal() {
       this.dialog = !this.dialog;
