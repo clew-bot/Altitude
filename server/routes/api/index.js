@@ -105,7 +105,11 @@ router.get("/n/programming", authorization, async (req, res) => {
 
 
 router.post("/n/search", authorization, async (req, res) => {
-  console.log(req.body)
+  console.log("req", req.body)
+  const isAdmin = await db.User.findOne({ email: req.user.user.email } );
+  console.log("Hello", isAdmin)
+
+  if (isAdmin.isAdmin) {
   const { search } = req.body;
   try {
   const fetchNewSubreddit = await fetch(
@@ -118,6 +122,9 @@ router.post("/n/search", authorization, async (req, res) => {
     console.log(err);
     res.json({ message: "Subreddit not found", success: false });
   }
+} else {
+  res.json({ admin: false, success: false });
+}
 })
 
 

@@ -9,9 +9,11 @@
         class="search-bar"
         type="text"
         placeholder="Enter a subreddit"
+        :disabled="btnDisable"
       />
       <div class="outer-bg">
         <v-btn
+          :disabled="btnDisable"
           class="say-something"
           @click="fetchNewSubreddit"
           :class="{ isCLicked: clicked }"
@@ -77,6 +79,7 @@ export default {
   name: "Reddit",
   data: () => ({
     search: "",
+    btnDisable: false,
     show: false,
     errorMessage: "",
     loading: false,
@@ -130,6 +133,7 @@ export default {
     async fetchNewSubreddit() {
       this.clicked = true;
       this.loading = true;
+      try {
       const res = await fetch("/api/n/search", {
         method: "POST",
         headers: {
@@ -140,12 +144,31 @@ export default {
         }),
       });
       const data = await res.json();
-      // console.log("DATA", data);
+      console.log(data)
+      if (data.admin === false) {
+        this.errorMessage = data.message;
+        this.loading=false;
+        this.clicked=false;
+                     this.$toasted.show(
+          `<h4 class="take-break"><i>Search currently limited to admin only</i></h4>`,
+          {
+            position: "top-center",
+            duration: 3000,
+          }
+        );
+         this.btnDisable = true;
+      } else {
       this.formatImageNames(data);
 
       this.loading = false;
       this.cards = data;
       this.clicked = false;
+      }
+      } catch (error) {
+        this.loading = true;
+        this.errorMessage = "Only Admin can search right now!";
+        console.log(error);
+      }
     },
   },
   computed: {},
