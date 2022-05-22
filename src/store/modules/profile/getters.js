@@ -22,5 +22,9 @@ export default {
     isThereImages(state) {
         let isThereImages = state.isThereImages;
         return isThereImages
+    },
+    getBackgroundColor(state) {
+        let backgroundColor = state.backgroundColor;
+        return backgroundColor
     }
 }

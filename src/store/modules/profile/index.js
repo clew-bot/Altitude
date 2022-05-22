@@ -18,6 +18,7 @@ const state = {
     isThereImages: false,
     loadingImage: true,
     noUsername: false,
+    backgroundColor: null,
 
 }
 

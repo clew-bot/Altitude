@@ -30,7 +30,8 @@
             </v-list-item>
 
             <v-card-actions>
-              <v-btn class="view-button" :to="'/profile/' + profile.username" @click="getProfile">view</v-btn>
+              <v-btn @click="getProfile(profile.username)" class="view-button"  >view</v-btn>
+              <!-- :to="'/profile/' + profile.username" -->
             </v-card-actions>
           </v-card>
         </v-col>
@@ -62,8 +63,11 @@ export default {
     consoleme() {
         console.log(this.otherUsers)
     },
-    getProfile() {
+    getProfile(username) {
+      console.log(username)
+      this.$store.dispatch("profile/RESET_BACKGROUND");
       console.log("profiles = ", this.profiles);
+      this.$router.push({path: "/profile/" + username});
     },
   },
   computed: {

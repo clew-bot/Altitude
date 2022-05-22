@@ -105,7 +105,15 @@ const userSchema = new Schema({
   banned: {
     type: Boolean,
     default: false,
-  }
+  },
+  backgroundColor: {
+    type: String,
+    required: false,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
 
 
 

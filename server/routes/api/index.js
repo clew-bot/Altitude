@@ -166,6 +166,7 @@ router.post("/editprofile", authorization, async (req, res) => {
       favoriteBooks: req.body.books,
       favoriteFood: req.body.food,
       favoriteHobbies: req.body.hobbies,
+      backgroundColor: req.body.backgroundColor
     }
   );
   console.log("Edit Profile = ", response);
@@ -200,8 +201,13 @@ router.get("/images/:key", (req, res) => {
   readStream.pipe(res);
 });
 
-router.post("/profile", async (req, res) => {
-  const randomUsers = await db.User.aggregate([{ $sample: { size: 5 } }]);
+router.post("/profile", authorization, async (req, res) => {
+  const me = await db.User.findOne({ email: req.user.user.email });
+  const id = toId(me._id);
+  console.log(id)
+  const randomUsers = await db.User.aggregate([
+    { "$match": { "_id": { "$ne": id } } },
+    { $sample: { size: 5} }]);
   try {
     const findUser = await db.User.findOne({ username: req.body.query });
 

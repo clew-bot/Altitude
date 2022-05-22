@@ -38,6 +38,7 @@
             <div v-else>
               <div class="no-messages">
                 <h1>no messages 🤔</h1>
+                <p><i>(you'll see something if someone messages you)</i></p>
                 <v-list-item-subtitle></v-list-item-subtitle>
               </div>
             </div>

@@ -44,9 +44,15 @@
           :validation="[ ['max', 60], ['min', 0]]"
         />
 </div>
-
+<button @click="getColor">test</button>
 <div class="favorites-container">
   <v-divider class="divider"></v-divider>
+    <h3 class="favorites-text">Choose a background <span id="thumbs">🎨</span></h3>
+      <v-color-picker
+      v-model="color"
+      class="ma-4 color-switcher"
+      swatches-max-height="200px"
+    ></v-color-picker>
   <h3 class="favorites-text">Favorites <span id="thumbs">👍</span></h3>
         <FormulateInput
           name="movie"
@@ -106,10 +112,14 @@ export default {
       hobbies: "",
       music: "",
       books: "",
+      color: "",
     };
   },
   name: "EditProfile",
   methods: {
+    getColor() {
+      console.log(this.color);
+    },
     async getDetails() {
       const response = await fetch("/api/getEditDetails");
       const data = await response.json();
@@ -137,6 +147,7 @@ export default {
           hobbies: this.hobbies,
           music: this.music,
           books: this.books,
+          backgroundColor: this.color,
         }),
       });
       const data = await response.json();
@@ -168,17 +179,14 @@ export default {
 
 <style scoped>
 
-.favorites-text:not(#thumbs) {
-    /* background: #c8c3ce;
-  cursor: default;
-  background: repeating-radial-gradient(
-    ellipse farthest-corner at top right,
-    #2167e9 5%,
-    #0ddbfa 90%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; */
+.color-switcher {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background: rgba(200, 206, 201, 0.617);
 }
+
+
 .divider {
   margin: 15px 10px;
 }

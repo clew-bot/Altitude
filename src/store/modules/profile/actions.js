@@ -4,6 +4,7 @@ import {
   CHANGE_DIALOG,
   LOGIN_USER,
   LOGOUT_USER,
+  RESET_BACKGROUND,
 } from "./types.js";
 
 export default {
@@ -28,6 +29,7 @@ export default {
       });
 
       const { findUser, randomUsers, message } = await response.json();
+      console.log(findUser);
       commit("setNoUsername", false);
       if (message) {
         commit("setNoUsername", true);
@@ -41,10 +43,16 @@ export default {
       commit("setRandomUsers", randomUsers);
       commit("setLastLogin", findUser.updatedAt);
       commit("setCreatedAt", findUser.createdAt);
-      commit("setLoading", false);
+      if (findUser.backgroundColor) {
+        commit("setBackgroundColor", findUser.backgroundColor);
+      }
     } catch (error) {
       state.noUsername = true;
       console.log("Error: ", error);
     }
   },
+  [RESET_BACKGROUND]({ commit }) {
+    commit("setBackgroundColor", null);
+    console.log(this.state.backgroundColor);
+  }
 };
