@@ -2,7 +2,7 @@
   <div class="entire-container">
     <div class="main-container" v-if="!noUsername">
       <div class="sub-container">
-        <div v-if="!loading" class="rows1 closed" :style="[getBackgroundColor ? {'background': getBackgroundColor.hexa} : {'background-image': 'na'}]">
+        <div v-if="!loading" class="rows1 closed" :style="[getBackgroundColor && {'background': getBackgroundColor.hexa} ]">
           <div class="lastSeen">
             <div class="member-container">
               <div>
@@ -131,6 +131,7 @@ export default {
     return {
       show: false,
       dialog: false,
+      loading: false,
     };
   },
   components: {
@@ -145,8 +146,11 @@ export default {
       this.show = !this.show;
     },
     async fetchProfileData() {
+      this.loading=true;
       const query = this.$router.currentRoute.params.id;
+      this.$store.dispatch("profile/RESET_BACKGROUND");
       this.$store.dispatch("profile/FETCH_PROFILE_DATA", query);
+      this.loading=false
     },
     showingModal() {
       this.dialog = !this.dialog;

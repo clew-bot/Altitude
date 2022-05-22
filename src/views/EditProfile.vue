@@ -41,7 +41,7 @@
           label="Bio 🌅"
           placeholder="Something that describes you"
           v-model="bio"
-          :validation="[ ['max', 60], ['min', 0]]"
+          :validation="[ ['max', 200], ['min', 0]]"
         />
 </div>
 <button @click="getColor">test</button>
