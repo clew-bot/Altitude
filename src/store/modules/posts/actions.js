@@ -31,7 +31,6 @@ export default {
     commit("setChatRerender");
   },
   async [ADD_COMMENT]({ commit, state }, comment) {
-    console.log(commit, state)
     try {
       const response = await fetch("/api/addComment", {
         method: "POST",
@@ -47,7 +46,6 @@ export default {
     }
   },
   async [GET_COMMENTS]({ commit }, post) {
-      console.log("THE POST", post._id)
       try {
         const response = await fetch(`/api/getComments`, {
           method: "POST",

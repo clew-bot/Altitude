@@ -29,7 +29,6 @@ export default {
       });
 
       const { findUser, randomUsers, message } = await response.json();
-      console.log(findUser);
       commit("setNoUsername", false);
       if (message) {
         commit("setNoUsername", true);
@@ -53,6 +52,5 @@ export default {
   },
   [RESET_BACKGROUND]({ commit }) {
     commit("setBackgroundColor", null);
-    console.log(this.state.backgroundColor);
   }
 };

@@ -64,9 +64,7 @@ export default {
         console.log(this.otherUsers)
     },
     getProfile(username) {
-      console.log(username)
       this.$store.dispatch("profile/RESET_BACKGROUND");
-      console.log("profiles = ", this.profiles);
       this.$router.push({path: "/profile/" + username});
     },
   },

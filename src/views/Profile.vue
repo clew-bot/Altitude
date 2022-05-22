@@ -141,8 +141,6 @@ export default {
   name: "Profile",
   methods: {
     dropDown() {
-      console.log("hi");
-      console.log(this.findUser)
       this.show = !this.show;
     },
     async fetchProfileData() {
