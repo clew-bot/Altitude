@@ -55,6 +55,11 @@ export default {
             from: this.myUsername,
         }
         this.$store.dispatch("messages/SEND_MESSAGE", theMessage);
+        this.$toasted.show("Message sent! 🥳", {
+        theme: "toasted-primary",
+        position: "top-center",
+        duration: 1000,
+      });
         this.$emit("input", false);
 
     },
@@ -63,6 +68,7 @@ export default {
 </script>
 
 <style scoped>
+
 
 .v-card {
     background: rgb(91, 91, 94) !important;
