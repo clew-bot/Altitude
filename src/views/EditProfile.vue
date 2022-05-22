@@ -44,7 +44,6 @@
           :validation="[ ['max', 200], ['min', 0]]"
         />
 </div>
-<button @click="getColor">test</button>
 <div class="favorites-container">
   <v-divider class="divider"></v-divider>
     <h3 class="favorites-text">Choose a background <span id="thumbs">🎨</span></h3>
