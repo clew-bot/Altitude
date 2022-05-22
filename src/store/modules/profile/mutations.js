@@ -43,5 +43,9 @@ export default {
     },
     setBackgroundColor(state, backgroundColor) {
         state.backgroundColor = backgroundColor;
+    },
+    setClearBackground(state) {
+        console.log("hit")
+        state.backgroundColor = null;
     }
 }

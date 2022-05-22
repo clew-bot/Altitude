@@ -107,7 +107,7 @@ const userSchema = new Schema({
     default: false,
   },
   backgroundColor: {
-    type: String,
+    type: Object,
     required: false,
   },
   isAdmin: {

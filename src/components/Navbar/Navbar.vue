@@ -146,6 +146,7 @@ export default {
         const res = await fetch("/api/logout");
         const data = await res.json();
         this.$store.dispatch("user/LOGOUT_USER");
+          this.$store.dispatch("profile/RESET_BACKGROUND");
         console.log("data", data);
         window.localStorage.removeItem("vuelo");
         router.push("/");

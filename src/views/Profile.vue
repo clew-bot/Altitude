@@ -2,7 +2,7 @@
   <div class="entire-container">
     <div class="main-container" v-if="!noUsername">
       <div class="sub-container">
-        <div v-if="!loading" class="rows1 closed" :style="[getBackgroundColor ? {'background': getBackgroundColor} : {'background-image': 'na'}]">
+        <div v-if="!loading" class="rows1 closed" :style="[getBackgroundColor ? {'background': getBackgroundColor.hexa} : {'background-image': 'na'}]">
           <div class="lastSeen">
             <div class="member-container">
               <div>
@@ -141,6 +141,7 @@ export default {
   name: "Profile",
   methods: {
     dropDown() {
+      console.log(this.getBackgroundColor)
       this.show = !this.show;
     },
     async fetchProfileData() {

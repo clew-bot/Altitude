@@ -102,6 +102,7 @@
         </div>
       </FormulateForm>
     </v-card>
+    <v-btn @click="getColor">fdfdsfd</v-btn>
   </div>
 </template>
 
