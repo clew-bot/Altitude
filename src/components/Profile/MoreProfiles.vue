@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-container">
+  <div class="profile-container" v-if="!loadingProfiles">
     <div v-for="(profile, index) in otherUsers" :key="profile._id">
       <v-col class="profilesCol" outlined>
         <v-card
@@ -41,6 +41,14 @@
       </v-col>
     </div>
   </div>
+  <div v-else>
+    <div class="profile-container">
+         <v-progress-linear
+      indeterminate
+      color="cyan"
+    ></v-progress-linear>
+          </div>
+  </div>
 </template>
 
 <script>
@@ -54,6 +62,9 @@ export default {
     profiles: {
       type: Array,
     },
+    loadingProfiles: {
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -66,6 +77,7 @@ export default {
         "0px 0px 10px rgba(230, 176, 202, 0.986)",
         "0px 0px 10px rgba(207, 247, 6, 0.986)",
       ],
+
     };
   },
   methods: {

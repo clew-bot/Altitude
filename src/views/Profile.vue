@@ -90,20 +90,19 @@
         </div>
 
         <div class="sub-container" v-else>
-          <v-progress-circular
-            :size="70"
-            :width="7"
-            color="orange"
-            indeterminate
-          ></v-progress-circular>
+  <!-- <v-progress-linear
+      indeterminate
+      color="cyan"
+    ></v-progress-linear> -->
         </div>
       </div>
     
       <transition name="fades">
         <ExtraInformation v-show="show" :extraInfo="findUser"/>
       </transition>
-        <h3 id="check-out">Check out these other profiles 🔥</h3>
-      <MoreProfiles />
+        <h3 id="check-out" v-if="!loading">Check out these other profiles 🔥</h3>
+        <h3 id="check-out-else" v-else><i>loading..</i></h3>
+      <MoreProfiles :loadingProfiles="loadingProfiles" />
     </div>
 
     <div v-else class="sub-container">
@@ -126,6 +125,7 @@ export default {
       show: false,
       dialog: false,
       loading: false,
+      loadingProfiles: true,
     };
   },
   components: {
@@ -145,7 +145,8 @@ export default {
       this.$store.dispatch("profile/FETCH_PROFILE_DATA", query);
       setTimeout(() => {
         this.loading = false;
-      }, 500);
+        this.loadingProfiles = false;
+      }, 1100);
     },
     showingModal() {
       this.dialog = !this.dialog;
@@ -202,6 +203,9 @@ export default {
  #check-out {
   margin-top: 50% !important;
 }
+ #check-out-else {
+  margin-top: 50% !important;
+}
   
 }
 
@@ -209,6 +213,12 @@ export default {
   margin-top: 20%;
   text-align: center;
   color: white;
+}
+
+ #check-out-else {
+  margin-top: 20%;
+  text-align: center;
+  color: rgb(241, 235, 235);
 }
 .thumb-icon {
   position: absolute;
