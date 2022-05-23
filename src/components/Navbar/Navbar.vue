@@ -1,19 +1,19 @@
 <template>
   <div>
     <v-navigation-drawer app v-model="drawer" color="#4d4c4b" class="navDrawer">
-      <v-list-item>
+      <v-list-item class="nav-title">
         <v-list-item-content>
-          <v-list-item-title class="text-h6" style="cursor:default; user-select: none;" @click="consoleme"><h2>Menu</h2>
+          <v-list-item-title class="" style="cursor:default; user-select: none;" @click="consoleme"><h2>what's up? 🙂</h2>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
-      <v-divider></v-divider>
+      <!-- <v-divider></v-divider> -->
 
       <v-list dense nav>
         <v-list-item v-for="item in items" :key="item.title" :to="item.to">
           <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon :class="item.class">{{ item.icon }}</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
@@ -22,7 +22,7 @@
         </v-list-item>
            <v-list-item to="/messages" :disabled="isDisabled">
           <v-list-item-icon>
-            <v-icon>mdi-email-mark-as-unread</v-icon>
+            <v-icon class="message-icon">mdi-email-mark-as-unread</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
@@ -31,7 +31,7 @@
         </v-list-item>
         <v-list-item to="/dashboard" :disabled="isDisabled">
           <v-list-item-icon>
-            <v-icon>mdi-desktop-mac-dashboard</v-icon>
+            <v-icon class="dashboard-icon">mdi-desktop-mac-dashboard</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
@@ -40,7 +40,7 @@
         </v-list-item>
         <v-list-item to="/logout" @click="logout">
           <v-list-item-icon>
-            <v-icon>mdi-logout</v-icon>
+            <v-icon class="logout-icon">mdi-logout</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
@@ -96,9 +96,9 @@ export default {
     drawer: false,
     group: null,
     items: [
-      { title: "Home", icon: "mdi-home-outline", to: "/" },
-      { title: "Journal", icon: "mdi-notebook", to: "/journal" },
-      { title: "Reddit", icon: "mdi-reddit", to: "/reddit" },
+      { title: "Home", icon: "mdi-home", to: "/", class: "home-icon" },
+      { title: "Journal", icon: "mdi-notebook", to: "/journal", class: "journal-icon" },
+      { title: "Reddit", icon: "mdi-reddit", to: "/reddit", class: "reddit-icon" },
     ],
     dialog: false,
     dialog2: false,
@@ -204,10 +204,77 @@ export default {
 </script>
 
 <style scoped>
+
+.logout-icon {
+  color: rgb(68, 65, 65);
+}
+
+.dashboard-icon {
+  color: #c71a1a !important;
+}
+
+.journal-icon {
+  color: green !important;
+}
+
+.reddit-icon {
+  color: #FE4600 !important;
+}
+
+.message-icon {
+  color: rgb(21, 88, 136) !important;
+}
+
+.home-icon {
+  color: rgb(74, 5, 127) !important;
+}
+
+
+ .v-list--dense .v-list-item .v-list-item__title {
+     line-height: 1.2 !important;
+ }
+
+
+.v-list-item__title {
+  font-size: 1.2rem !important;
+  color: white;
+  font-weight: bolder !important;
+}
+
+.v-list-item {
+  background-color: #1b1915f8;
+  padding: 10px;
+  transform: skewY(-7deg);
+  line-height: 0 !important;
+  color: rgb(29, 31, 29);
+    transition: all 0.1s ease-in-out;
+}
+
+.nav-title {
+  /* background: #ebe649ec !important; */
+  background: #12120b !important;
+
+  color: white !important;
+  margin-top: 1px;
+  border-radius: 5px;
+  margin-right: 8px !important;
+  margin-left: 8px !important;
+}
+
+.v-list-item:not(.nav-title):hover {
+  transition: all 0.1s ease-in-out;
+  margin-left: 12px;
+
+}
+.v-list-item--active {
+  background-color: #17202ee2;
+  padding: 10px;
+  transform: skewY(-7deg);
+}
 .navDrawer {
-  background-color: #c7c6c6 !important;
+  background-color: #37364bf0 !important;
 }.navbar {
-  background-color: #c7c6c6 !important;
+  background-color: #37364bf0 !important;
 }
 .altitude {
   font-size: 1.5rem;
@@ -216,11 +283,11 @@ export default {
  transition: all 0.5s ease;
   border-radius: 5px;
   padding: 5px;
-   background: #f3f3f3b2 !important;
+   background: #282719ed !important;
 }
 
 .altitude:hover {
-  background: #f3efef77 !important;
+  background: #32242477 !important;
   transition: all 0.5s ease;
 }
 
