@@ -25,7 +25,7 @@
       </h2>
       <div class="whoRwe">
         <Friendship class="balloon" />
-        <p>
+        <p class="article">
           Altitude offers a unique wellness experience for men and women, by
           providing the best positive psychology .
         </p>
@@ -36,7 +36,7 @@
       <div class="missionStatement">
         <h2 class="text-center missionLine">Mission Statement</h2>
         <div class="mission-box">
-          <p class="">
+          <p class="article">
             Our mission at Altitude is aligning physical and mental well-beings
             with care, thoughtfulness and understanding. <br />Altitude brings
             thoughtfulness and care to men and women delivered with
@@ -89,10 +89,11 @@ export default {
 
 <style scoped>
 .v-cardhome2 {
-  background-color: #e07b7b !important;
+  background-color: #5b5e5d !important;
 }
 .v-cardhome {
-  background-color: #60c490 !important;
+  background-color: #5b5e5d !important;
+  margin-bottom: 20px;
 }
 
 @media screen and (max-width: 600px) {
@@ -115,16 +116,16 @@ export default {
 
 .missionLine {
   padding-top: 50px;
-  color: rgb(250, 250, 250);
-  font-weight: lighter;
+  color: rgb(21, 20, 20);
+  font-weight: bolder;
   font-size: 2rem;
 }
 
 .whoLine {
   /* border-top: solid 2px #cecbc8; */
   padding-top: 50px;
-  color: rgb(244, 235, 235);
-  font-weight: lighter;
+  color: rgb(7, 1, 1);
+  font-weight: bolder;
   font-size: 2rem;
 }
 .altitude {
@@ -144,8 +145,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-bottom: 4rem;
+}
+.article{
+  font-weight: 300;
+  text-align: center;
 }
 .whoRwe {
   display: flex;

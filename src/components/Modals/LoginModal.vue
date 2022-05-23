@@ -7,7 +7,7 @@
     >
       <div>
         <v-card dark color="#4d4c4b">
-          <v-card-title dark @click="$emit('events')"> Sign In </v-card-title>
+          <v-card-title dark @click="$emit('events')" class="sign-in-title"> <i>sign-in</i> </v-card-title>
           <v-divider></v-divider>
           <div class="pa-6" >
             <v-form>
@@ -61,10 +61,10 @@
           </v-card-actions>
           <div class="text-center">
             <p
-              class="font-weight-medium"
-              style="color: orange; padding-bottom: 12px"
+              class="font-weight-medium still-new"
+            
             >
-              Still new here? Let's
+              still new here? let's
               <span class="signUpLink" @click="openSignInModal"
                 >sign up</span
               >
@@ -209,6 +209,18 @@ export default {
 </script>
 
 <style scoped>
+
+.sign-in-title {
+  display: block;
+  text-align: center !important;
+  font-size: 1.5rem;
+  letter-spacing:-1px;
+  color: rgb(255, 253, 253);
+  font-weight: bolder;
+}
+
+
+
 input:-webkit-autofill {
     background-color: transparent !important;
     -webkit-box-shadow: 0 0 0 50px rgb(2, 2, 2) inset;
@@ -271,8 +283,14 @@ input:-webkit-autofill {
 }
 
 .signUpLink {
-  color: pink;
+  color: rgb(236, 229, 236);
   cursor: pointer;
+  font-weight: bolder;
+  text-transform: ;
+}
+.still-new {
+  color: orange;
+   padding-bottom: 12px;
 }
 
 .v-application p {

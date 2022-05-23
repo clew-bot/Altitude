@@ -17,8 +17,8 @@
               </v-btn>
             </template>
              <v-expand-x-transition v-show="expand">
-       <v-list >
-              <v-list-item
+       <v-list class="elip-items">
+              <i><v-list-item
                 v-for="(item, i) in items"
                 :key="i"
                 :to="item.to"
@@ -26,6 +26,7 @@
               
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
+              </i>
             </v-list>
       </v-expand-x-transition>
           </v-menu>
@@ -45,7 +46,12 @@ export default {
 </script>
 
 <style scoped>
+.elip-items {
+  background: rgb(79, 77, 77);
+  color: white;
+  font-weight: bolder;
 
+}
 .ellipses-icon {
   color: rgb(48, 11, 44) !important;
 }

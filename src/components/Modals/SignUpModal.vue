@@ -3,7 +3,7 @@
     <v-dialog :value="value" @input="$emit('input', $event)" width="600">
       <div>
         <v-card dark color="#4d4c4b">
-          <v-card-title dark> Let's Sign Up for an Account! 😃 </v-card-title>
+          <v-card-title dark class="create-account-text"> <i>create account</i> 🎉 </v-card-title>
           <v-divider></v-divider>
           <div class="pa-2">
             <v-form>
@@ -229,6 +229,16 @@ export default {
 </script>
 
 <style scoped>
+
+.create-account-text {
+  font-size: 1.5rem;
+  letter-spacing: -1px;
+  font-weight: bolder;
+  color: #fff;
+  text-align: center !important;
+  display: block;
+}
+
 .signInLabels {
   margin-top: 100px !important;
   padding: 26px;

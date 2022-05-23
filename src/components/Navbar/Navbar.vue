@@ -3,7 +3,8 @@
     <v-navigation-drawer app v-model="drawer" color="#4d4c4b" class="navDrawer">
       <v-list-item class="nav-title">
         <v-list-item-content>
-          <v-list-item-title class="" style="cursor:default; user-select: none;" @click="consoleme"><h2>what's up? 🙂</h2>
+          <v-list-item-title class="" style="cursor:default; user-select: none;" @click="consoleme"><h2>what's up?</h2>
+          <!-- <span>1 new notification</span> -->
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -84,7 +85,7 @@
       <div v-if="showUsername">
       <v-btn class="sign-in-button" dark @click="showingModal">
         <v-icon class="account-icon">mdi-account-box</v-icon>
-        <i>&nbsp;sign in</i>
+        <i>&nbsp;sign-in</i>
       </v-btn>
       </div>
       <div v-else>
@@ -220,6 +221,7 @@ export default {
 
 .disabledIcon {
   opacity: .3 !important;
+
 }
 
 .account-icon {
@@ -303,21 +305,20 @@ export default {
 .navDrawer {
   background-color: #37364bf0 !important;
 }.navbar {
-  background-color: #37364bf0 !important;
+  background-color: #37364bfc !important;
 }
 .altitude {
   font-size: 1.5rem;
   font-weight: bold !important;
   cursor: pointer;
  transition: all 0.5s ease;
-  border-radius: 5px;
+  border-radius: 3px;
   padding: 5px;
-   background: #dcdcdced !important;
+   /* background: #c1c1c0ed !important; */
 }
 
 .altitude:hover {
-  background: #32242477 !important;
-  transition: all 0.5s ease;
+  transform:translateY(-1px);
 }
 
 
