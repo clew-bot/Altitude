@@ -314,6 +314,7 @@ export default {
  transition: all 0.5s ease;
   border-radius: 3px;
   padding: 5px;
+  color: rgb(233, 233, 233);
    /* background: #c1c1c0ed !important; */
 }
 
