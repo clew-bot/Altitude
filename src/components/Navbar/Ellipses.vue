@@ -13,7 +13,7 @@
                 v-on="on"
                 @click="expand = !expand"
               >
-                <v-icon>mdi-dots-vertical</v-icon>
+                <v-icon class="ellipses-icon">mdi-dots-vertical</v-icon>
               </v-btn>
             </template>
              <v-expand-x-transition v-show="expand">
@@ -44,6 +44,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.ellipses-icon {
+  color: rgb(48, 11, 44) !important;
+}
 
 </style>

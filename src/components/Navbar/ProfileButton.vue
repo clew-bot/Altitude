@@ -1,6 +1,6 @@
 <template>
     <v-btn depressed :to='"/profile/" + username'>
-            <svg style="border-radius: 10px;" width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="full"><path d="M32 0v32h-6v-8a3.5 3.5 0 00-3.5-3.5h-13A3.5 3.5 9 006 24v8H0V0h32zM16.096 3.5H16c-3.84 0-6.956 3.601-7 8.063v.093c0 3.78 3.143 6.844 7 6.844s7-3.062 7-6.844c0-3.635-2.9-6.608-6.56-6.83a7.26 7.26 0 00-.344-.013V3.501z" fill="currentColor" fill-rule="evenodd"></path></svg>
+            <svg style="border-radius: 10px;" width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="full"><path d="M32 0v32h-6v-8a3.5 3.5 0 00-3.5-3.5h-13A3.5 3.5 9 006 24v8H0V0h32zM16.096 3.5H16c-3.84 0-6.956 3.601-7 8.063v.093c0 3.78 3.143 6.844 7 6.844s7-3.062 7-7.994c0-3.635-2.9-6.608-6.56-6.83a7.26 7.26 0 00-.344-.013V3.501z" fill="currentColor" fill-rule="evenodd"></path></svg>
     <div class="profileText">
         <p id="loggedAs">Logged as</p>
         <p id="username"><span>@</span>{{username}}</p>
@@ -58,7 +58,7 @@ methods: {
 <style scoped>
 
 .profileText {
-  color: black !important;
+  color: rgb(99, 218, 105) !important;
 }
 #username {
     font-size: 14px;
@@ -68,13 +68,16 @@ methods: {
 }
 #loggedAs {
     font-size: 12px;
+    color: white;
+    font-weight: bolder;
+    letter-spacing: .2px;
 }
 
 span {
     opacity: 0.6;
 }
 svg {
-    color: rgb(21, 19, 19);
+    color: rgb(1, 23, 6);
 }
     .profileText {
         display: flex;
@@ -87,11 +90,13 @@ svg {
         max-width: 90px;
     }
     .v-btn {
-        background: #f9f9f96f !important;
+        background: #282719ac !important;
         text-transform: none !important;
         letter-spacing: 0px !important;
         text-align: left !important;
-        padding: 20px !important;
+        padding: 23px !important;
+        padding-left: 11px !important;
+        padding-right: 15px !important;
         
     }
 </style>

@@ -11,7 +11,17 @@
       <!-- <v-divider></v-divider> -->
 
       <v-list dense nav>
-        <v-list-item v-for="item in items" :key="item.title" :to="item.to">
+               <v-list-item to="/" >
+          <v-list-item-icon>
+            <v-icon class="home-icon">mdi-home</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+       
+        <v-list-item v-for="item in items" :key="item.title" :to="item.to" :class="{ 'disabledIcon': isDisabled}" :disabled="isDisabled">
           <v-list-item-icon>
             <v-icon :class="item.class">{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -20,7 +30,7 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-           <v-list-item to="/messages" :disabled="isDisabled">
+          <v-list-item to="/messages" :disabled="isDisabled" :class="{ 'disabledIcon': isDisabled}">
           <v-list-item-icon>
             <v-icon class="message-icon">mdi-email-mark-as-unread</v-icon>
           </v-list-item-icon>
@@ -29,7 +39,7 @@
             <v-list-item-title>Messages</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item to="/dashboard" :disabled="isDisabled">
+        <v-list-item to="/dashboard" :disabled="isDisabled" :class="{ 'disabledIcon': isDisabled}">
           <v-list-item-icon>
             <v-icon class="dashboard-icon">mdi-desktop-mac-dashboard</v-icon>
           </v-list-item-icon>
@@ -51,16 +61,20 @@
     </v-navigation-drawer>
     <v-app-bar app color="#4d4c4b" class="navbar">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <router-link to="/" style="text-decoration: none; color: inherit;"> <h1 class="altitude" >      
-          <span class="a">A</span>
+      <router-link to="/" style="text-decoration: none; color: inherit;"> 
+      <h1 class="altitude" >  
+        altitude    
+          <!-- <span class="a">A</span>
           <span class="b">l</span>
           <span class="c">t</span>
           <span class="d">i</span>
           <span class="e">t</span>
           <span class="f">u</span>
           <span class="g">d</span>
-          <span class="h">e</span></h1></router-link>
-      &nbsp;&nbsp;<Koala/>
+          <span class="h">e</span> -->
+          </h1>
+          </router-link>
+      &nbsp;&nbsp;<Koala class="mains-icon"/>
  
        <!-- <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0DDChjnLvpfCfoxXnEN4sw?utm_source=generator" width="100%" height="50" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe> -->
       <v-app-bar-title></v-app-bar-title>
@@ -68,9 +82,9 @@
         <LoginModal v-model="dialog" />
         <SignUpModal v-model="dialog2"/>
       <div v-if="showUsername">
-      <v-btn color="gray lighten-2" dark @click="showingModal">
-        <v-icon>mdi-account-box</v-icon>
-        &nbsp;Sign in
+      <v-btn class="sign-in-button" dark @click="showingModal">
+        <v-icon class="account-icon">mdi-account-box</v-icon>
+        <i>&nbsp;sign in</i>
       </v-btn>
       </div>
       <div v-else>
@@ -96,7 +110,6 @@ export default {
     drawer: false,
     group: null,
     items: [
-      { title: "Home", icon: "mdi-home", to: "/", class: "home-icon" },
       { title: "Journal", icon: "mdi-notebook", to: "/journal", class: "journal-icon" },
       { title: "Reddit", icon: "mdi-reddit", to: "/reddit", class: "reddit-icon" },
     ],
@@ -205,6 +218,21 @@ export default {
 
 <style scoped>
 
+.disabledIcon {
+  opacity: .3 !important;
+}
+
+.account-icon {
+  color: rgb(203, 203, 194) !important;
+}
+
+.sign-in-button {
+  padding: 18px !important;
+  text-transform: none;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
 .logout-icon {
   color: rgb(68, 65, 65);
 }
@@ -249,7 +277,11 @@ export default {
   color: rgb(29, 31, 29);
     transition: all 0.1s ease-in-out;
 }
-
+.v-list-item--active {
+  background-color: #17202ee2;
+  padding: 10px;
+  transform: skewY(-7deg);
+}
 .nav-title {
   /* background: #ebe649ec !important; */
   background: #12120b !important;
@@ -266,11 +298,8 @@ export default {
   margin-left: 12px;
 
 }
-.v-list-item--active {
-  background-color: #17202ee2;
-  padding: 10px;
-  transform: skewY(-7deg);
-}
+
+
 .navDrawer {
   background-color: #37364bf0 !important;
 }.navbar {
@@ -283,7 +312,7 @@ export default {
  transition: all 0.5s ease;
   border-radius: 5px;
   padding: 5px;
-   background: #282719ed !important;
+   background: #dcdcdced !important;
 }
 
 .altitude:hover {
@@ -421,4 +450,24 @@ export default {
   -ms-user-select: none !important; /* IE10+/Edge */
   user-select: none !important;
 }
+
+@media screen and (max-width: 600px) {
+
+  .altitude {
+    background: none !important;
+  }
+
+  .altitude:hover {
+    background: none !important;
+  }
+
+} 
+
+@media screen and (max-width: 414px) {
+   .mains-icon {
+    display: none;
+  }
+} 
+
+
 </style>
