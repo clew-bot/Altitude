@@ -377,14 +377,19 @@ router.post("/likeUser", authorization, async (req, res) => {
       { _id: userId },
       { $push: { likedUsers: personToLike._id } }
     );
+    const updatedLikedMe = await db.User.findOneAndUpdate(
+      { _id: personToLike._id },
+      { $push: { likedMe: userId } }
+    );
     console.log("LikeUser", likeUser);
+    console.log("updatedLikedMe", updatedLikedMe);
     res.json({ liked: true });
   }
 });
 
 
 router.get("/getLikedUsers", authorization, async (req, res) => {
-  const user = await db.User.findOne({ email: req.user.user.email }).select("-password").populate("likedUsers").lean();
+  const user = await db.User.findOne({ email: req.user.user.email }).select("-password").populate(["likedUsers", "likedMe"]).lean();
   if (user.likedUsers < 1) {
     res.json({message: "No Liked Users"})
   } else {
@@ -393,12 +398,20 @@ router.get("/getLikedUsers", authorization, async (req, res) => {
   }
 })
 
+
+
 router.post("/removeLikedUser", authorization, async (req, res) => {
+  const user = await db.User.findOne({ email: req.user.user.email }).select("-password");
+  const userId = toId(user._id);
   console.log(req.body)
   const { id } = req.body;
   const userToRemoveID = toId(id);
   const updatedUser = await db.User.updateOne({ email: req.user.user.email }, { $pull: { likedUsers: userToRemoveID } });
   console.log("updatedUser", updatedUser);
+  const updatedUsersLikes = await db.User.updateOne({ _id: userToRemoveID }, { $pull: { likedMe: userId } });
+  console.log("updatedUser", updatedUser);
+  console.log("updatedUsersLikes", updatedUsersLikes);
+
   
 })
 

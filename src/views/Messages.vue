@@ -53,6 +53,7 @@
             outlined
           ></v-text-field> -->
     <LikedFriends />
+    <LikedMe/>
     
   </div>
 
@@ -61,9 +62,10 @@
 <script>
 import { mapGetters } from "vuex";
 import LikedFriends from "@/components/Messages/LikedFriends.vue";
+import LikedMe from "@/components/Messages/LikedMe.vue";
 export default {
   name: "Messages",
-  components: { LikedFriends },
+  components: { LikedFriends, LikedMe },
   data: () => ({
     selected: [],
   }),

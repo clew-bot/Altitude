@@ -150,9 +150,11 @@ export default {
   color: white;
 }
 .liked {
-  color: white;
+  color: rgb(22, 14, 14);
   font-size: 2.8rem;
   margin: 20px 20px;
+  text-align: center;
+  
 }
 .no-profilepic {
   width: 100px;

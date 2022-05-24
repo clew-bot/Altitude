@@ -98,10 +98,10 @@ const userSchema = new Schema({
       ref: "User",
     },
   ],
-  likedMe: {
+  likedMe: [{
     type: Schema.Types.ObjectId,
     ref: "User",
-  },
+  }],
   banned: {
     type: Boolean,
     default: false,
