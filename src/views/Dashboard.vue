@@ -1,6 +1,6 @@
 <template>
 
-  <div class="pa-6">
+  <div class="pa-6 entire-dash">
     <div>
       <Header/>
         <v-slide-y-reverse-transition mode="out-in">
@@ -38,4 +38,7 @@ export default {
 </script>
 
 <style scoped>
+.entire-dash {
+  padding: 20px !important;
+}
 </style>

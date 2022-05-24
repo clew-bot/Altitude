@@ -12,6 +12,9 @@ export default {
     setRefreshMessages(state) {
         state.refreshMessages++;
         console.log("STATTE",state.refreshMessages);
+    },
+    setLikedMe(state, likedMe) {
+        state.likedMe = likedMe;
     }
 
 }

@@ -1,7 +1,7 @@
 <template>
-  <div v-if="likedUsers">
-    <v-divider></v-divider>
-    <h3 class="liked">people i like 🤝</h3>
+  <div v-if="likedUsers" class="outer">
+    <v-card class="liked-card">
+    <h3 class="liked"><i>my likes</i></h3>
     <div class="outer-container">
       <v-card v-for="user in likedUsers" :key="user._id" class="user-card">
         <div v-if="user.profilePic">
@@ -17,7 +17,7 @@
                   />
                 </template>
 
-                <span>{{ user.username }}</span>
+                <span>@{{ user.username }}</span>
               </v-tooltip>
             </template>
 
@@ -49,7 +49,7 @@
                   />
                 </template>
 
-                <span>{{ user.username }}</span>
+                <span>@{{ user.username }}</span>
               </v-tooltip>
             </template>
 
@@ -75,6 +75,7 @@
       <SendMessageModal v-model="dialog" :person="theUsername" />
       <ConfirmDeleteModal v-model="dialog2" :person="removedUser" />
     </div>
+    </v-card>
   </div>
   <div v-else>
     <h1 class="no-likes">no likes 🧐</h1>
@@ -130,6 +131,22 @@ export default {
 </script>
 
 <style scoped>
+.outer {
+  padding: 2rem;
+}
+.liked-card {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; */
+  background: rgb(226, 222, 113);
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0px 0px 10px rgba(24, 20, 20, 0.959) !important;
+  border: solid 1px rgba(14, 14, 16, 0.699);
+  max-width: 500px;
+}
+
 .v-menu__content {
   box-shadow: none;
 }
@@ -150,10 +167,11 @@ export default {
   color: white;
 }
 .liked {
-  color: rgb(22, 14, 14);
+  color: rgb(19, 22, 19);
   font-size: 2.8rem;
-  margin: 20px 20px;
-  text-align: center;
+  margin: 4px 4px;
+  text-align: left;
+  text-decoration: underline;
   
 }
 .no-profilepic {
@@ -162,7 +180,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgb(62, 38, 117);
+  /* background: rgb(246, 246, 246); */
   border-radius: 40%;
   outline: none !important;
   cursor: pointer;

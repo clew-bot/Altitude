@@ -59,6 +59,7 @@ export default {
       const data = await response.json();
       console.log(data)
       commit("setLikedUsers", data.likedUsers);
+      commit("setLikedMe", data.likedMe);
     }
     catch (error) {
       console.log("Something went wrong", error);

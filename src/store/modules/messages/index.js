@@ -12,6 +12,7 @@ const state = {
     fromMessages: [],
     likedUsers: [],
     refreshMessages: 0,
+    likedMe: [],
 
 }
 

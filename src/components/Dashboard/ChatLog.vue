@@ -3,7 +3,7 @@
     <v-card class="mx-auto main-card">
       <v-list three-line>
         <template>
-          <div v-for="(post, index) in visiblePages" :key="post._id">
+          <div v-for="(post, index) in visiblePages" :key="post._id" class="chat-log-item">
             <v-list-item :class="index === selected ? 'openCard' : 'closeCard'">
               <div v-if="post.author.profilePic">
                 <v-list-item-avatar>
@@ -38,7 +38,7 @@
                   
                 </v-list-item-title>
 
-                <p v-html="post.post"></p>
+                <p class="actual-post" v-html="post.post"></p>
               </v-list-item-content>
               <div class="replies">{{ getRepliesEvaluation(post.replies) }}</div>
               
@@ -171,10 +171,45 @@ export default {
 
 <style scoped>
 
+.actual-post {
+  color: rgb(3, 3, 3);
+     /* -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box; */
+    font-size: .9rem !important;
+    font-weight: bold;
+    max-width: 97%;
+}
+
+.v-list {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.chat-log-item:nth-child(even) {
+  background: rgb(176, 170, 179);
+}
+
+.chat-log-item:nth-child(odd) {
+  background: rgb(163, 159, 165);
+}
+
+
+
 @media screen and (max-width: 400px) {
+
+  .username-text {
+    font-size: 1rem;
+}
  .replies {
    display: none;
 }
+
+/* .main-card {
+  position: relative;
+  max-width: 1000px;
+  margin-top: 5% !important;
+} */
 }
 
 .replies {
@@ -183,10 +218,12 @@ export default {
 
 .main-card {
   position: relative;
+  max-width: 1000px;
+  margin-top: 4%
 }
 
 .like-icon {
-  color: #a29309 !important;
+  color: #530e4f !important;
   padding-left: 12px;
   height: 100%;
 }
@@ -212,26 +249,24 @@ export default {
   cursor: pointer;
   background: repeating-radial-gradient(
     ellipse farthest-corner at top right,
-    #7821cf 5%,
-    #00011c 90%
+    #3a383c 5%,
+    #1b1b1c 90%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  z-index: 99 !important;
   flex-grow: 1 !important;
-
 }
 
 .theme--light.v-list {
-  background: rgb(237, 237, 232) !important;
+  /* background: rgb(237, 237, 232) !important; */
   transition: all 0.3s ease-in-out;
   min-height: 1000px;
 }
-.v-list--three-line .v-list-item .v-list-item__subtitle,
+/* .v-list--three-line .v-list-item .v-list-item__subtitle,
 .v-list-item--three-line .v-list-item__subtitle {
-  /* -webkit-box-orient: horizontal !important; */
-  /* padding-right: 100px; */
-}
+  -webkit-box-orient: vertical !important; 
+   padding-right: 100px;
+} */
 
 #cardTitle {
   font-size: 12px !important;

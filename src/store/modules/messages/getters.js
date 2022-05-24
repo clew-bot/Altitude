@@ -24,5 +24,8 @@ export default {
     },
     refreshMessages(state) {
         return state.refreshMessages;
+    },
+    likedMe(state) {
+        return state.likedMe;
     }
 }

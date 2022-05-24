@@ -38,7 +38,7 @@
             <div v-else>
               <div class="no-messages">
                 <h1>no messages 🤔</h1>
-                <p><i>(you'll see something if someone messages you)</i></p>
+                <p class="no-msgs"><i>(you'll see something if someone messages you)</i></p>
                 <v-list-item-subtitle></v-list-item-subtitle>
               </div>
             </div>
@@ -52,9 +52,10 @@
             label="Outlined"
             outlined
           ></v-text-field> -->
+          <div class="bottom-container">
     <LikedFriends />
     <LikedMe/>
-    
+    </div>
   </div>
 
 </template>
@@ -87,6 +88,20 @@ export default {
 </script>
 
 <style scoped>
+
+@media screen and (max-width: 600px) {
+  .no-msgs {
+    font-size: .9rem;
+  }
+}
+
+.bottom-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
 .no-messages {
   display: flex;
   justify-content: center;
