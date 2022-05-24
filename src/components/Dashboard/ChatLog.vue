@@ -24,7 +24,7 @@
                       class="username-text"
                       @click="goToProfile(post.author.username)"
                     >
-                      @{{ post.author.username }}</span
+                      @<i>{{ post.author.username }}</i></span
                     ><span>
                       <v-icon class="like-icon" @click="likePost"
                         >mdi-star-shooting</v-icon
@@ -205,11 +205,6 @@ export default {
    display: none;
 }
 
-/* .main-card {
-  position: relative;
-  max-width: 1000px;
-  margin-top: 5% !important;
-} */
 }
 
 .replies {
@@ -245,28 +240,18 @@ export default {
   color: #3b423e !important;
 }
 .username-text {
-  background: #7821cf;
+  background: #17e88a;
+  padding: 2px;
+  border-radius: 5px;
   cursor: pointer;
-  background: repeating-radial-gradient(
-    ellipse farthest-corner at top right,
-    #3a383c 5%,
-    #1b1b1c 90%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: rgb(33, 30, 31);
   flex-grow: 1 !important;
 }
 
 .theme--light.v-list {
-  /* background: rgb(237, 237, 232) !important; */
   transition: all 0.3s ease-in-out;
   min-height: 1000px;
 }
-/* .v-list--three-line .v-list-item .v-list-item__subtitle,
-.v-list-item--three-line .v-list-item__subtitle {
-  -webkit-box-orient: vertical !important; 
-   padding-right: 100px;
-} */
 
 #cardTitle {
   font-size: 12px !important;
