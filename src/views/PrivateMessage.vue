@@ -97,7 +97,6 @@ export default {
     },
  
     handleInput: function (e) {
-      console.log(e.target.innerText);
       this.content = e.target.innerHTML;
       //replace &nbsp; with a space
       this.content = this.content.replace(/&nbsp;/g, " ");

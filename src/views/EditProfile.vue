@@ -160,9 +160,10 @@ export default {
           backgroundColor: this.color,
         }),
       });
-      console.log(this.color)
+
+      // eslint-disable-next-line no-unused-vars
       const data = await response.json();
-      console.log(data);
+      
        window.scrollTo(0,0);
       this.$toasted.show("Profile Updated 😎", {
         theme: "bubble",
@@ -187,8 +188,9 @@ export default {
         //   'Content-Type': 'multipart/form-data',
         // },
       });
+      // eslint-disable-next-line no-unused-vars
       const data2 = await res.json(); 
-      console.log(data2);
+
     },
   },
   created() {

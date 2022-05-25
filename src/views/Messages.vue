@@ -23,6 +23,7 @@
                       :to="'/pm/' + username"
                     >
                       <v-list-item-title
+                      class="username-text"
                         v-text="'@' + username"
                       ></v-list-item-title>
                     </router-link>
@@ -88,6 +89,12 @@ export default {
 </script>
 
 <style scoped>
+
+.username-text {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -1px;
+}
 
 .inbox {
   font-size: 1.5rem;

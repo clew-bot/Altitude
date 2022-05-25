@@ -66,6 +66,10 @@ export default {
 
 <style scoped>
 
+.messages {
+    -webkit-box-orient: horizontal !important;
+}
+
 .main-container2{
     background: rgba(246, 239, 241, 0.609) !important;
 }
