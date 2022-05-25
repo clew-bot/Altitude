@@ -4,7 +4,7 @@
       <v-list two-line>
         <v-list-item-group active-class="pink--text" multiple>
           <div>
-             <div class="text-container">
+            <div class="text-container">
               <div
                 data-text="Reply..."
                 class="text-area"
@@ -13,7 +13,7 @@
               ></div>
               <span
                 ><v-btn class="send-button" @click="submitComment"
-                  >Send</v-btn
+                  ><i>Send</i></v-btn
                 ></span
               >
               <v-icon
@@ -26,24 +26,28 @@
             <div v-for="comment in postComments" :key="comment._id">
               <v-divider></v-divider>
               <v-list-item>
+                <v-list-item-avatar>
+                  <v-img
+                    :src="'/api/images/' + comment.author.profilePic"
+                  ></v-img>
+                </v-list-item-avatar>
                 <v-list-item-content>
                   <div v-if="comment.author.username">
                     <v-list-item-title
                       ><h4>
-                        @{{ comment.author.username }}
+                        <span class="comment-user">
+                          @<i>{{ comment.author.username }}</i>
+                        </span>
                       </h4></v-list-item-title
                     >
 
                     <v-list-item-subtitle
-                      class="text--primary"
+                      class="text--primary comment-text"
                       v-html="comment.comment"
                     ></v-list-item-subtitle>
                   </div>
                   <div v-else>
-                    <h1>
-                      Placeholder should be something with an emoji or the
-                      favicon
-                    </h1>
+                    <h1>N/A</h1>
                   </div>
                 </v-list-item-content>
 
@@ -54,8 +58,6 @@
                 </v-list-item-action>
               </v-list-item>
             </div>
-
-           
           </div>
         </v-list-item-group>
       </v-list>
@@ -85,9 +87,9 @@ export default {
       this.$store.dispatch("posts/GET_COMMENTS", this.post);
     },
     reloadComments() {
-      this.active=true;
+      this.active = true;
       this.$store.dispatch("posts/RERENDER_POSTCOMMENTS");
-       setTimeout(() => {
+      setTimeout(() => {
         this.active = false;
       }, 1000);
       // this.active= false;
@@ -121,12 +123,37 @@ export default {
 </script>
 
 <style scoped>
+
+.comment-text {
+  font-size: .8rem;
+  font-weight: 400;
+  letter-spacing: -.3px;
+  padding-top: 10px;
+}
+.comment-user {
+  background: rgb(255, 251, 0);
+  padding: 2px;
+  border-radius: 10px 0px 8px 0px !important;
+}
+
+@media screen and (max-width: 510px) {
+  .reload-icon {
+    display: none;
+  }
+}
+
+.v-list {
+  background: inherit !important;
+}
 .spin {
   animation: rotate 1s infinite;
 }
 .reload-icon {
   border-radius: 50%;
   color: black !important;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .reload-icon:hover {
@@ -135,13 +162,15 @@ export default {
 }
 .created-at {
   font-size: 0.7rem !important;
-  color: #106381;
+  color: #2c3031;
+  font-weight: bolder;
 }
 .send-button {
   margin-left: 10px;
   padding: 1.4rem !important;
-  background: rgba(142, 207, 146, 0.866) !important;
-  color: rgb(65, 65, 70);
+  background: rgba(17, 31, 5, 0.866) !important;
+  color: rgb(224, 224, 234);
+  font-weight: bolder;
 }
 
 .text-container {
@@ -170,13 +199,13 @@ div:focus {
   max-width: 20rem;
   padding: 10px;
   flex-grow: 1;
+  background: rgb(241, 241, 241);
 }
 .main-container {
   padding: 10px;
-    overflow-y: scroll;
-    max-height: 450px;
-    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.1);
-  
+  overflow-y: scroll;
+  max-height: 450px;
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.1);
 }
 
 .main-container:nth-child(2) {

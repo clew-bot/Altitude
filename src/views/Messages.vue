@@ -3,7 +3,7 @@
     <div class="pa-6 main-container">
       <v-card class="main-card" max-width="500px">
         <v-toolbar color="gray" dark>
-          <v-toolbar-title>inbox</v-toolbar-title>
+          <v-toolbar-title class="inbox"><i>inbox</i></v-toolbar-title>
 
           <v-spacer></v-spacer>
         </v-toolbar>
@@ -88,6 +88,12 @@ export default {
 </script>
 
 <style scoped>
+
+.inbox {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 
 @media screen and (max-width: 600px) {
   .no-msgs {

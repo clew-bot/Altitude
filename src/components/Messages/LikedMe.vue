@@ -2,7 +2,7 @@
   <div v-if="likedMe" class="outer">
     <v-divider></v-divider>
     <v-card class="liked-me">
-    <h3 class="liked"><i>liked me </i></h3>
+    <h3 class="liked"><i>They liked you</i></h3>
     <div class="outer-container">
       <v-card v-for="user in likedMe" :key="user._id" class="user-card">
         <div v-if="user.profilePic">
@@ -76,11 +76,21 @@
       <SendMessageModal v-model="dialog" :person="theUsername" />
       <ConfirmDeleteModal v-model="dialog2" :person="removedUser" />
     </div>
+
     </v-card>
   </div>
+
+
+
+
   <div v-else>
-    <h1 class="no-likes">no likes 🧐</h1>
+    <h1 class="no-likes">Looks like no one liked me!...<i>yet</i></h1>
+    <p>Try editing your profile!</p>
   </div>
+
+
+
+  
 </template>
 
 <script>
@@ -137,15 +147,11 @@ export default {
 }
 
 .liked-me {
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column; */
   background: rgb(236, 187, 128);
   padding: 10px;
-  /* max-width: 1000px; */
-  border-radius: 30px;  
-  max-width: 500px;
+  border-radius: 10px;  
+  max-width: 900px;
+
 }
 
 .v-menu__content {
@@ -165,7 +171,9 @@ export default {
   padding: 100px !important;
 }
 .no-likes {
-  color: white;
+  color: rgb(210, 206, 206);
+  margin-top: 20px;
+  
 }
 .liked {
   color: rgb(24, 16, 16);
@@ -173,6 +181,7 @@ export default {
   margin: 20px 20px;
   text-align: left !important;
   text-decoration: underline;
+
 
   
 }
@@ -200,7 +209,7 @@ export default {
 .outer-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
 }
 

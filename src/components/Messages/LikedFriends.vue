@@ -1,7 +1,7 @@
 <template>
   <div v-if="likedUsers" class="outer">
     <v-card class="liked-card">
-    <h3 class="liked"><i>my likes</i></h3>
+    <h3 class="liked"><i>People I like</i></h3>
     <div class="outer-container">
       <v-card v-for="user in likedUsers" :key="user._id" class="user-card">
         <div v-if="user.profilePic">
@@ -141,7 +141,7 @@ export default {
   flex-direction: column; */
   background: rgb(226, 222, 113);
   padding: 20px;
-  border-radius: 30px;
+  border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(24, 20, 20, 0.959) !important;
   border: solid 1px rgba(14, 14, 16, 0.699);
   max-width: 500px;
@@ -198,7 +198,7 @@ export default {
 .outer-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
 }
 

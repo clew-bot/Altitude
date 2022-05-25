@@ -6,7 +6,7 @@
           <div v-for="(post, index) in visiblePages" :key="post._id" class="chat-log-item">
             <v-list-item :class="index === selected ? 'openCard' : 'closeCard'">
               <div v-if="post.author.profilePic">
-                <v-list-item-avatar>
+                <v-list-item-avatar rounded>
                   <v-img
                     @click="goToProfile(post.author.username)"
                     :src="'/api/images/' + post.author.profilePic"
@@ -194,6 +194,10 @@ export default {
   background: rgb(163, 159, 165);
 }
 
+.theme--light, .v-card {
+  background: none !important;
+  box-shadow: none !important;
+}
 
 
 @media screen and (max-width: 400px) {

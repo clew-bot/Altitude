@@ -357,7 +357,7 @@ router.post("/getComments", authorization, async (req, res) => {
     populate: {
       path: 'author',
       model: 'User',
-      select: "username"
+      select: ["username", "profilePic"],
     }
   });
   console.log(comments)

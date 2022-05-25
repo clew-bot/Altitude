@@ -55,6 +55,7 @@ export default {
           body: JSON.stringify({ post }),
         });
         const data = await response.json();
+        console.log(data)
         commit("setComments", data[0].comments);
         commit("setCreatedAtTimes", data[0].createdAt);
       } catch (error) {
