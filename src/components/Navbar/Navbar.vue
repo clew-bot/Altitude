@@ -90,8 +90,9 @@
       </div>
       <div v-else>
         <ProfileButton/>
+        <v-icon @click="goToEditProfile" id="cog-icon">mdi-cog</v-icon>
       </div>
-      <Ellipses />
+      <!-- <Ellipses /> -->
     </v-app-bar>
       
   </div>
@@ -100,7 +101,7 @@
 <script>
 import LoginModal from "@/components/Modals/LoginModal.vue";
 import SignUpModal from "@/components/Modals/SignUpModal.vue";
-import Ellipses from "@/components/Navbar/Ellipses.vue";
+// import Ellipses from "@/components/Navbar/Ellipses.vue";
 import ProfileButton from "@/components/Navbar/ProfileButton.vue";
 import router from "../../router";
 import Koala from "../../assets/svgs/koala.svg";
@@ -129,13 +130,17 @@ export default {
   components: {
     LoginModal,
     SignUpModal,
-    Ellipses,
+    // Ellipses,
     ProfileButton,
     Koala,
 },
   methods: {
+
     consoleme() {
       console.log(this.$store.state.user.loggedIn);
+    },
+    goToEditProfile() {
+      router.push("/edit");
     },
     showingModal() {
       this.dialog = !this.dialog;
@@ -219,6 +224,12 @@ export default {
 
 <style scoped>
 
+#cog-icon {
+  padding: 10px;
+}
+
+
+
 .disabledIcon {
   opacity: .3 !important;
 
@@ -267,7 +278,7 @@ export default {
 
 .v-list-item__title {
   font-size: 1.2rem !important;
-  color: white;
+  color: #eee;
   font-weight: bolder !important;
 }
 
