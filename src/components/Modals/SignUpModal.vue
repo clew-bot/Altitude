@@ -10,7 +10,7 @@
             <label for="email" class="signInLabels">Email Required</label>
             <v-text-field
               style="padding-top: 0px !important"
-              label="masquerena@protonmail.com"
+              label="email"
               :rules="[rules.required, rules.validEmail]"
               solo
               dense
@@ -21,7 +21,7 @@
             <label for="username" class="signInLabels">Username</label>
             <v-text-field
               style="padding-top: 0px !important"
-              label="pikachu27"
+              label="username"
               :rules="[rules.required]"
               solo
               dense
@@ -40,7 +40,7 @@
               :rules="[rules.required, rules.min]"
               :type="show1 ? 'text' : 'password'"
               name="input-10-1"
-              label="Password"
+              label="password"
               solo
               dense
               class=""
@@ -55,7 +55,7 @@
               :rules="[rules.required, rules.confirmMatch]"
               :type="show2 ? 'text' : 'password'"
               name="input-10-1"
-              label="Confirm Password"
+              label="confirm password"
               solo
               dense
               :class="{ shake: animated3 }"
@@ -65,7 +65,7 @@
             <div class="bottomModalRow">
               <v-checkbox
                 v-model="ex4"
-                label="Remember me"
+                label="Remember Me"
                 color="orange"
                 value="orange"
                 hide-details

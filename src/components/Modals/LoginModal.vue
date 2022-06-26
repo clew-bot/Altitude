@@ -18,7 +18,7 @@
             >
             <v-text-field            
               style="padding-top: 0px !important"
-              label="masquerena@protonmail.com"
+              label="email"
               solo
               dense
               :class="{ shake: animated1 }"
@@ -34,7 +34,7 @@
               :rules="[rules.required, rules.min]"
               :type="show1 ? 'text' : 'password'"
               name="input-10-1"
-              label="Password"
+              label="password"
               solo
               dense
               :class="{ shake: animated2 }"
@@ -286,7 +286,6 @@ input:-webkit-autofill {
   color: rgb(236, 229, 236);
   cursor: pointer;
   font-weight: bolder;
-  text-transform: ;
 }
 .still-new {
   color: orange;

@@ -3,7 +3,7 @@
     <v-navigation-drawer app v-model="drawer" color="#4d4c4b" class="navDrawer">
       <v-list-item class="nav-title">
         <v-list-item-content>
-          <v-list-item-title class="" style="cursor:default; user-select: none;" @click="consoleme"><h2>what's up?</h2>
+          <v-list-item-title class="" style="cursor:default; user-select: none;" @click="consoleme"><h2>📞🎨🎲</h2>
           <!-- <span>1 new notification</span> -->
           </v-list-item-title>
         </v-list-item-content>
