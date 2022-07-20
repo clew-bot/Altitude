@@ -1,7 +1,7 @@
 <template>
-  <v-container id="">
+  <v-container class="container">
     <!-- <v-btn @click="checkAuth">CLICK TO TEST!</v-btn> -->
-    <v-row class="text-center">
+    <v-row class="text-center header-cont">
       <v-col class="mb-4 main-container">
         <h1 class="mb-3 altitude">
           <p class="a">A</p>
@@ -88,12 +88,23 @@ export default {
 </script>
 
 <style scoped>
+
+.header-cont {
+  grid-row: 1 / 3;
+}
+
+/* .container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+} */
 .v-cardhome2 {
   background-color: #5b5e5d !important;
 }
 .v-cardhome {
   background-color: #5b5e5d !important;
   margin-bottom: 20px;
+  
 }
 
 @media screen and (max-width: 600px) {
